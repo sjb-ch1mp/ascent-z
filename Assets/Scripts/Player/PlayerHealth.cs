@@ -79,7 +79,8 @@ public class PlayerHealth : MonoBehaviour
             healthBarScale.x = healthPercentage;
             healthBarRenderer.transform.localScale = healthBarScale;
 
-            lives -= 1;
+            lives--;
+            gameManager.RenderLives(lives);
 
             if (lives <= 0 && isDead == false)
             {

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -33,8 +31,11 @@ public class PlayerMovement : MonoBehaviour
     private int shotsFired = 0;          // Tracks shots fired with machine gun
     [SerializeField] private int currentWeapon;
 
+    GameManager gameManager;
 
-
+    void Start() {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
 
     // Public property to expose the currentWeapon variable
     public int CurrentWeapon
@@ -64,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
                 Flip();
             }
 
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKey(KeyCode.Space))
             {
                 Jump();
             }
@@ -74,19 +75,21 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Shooting logic
-        if (rapidFire && Input.GetKey(KeyCode.Space))  // Hold down space bar for rapid fire
+        if (rapidFire && Input.GetKey(KeyCode.Mouse0))  // Hold down space bar for rapid fire
         {
             if (Time.time >= nextShootTime)
             {
                 FireProjectile();
+                gameManager.ConsumeAmmo();
                 shotsFired++;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Space))  // Single shot when space bar is pressed
+        else if (Input.GetKeyDown(KeyCode.Mouse0))  // Single shot when space bar is pressed
         {
             if (Time.time >= nextShootTime)
             {
                 FireProjectile();
+                gameManager.ConsumeAmmo();
                 shotsFired++;
             }
         }
@@ -276,6 +279,11 @@ public class PlayerMovement : MonoBehaviour
         // ITEMDROP WEAPON CHANGING 
         else if (collision.gameObject.CompareTag("ItemDrop"))
         {
+
+            // Pick up a new weapon
+            int itemPickUp = Random.Range((int) Resources.Weapon.HANDGUN, (int) Resources.Weapon.GRENADE + 1);
+            gameManager.PickUpWeapon((Resources.Weapon) itemPickUp);
+
             // Generate a random number between 0 and 1
             int randomWeapon = Random.Range(0, 2);
 
