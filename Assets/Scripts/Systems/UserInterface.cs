@@ -32,6 +32,11 @@ public class UserInterface : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip openControls;
     public AudioClip closeControls;
+    public AudioClip baseballBatLoad;
+    public AudioClip handgunLoad;
+    public AudioClip shotgunLoad;
+    public AudioClip assaultRifleLoad;
+    public AudioClip sniperRifleLoad;
 
     // State
     Resources.Weapon weapon;
@@ -59,10 +64,28 @@ public class UserInterface : MonoBehaviour
 
     public void PickUpWeapon(Resources.Weapon newWeapon) {
 
-        Debug.Log($"Picked up weapon: {weapon}");
+        // Do sounds regardless
+        switch (newWeapon) {
+            case Resources.Weapon.HANDGUN:
+                audioSource.PlayOneShot(handgunLoad);
+                break;  
+            case Resources.Weapon.SHOTGUN:
+                audioSource.PlayOneShot(shotgunLoad);
+                break;  
+            case Resources.Weapon.ASSAULT_RIFLE:
+                audioSource.PlayOneShot(assaultRifleLoad);
+                break;  
+            case Resources.Weapon.SNIPER_RIFLE: 
+                audioSource.PlayOneShot(sniperRifleLoad);
+                break;
+            default: // Baseball bat
+                baseballBat.SetActive(true);
+                audioSource.PlayOneShot(baseballBatLoad);
+                break;
+        }
 
         // If new weapon, reset ammo count
-        if (weapon != newWeapon) {
+        if (weapon != newWeapon || newWeapon == Resources.Weapon.BASEBALL_BAT) {
             weapon = newWeapon;
             ammoCount = 0;
             DisableAllWeapons();

@@ -2363,6 +2363,11 @@ MonoBehaviour:
   audioSource: {fileID: 632326127}
   openControls: {fileID: 8300000, guid: 2ddbf8691426fb4488ab93010139e043, type: 3}
   closeControls: {fileID: 8300000, guid: 9c2055f321321c44780352bf91574774, type: 3}
+  baseballBatLoad: {fileID: 8300000, guid: 9b3a249eaa4a6924ca899ae60a8421f6, type: 3}
+  handgunLoad: {fileID: 8300000, guid: 08bbd5889492d2e428d7c59ac9dbffaf, type: 3}
+  shotgunLoad: {fileID: 8300000, guid: 28a514a0bec5c7342abd7ed2da08beb1, type: 3}
+  assaultRifleLoad: {fileID: 8300000, guid: bfb8c9f515c560a459298e0256420742, type: 3}
+  sniperRifleLoad: {fileID: 8300000, guid: 845bdd591e06b954da0019c98e7dc07a, type: 3}
 --- !u!82 &632326127
 AudioSource:
   m_ObjectHideFlags: 0
