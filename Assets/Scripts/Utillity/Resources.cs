@@ -1,5 +1,7 @@
 public static class Resources
 {
+    public static float SPIN_TIME = 0.2f;
+
     public static int MAX_LIVES = 3;
     public static float MAX_HEALTH = 100f;
     public static float MAX_ARMOUR = 100f;

@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     
     // References
     UserInterface ui;
+
+    // State
+    bool paused = false;
     
     // Start is called before the first frame update
     void Start()
@@ -50,6 +53,13 @@ public class GameManager : MonoBehaviour
     }
 
     // Game flow
+    public void SetPaused(bool pauseGame) {
+        paused = pauseGame;
+    }
+
+    public bool IsPaused() {
+        return paused;
+    }
 
     public void gameOver() {
         gameOverUI.SetActive(true);

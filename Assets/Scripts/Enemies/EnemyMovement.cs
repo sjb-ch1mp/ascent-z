@@ -20,8 +20,13 @@ public class EnemyMovement : MonoBehaviour
     private float nextActionTime;
     private float pushCooldownTime;
 
+    GameManager gameManager;
+
     void Start()
     {
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         rb = GetComponent<Rigidbody2D>();
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -36,6 +41,16 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
+        
+        if (gameManager.IsPaused()) {
+            return;
+        }
+
+        
+        if (gameManager.IsPaused()) {
+            return;
+        }
+
         if (Time.time >= pushCooldownTime)
         {
             MoveTowardsPlayer();

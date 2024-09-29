@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TalkingHead : MonoBehaviour
@@ -13,7 +14,14 @@ public class TalkingHead : MonoBehaviour
     public AudioClip morseCode;
     public AudioSource audioSource;
 
+    GameManager gameManager;
+
+    void Awake() {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
     public void Dismiss() {
+        gameManager.SetPaused(false);
         audioSource.Stop();
         audioSource.PlayOneShot(radioActivate);
         StopAllCoroutines();
@@ -30,6 +38,7 @@ public class TalkingHead : MonoBehaviour
     public void NewMessage(string message) {
         if (!gameObject.activeSelf) {
             gameObject.SetActive(true);
+            gameManager.SetPaused(true);
         }
         audioSource.PlayOneShot(radioActivate);
         StartCoroutine(RevealMessage(message));

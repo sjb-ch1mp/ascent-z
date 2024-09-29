@@ -12,24 +12,26 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int currentWave = 1;  // Tracks the current wave number
     private int remainingPoints;  // Points left to allocate to enemy spawns
 
+    GameManager gameManager;
 
     public int CurrentWave
     {
         get { return currentWave; }
     }
 
-
-
-
-
-
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         StartCoroutine(SpawnWave());
     }
 
     IEnumerator SpawnWave()
     {
+
+        while (gameManager.IsPaused()) {
+            yield return new WaitForSeconds(Resources.SPIN_TIME);
+        }
+
         while (true)
         {
             remainingPoints = currentWave;  // Each wave has points equal to the wave number
