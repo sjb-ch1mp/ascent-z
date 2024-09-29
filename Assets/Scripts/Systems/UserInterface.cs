@@ -25,6 +25,13 @@ public class UserInterface : MonoBehaviour
     public GameObject[] hearts;
     public GameObject armourActive;
     public GameObject grenadeActive;
+    // == Info
+    public TalkingHead talkingHead;
+    public GameObject controlScheme;
+    // == Audio
+    public AudioSource audioSource;
+    public AudioClip openControls;
+    public AudioClip closeControls;
 
     // State
     Resources.Weapon weapon;
@@ -33,6 +40,21 @@ public class UserInterface : MonoBehaviour
 
     void Start() {
         PickUpWeapon(Resources.Weapon.BASEBALL_BAT);
+        talkingHead.NewMessage($"Welcome to hell, private!\nIf you're really as green as look, you might need to hold the TAB key to view the controls.\nOtherwise, stop gawking and kill some goddamn zombies!\n");
+    }
+
+    void Update() {
+        if (Input.GetKey(KeyCode.Tab)) {
+            if (!controlScheme.activeSelf) {
+                audioSource.PlayOneShot(openControls);
+                controlScheme.SetActive(true);
+            }
+        } else {
+            if (controlScheme.activeSelf) {
+                audioSource.PlayOneShot(closeControls);
+                controlScheme.SetActive(false);
+            }
+        }
     }
 
     public void PickUpWeapon(Resources.Weapon newWeapon) {
