@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerScript : MonoBehaviour
@@ -7,13 +6,22 @@ public class SpawnerScript : MonoBehaviour
     public GameObject objectToSpawn; // Assign this in the inspector
     public float spawnInterval = 30f; // Time interval between spawn attempts
 
+    GameManager gameManager;
+
     private void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         StartCoroutine(SpawnObject());
     }
 
     private IEnumerator SpawnObject()
     {
+
+        while (gameManager.IsPaused()) {
+            yield return new WaitForSeconds(Resources.SPIN_TIME);
+        }
+
+
         while (true) // Loop indefinitely
         {
             yield return new WaitForSeconds(spawnInterval); // Wait for the specified interval

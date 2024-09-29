@@ -52,6 +52,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        
+        if (gameManager.IsPaused()) {
+            return;
+        }
+
         mx = Input.GetAxis("Horizontal");
 
         if (Time.time >= pushCooldownTime)  // Only allow movement if the cooldown has expired
