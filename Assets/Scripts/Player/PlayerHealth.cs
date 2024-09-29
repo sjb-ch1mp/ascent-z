@@ -1,13 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
 
     private SpriteRenderer healthBarRenderer;
     public float health = 100f;
+    public float armour = 0f;
 
 
     private bool isInLava = false;
@@ -34,8 +33,6 @@ public class PlayerHealth : MonoBehaviour
     {
         // Find the HealthBar sprite by traversing the hierarchy
         healthBarRenderer = transform.Find("HealthBar").GetComponent<SpriteRenderer>();
-
-
         StartCoroutine(RegenerateHealth());
     }
 
@@ -45,19 +42,24 @@ public class PlayerHealth : MonoBehaviour
         
     }
 
+    public void AddLife() {
+        lives = Mathf.Clamp(lives + 1, 0, Resources.MAX_LIVES);
+        gameManager.RenderLives(lives);
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            ReduceHealth(15f);
+            TakeDamage(15f);
 
         }
 
         if (collision.gameObject.CompareTag("Lava"))
         {
             // Lose initial health
-            ReduceHealth(25f);
+            TakeDamage(25f);
 
             // Start the damage over time coroutine if not already running
             isInLava = true;
@@ -141,7 +143,27 @@ public class PlayerHealth : MonoBehaviour
         healthBarRenderer.transform.localScale = healthBarScale;
     }
 
+    // TakeDamage first depletes armour (if it is non-zero) before
+    // depleting health.
+    private void TakeDamage(float damage) {
+        if (armour > 0) {
+            float excessDamage = damage - armour;           
+            ReduceArmour(damage);
+            if (excessDamage > 0) {
+                ReduceHealth(excessDamage);
+            }
+        } else {
+            ReduceHealth(damage);
+        }
+    }
 
+    private void ReduceArmour(float damage) {
+        armour = Mathf.Clamp(armour - damage, 0, Resources.MAX_ARMOUR);
+        // FIXME : Update armour bar
+        if (armour == 0) {
+            gameManager.DepleteArmour();
+        }
+    }
 
     private void ReduceHealth(float damage)
     {
@@ -157,7 +179,6 @@ public class PlayerHealth : MonoBehaviour
         healthBarScale.x = healthPercentage;
         healthBarRenderer.transform.localScale = healthBarScale;
     }
-
 
 
 

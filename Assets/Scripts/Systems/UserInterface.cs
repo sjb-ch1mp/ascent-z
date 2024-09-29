@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -24,15 +23,13 @@ public class UserInterface : MonoBehaviour
     public TextMeshProUGUI infinityLabel;
     // == Status
     public GameObject[] hearts;
-    public GameObject armour;
+    public GameObject armourActive;
+    public GameObject grenadeActive;
 
     // State
     Resources.Weapon weapon;
     int ammoCount = 0;
     int grenadeCount = 0;
-
-    // DEBUG
-    public int demo = 0;
 
     void Start() {
         PickUpWeapon(Resources.Weapon.BASEBALL_BAT);
@@ -41,15 +38,6 @@ public class UserInterface : MonoBehaviour
     public void PickUpWeapon(Resources.Weapon newWeapon) {
 
         Debug.Log($"Picked up weapon: {weapon}");
-        
-        // If grenade - just update grenade count
-        if (newWeapon == Resources.Weapon.GRENADE) {
-            // Just add ammo
-            grenadeCount = Resources.GetAmmoForWeapon(newWeapon);
-            Debug.Log($"Increased grenade: {grenadeCount}");
-            grenadeCountLabel.text = $"{grenadeCount}";
-            return;
-        }
 
         // If new weapon, reset ammo count
         if (weapon != newWeapon) {
@@ -108,6 +96,22 @@ public class UserInterface : MonoBehaviour
         
     }
 
+    public void PickUpCollectible(Resources.Collectible collectible) {
+        int increaseAmount = Resources.GetAmountForCollectible(collectible);
+        switch(collectible) {
+            case Resources.Collectible.GRENADES:
+                grenadeCount = increaseAmount;
+                grenadeCountLabel.text = $"{grenadeCount}";
+                grenadeActive.SetActive(true);
+                break;
+            case Resources.Collectible.ARMOUR:
+                armourActive.SetActive(true);
+                break;
+            default: 
+                return;
+        }
+    }
+
     void DisableAllWeapons() {
         baseballBat.SetActive(false);
         handgun.SetActive(false);
@@ -133,6 +137,13 @@ public class UserInterface : MonoBehaviour
             grenadeCount--;
             grenadeCountLabel.text = $"{grenadeCount}";
         }
+        if (grenadeCount == 0 && grenadeActive.activeSelf) {
+            grenadeActive.SetActive(false);
+        }
+    }
+
+    public void DepleteArmour() {
+        armourActive.SetActive(false);
     }
 
     public bool HasAmmo() {
@@ -147,7 +158,7 @@ public class UserInterface : MonoBehaviour
         return weapon;
     }
 
-    public void RenderLives(int lives) {        
+    public void RenderLives(int lives) {   
         for (int i = 0; i < Resources.MAX_LIVES; i++) {
             if (i < lives) {
                 hearts[i].SetActive(true);

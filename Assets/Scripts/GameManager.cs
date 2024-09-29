@@ -16,8 +16,13 @@ public class GameManager : MonoBehaviour
         ui = GameObject.Find("UserInterface").GetComponent<UserInterface>();
     }
 
+    // UI functions
     public void PickUpWeapon(Resources.Weapon weapon) {
         ui.PickUpWeapon(weapon);
+    }
+
+    public void PickUpCollectible(Resources.Collectible collectible) {
+        ui.PickUpCollectible(collectible);
     }
 
     public void ConsumeAmmo() {
@@ -39,6 +44,12 @@ public class GameManager : MonoBehaviour
     public void RenderLives(int lives) {
         ui.RenderLives(lives);
     }
+
+    public void DepleteArmour() {
+        ui.DepleteArmour();
+    }
+
+    // Game flow
 
     public void gameOver() {
         gameOverUI.SetActive(true);

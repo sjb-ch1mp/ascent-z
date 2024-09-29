@@ -281,8 +281,8 @@ public class PlayerMovement : MonoBehaviour
         {
 
             // Pick up a new weapon
-            int itemPickUp = Random.Range((int) Resources.Weapon.HANDGUN, (int) Resources.Weapon.GRENADE + 1);
-            gameManager.PickUpWeapon((Resources.Weapon) itemPickUp);
+            int randWeapon = Random.Range((int) Resources.Weapon.HANDGUN, (int) Resources.Weapon.SNIPER_RIFLE + 1);
+            gameManager.PickUpWeapon((Resources.Weapon) randWeapon);
 
             // Generate a random number between 0 and 1
             int randomWeapon = Random.Range(0, 2);
@@ -305,6 +305,28 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
+        }
+
+        else if (collision.gameObject.CompareTag("Collectible")) {
+            // Armour, Medpack, Lives, Grenades
+            Resources.Collectible randCollectible = (Resources.Collectible) Random.Range((int) Resources.Collectible.ARMOUR, (int) Resources.Collectible.GRENADES + 1);
+            gameManager.PickUpCollectible(randCollectible);
+            Debug.Log($"Picked up collectible: {randCollectible}");
+
+            // Other collectibles are being handled by PlayerHealth (strongly suggest consolidating the player stuff into a single class, though)
+            PlayerHealth playerHealth = gameObject.GetComponent<PlayerHealth>();
+            switch (randCollectible) {
+                case Resources.Collectible.ARMOUR:
+                    playerHealth.armour = Mathf.Clamp(playerHealth.armour + Resources.GetAmountForCollectible(randCollectible), 0, Resources.MAX_ARMOUR);
+                    break;
+                case Resources.Collectible.LIFE:
+                    playerHealth.AddLife();
+                    break;
+                case Resources.Collectible.MEDPACK:
+                    playerHealth.health = Mathf.Clamp(playerHealth.health + Resources.GetAmountForCollectible(randCollectible), 0, Resources.MAX_HEALTH);
+                    break;
+            }
+            Destroy(collision.gameObject);
         }
     }
 }

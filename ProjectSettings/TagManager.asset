@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - GameBoundary
+  - OneWayPlatform
+  - Lava
+  - Enemy
+  - ItemDrop
+  - Bullet
+  - Collectible
   layers:
   - Default
   - TransparentFX

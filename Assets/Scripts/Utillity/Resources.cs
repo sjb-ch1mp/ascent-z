@@ -1,6 +1,8 @@
 public static class Resources
 {
     public static int MAX_LIVES = 3;
+    public static float MAX_HEALTH = 100f;
+    public static float MAX_ARMOUR = 100f;
 
     public enum Weapon {
         BASEBALL_BAT,
@@ -8,13 +10,17 @@ public static class Resources
         SHOTGUN,
         ASSAULT_RIFLE,
         SNIPER_RIFLE,
-        GRENADE,
+    }
+
+    public enum Collectible {
+        ARMOUR,
+        LIFE,
+        MEDPACK,
+        GRENADES,
     }
 
     public static int GetAmmoForWeapon(Weapon weapon) {
         switch (weapon) {
-            case Weapon.GRENADE:
-                return 3;
             case Weapon.HANDGUN:
                 return 30;
             case Weapon.SHOTGUN:
@@ -28,7 +34,18 @@ public static class Resources
         }
     }
 
-    public static bool IsRapidFire(Weapon weapon) {
-        return weapon == Weapon.ASSAULT_RIFLE;
+    public static int GetAmountForCollectible(Collectible collectible) {
+        switch (collectible) {
+            case Collectible.ARMOUR:
+                return 25;
+            case Collectible.LIFE:
+                return 1;
+            case Collectible.MEDPACK:
+                return 25;
+            case Collectible.GRENADES:
+                return 3;
+            default:
+                return 0;
+        }
     }
 }
