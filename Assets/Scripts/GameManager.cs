@@ -5,13 +5,14 @@ public class GameManager : MonoBehaviour
 {
 
     // Exports
-    public GameObject gameOverUI;
+    public GameOverScreen gameOverScreen;
     
     // References
     UserInterface ui;
 
     // State
     bool paused = false;
+    bool gameOver = false;
     
     // Start is called before the first frame update
     void Start()
@@ -61,11 +62,16 @@ public class GameManager : MonoBehaviour
         return paused;
     }
 
-    public void gameOver() {
-        gameOverUI.SetActive(true);
+    public bool IsGameOver() {
+        return gameOver;
     }
 
-    public void restart() {
+    public void GameOver() {
+        gameOver = true;
+        gameOverScreen.GameOver();
+    }
+
+    public void Restart() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

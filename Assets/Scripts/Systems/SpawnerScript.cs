@@ -16,20 +16,23 @@ public class SpawnerScript : MonoBehaviour
 
     private IEnumerator SpawnObject()
     {
+        if (!gameManager.IsGameOver()) {
 
-        while (gameManager.IsPaused()) {
-            yield return new WaitForSeconds(Resources.SPIN_TIME);
-        }
-
-
-        while (true) // Loop indefinitely
-        {
-            yield return new WaitForSeconds(spawnInterval); // Wait for the specified interval
-
-            if (Random.value < 0.33f) // 33% chance
+            while (true) // Loop indefinitely
             {
-                Instantiate(objectToSpawn, transform.position, Quaternion.identity);
-            }
+
+                while (gameManager.IsPaused()) {
+                    yield return new WaitForSeconds(Resources.SPIN_TIME);
+                }
+
+                yield return new WaitForSeconds(spawnInterval); // Wait for the specified interval
+
+                if (Random.value < 0.33f) // 33% chance
+                {
+                    Instantiate(objectToSpawn, transform.position, Quaternion.identity);
+                }
+            }    
+
         }
     }
 }

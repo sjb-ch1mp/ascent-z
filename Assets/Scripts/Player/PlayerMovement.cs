@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         
-        if (gameManager.IsPaused()) {
+        if (gameManager.IsPaused() || gameManager.IsGameOver()) {
             return;
         }
 
@@ -143,7 +143,6 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckGrounded()
     {
-        /*FIXME*/isGrounded=true;return;
         if (Physics2D.OverlapCircle(feet.position, 0.5f, groundLayer))
         {
             isGrounded = true;
