@@ -89,7 +89,8 @@ public class PlayerHealth : MonoBehaviour
             if (lives <= 0 && isDead == false)
             {
                 isDead = true;
-                gameManager.gameOver();
+                gameManager.GameOver();
+                GetComponent<Rigidbody2D>().gravityScale = 0; // Just remove gravity until the spawning system is established so that the player doesn't fall into the scene (FIXME)
             }
         }
 
