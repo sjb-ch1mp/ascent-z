@@ -19,9 +19,10 @@ TagManager:
   - Water
   - UI
   - PostProcessing
-  - 
-  - 
-  - 
+  - Ground
+  - Player
+  - Bullet
+  - Enemy
   - 
   - 
   - 
