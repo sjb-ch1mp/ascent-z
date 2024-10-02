@@ -27,7 +27,9 @@ public class EnemyHealth : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            ReduceHealth(bulletDamage);
+            ProjectileBehaviour projectile = collision.gameObject.GetComponent<ProjectileBehaviour>();
+
+            ReduceHealth(projectile.damage);
 
             if (health <= 0)
             {
