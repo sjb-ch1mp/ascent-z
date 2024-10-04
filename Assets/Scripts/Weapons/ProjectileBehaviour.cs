@@ -1,26 +1,27 @@
 using UnityEngine;
 using System.Collections.Generic; // For using the List to track enemies
 
-
 public class ProjectileBehaviour : MonoBehaviour
 {
     public float pushForce = 2.5f;
-
-
     public float speed;
     public float damage;
     public float sizeMultiplier;
     public float penetration = 0;
+    public float maxRange = Mathf.Infinity; // Default to no range limit
 
     private Vector2 lockedVelocity;  // Store the initial velocity
     private HashSet<GameObject> collidedEnemies = new HashSet<GameObject>();  // Track enemies already hit
     private Collider2D projectileCollider;  // Reference to the projectile's collider
-
+    private Vector2 initialPosition; // To track how far the projectile has traveled
 
     void Start()
     {
         // Cache the projectile's collider to use it later for ignoring collisions
         projectileCollider = GetComponent<Collider2D>();
+
+        // Store the initial position of the projectile
+        initialPosition = transform.position;
     }
 
     public void SetInitialVelocity(Vector2 velocity)
@@ -29,7 +30,8 @@ public class ProjectileBehaviour : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = velocity;
     }
 
-    public void SetSize() {
+    public void SetSize()
+    {
         transform.localScale = transform.localScale * sizeMultiplier;
     }
 
@@ -37,7 +39,15 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         // Lock the velocity so it doesn't change
         GetComponent<Rigidbody2D>().velocity = lockedVelocity;
+
+        // Check if projectile has exceeded max range
+        float distanceTraveled = Vector2.Distance(initialPosition, transform.position);
+        if (distanceTraveled >= maxRange)
+        {
+            Destroy(gameObject);
+        }
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

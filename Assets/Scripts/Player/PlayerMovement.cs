@@ -17,11 +17,11 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     float mx;
 
-    void Flip()
+    /*void Flip()
     {
         isFacingRight = !isFacingRight;
         transform.Rotate(0f, 180f, 0f);
-    }
+    }*/
 
     private void Update()
     {
@@ -29,14 +29,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (Time.time >= pushCooldownTime)  // Only allow movement if the cooldown has expired
         {
-            if (mx > 0 && !isFacingRight)
+           /* if (mx > 0 && !isFacingRight)
             {
                 Flip();
             }
             else if (mx < 0 && isFacingRight)
             {
                 Flip();
-            }
+            }*/
 
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
             {

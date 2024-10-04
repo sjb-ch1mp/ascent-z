@@ -78,19 +78,20 @@ public class PlayerShooting : MonoBehaviour
         // Weapon: Bat
         if (currentWeapon == 0)
         {
+            // init projectile with direction
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
             ProjectileBehaviour projectile = Instantiate(projectilePrefab, launchOffset.position, rotation);
 
-
+            // set projectile characteristics
             projectile.damage = 25;
             projectile.speed = 15;
-            projectile.sizeMultiplier = 1;
+            projectile.sizeMultiplier = 5;
             projectile.SetSize();
-            //projectile.penetration = 0;
-
-
             projectile.SetInitialVelocity(direction * projectile.speed);
+
+            // Set max range of projectile
+            projectile.maxRange = 0.5f;
         }
 
 
