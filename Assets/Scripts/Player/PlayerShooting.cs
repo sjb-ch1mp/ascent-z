@@ -16,6 +16,9 @@ public class PlayerShooting : MonoBehaviour
     private PlayerMovement playerMovement;
     private Rigidbody2D rb;
 
+    public Sprite[] projectileSprites;  // Array to hold different sprites for each weapon
+
+
     public float projectileSpeed = 10f;  // Speed of the projectile
 
     private void Start()
@@ -79,32 +82,35 @@ public class PlayerShooting : MonoBehaviour
         if (currentWeapon == 0)
         {
             // init projectile with direction
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
             ProjectileBehaviour projectile = Instantiate(projectilePrefab, launchOffset.position, rotation);
 
             // set projectile characteristics
             projectile.damage = 25;
             projectile.speed = 15;
-            projectile.sizeMultiplier = 5;
+            projectile.sizeMultiplier = 9;
             projectile.SetSize();
+            projectile.SetProjectileSprite(projectileSprites[currentWeapon]);
+
             projectile.SetInitialVelocity(direction * projectile.speed);
 
             // Set max range of projectile
-            projectile.maxRange = 0.5f;
+            projectile.maxRange = 0.8f;
         }
 
 
         // Weapon: Handgun
         if (currentWeapon == 1)
         {
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
             ProjectileBehaviour projectile = Instantiate(projectilePrefab, launchOffset.position, rotation);
             projectile.damage = 25;
             projectile.speed = 15;
-            projectile.sizeMultiplier = 1;
+            projectile.sizeMultiplier = 3;
             projectile.SetSize();
+            projectile.SetProjectileSprite(projectileSprites[currentWeapon]);
 
 
             projectile.SetInitialVelocity(direction * projectile.speed);
@@ -134,15 +140,17 @@ public class PlayerShooting : MonoBehaviour
                 Vector2 spreadDirection = spreadRotation * directionToMouse;
 
                 // Calculate the angle for projectile rotation
-                float angle = Mathf.Atan2(spreadDirection.y, spreadDirection.x) * Mathf.Rad2Deg;
+                float angle = Mathf.Atan2(spreadDirection.y, spreadDirection.x) * Mathf.Rad2Deg - 90f;
                 Quaternion projectileRotation = Quaternion.Euler(0, 0, angle);
 
                 // Instantiate the projectile with the calculated rotation
                 ProjectileBehaviour projectile = Instantiate(projectilePrefab, launchOffset.position, projectileRotation);
                 projectile.damage = 25;
                 projectile.speed = 10;
-                projectile.sizeMultiplier = 0.5f;
+                projectile.sizeMultiplier = 1.5f;
                 projectile.SetSize();
+                projectile.SetProjectileSprite(projectileSprites[currentWeapon]);
+
 
 
                 // Set the projectile's velocity
@@ -152,26 +160,32 @@ public class PlayerShooting : MonoBehaviour
         // Weapon: Assault Rifle
         if (currentWeapon == 3)
         {
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
             ProjectileBehaviour projectile = Instantiate(projectilePrefab, launchOffset.position, rotation);
             projectile.damage = 20;
             projectile.speed = 10;
-            projectile.sizeMultiplier = 0.75f;
+            projectile.sizeMultiplier = 2.25f;
             projectile.SetSize();
+            projectile.SetProjectileSprite(projectileSprites[currentWeapon]);
+
             projectile.SetInitialVelocity(direction * projectile.speed);
+
         }
         // Weapon: Sniper
         if (currentWeapon == 4)
         {
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
             ProjectileBehaviour projectile = Instantiate(projectilePrefab, launchOffset.position, rotation);
             projectile.damage = 200;
             projectile.speed = 25;
-            projectile.sizeMultiplier = 2f;
+            projectile.sizeMultiplier = 5f;
             projectile.penetration = 3f;
             projectile.SetSize();
+            projectile.SetProjectileSprite(projectileSprites[currentWeapon]);
+
+
             projectile.SetInitialVelocity(direction * projectile.speed);
         }
 

@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     float mx;
 
+    public GameObject spriteHolder;  // Reference to the child object with SpriteRenderer
+
+
     /*void Flip()
     {
         isFacingRight = !isFacingRight;
@@ -29,14 +32,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (Time.time >= pushCooldownTime)  // Only allow movement if the cooldown has expired
         {
-           /* if (mx > 0 && !isFacingRight)
+            if (mx > 0 && !isFacingRight)
             {
                 Flip();
             }
             else if (mx < 0 && isFacingRight)
             {
                 Flip();
-            }*/
+            }
 
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
             {
@@ -45,6 +48,17 @@ public class PlayerMovement : MonoBehaviour
 
             CheckGrounded();
         }
+    }
+
+    void Flip()
+    {
+        // Flip the player's facing direction
+        isFacingRight = !isFacingRight;
+
+        // Flip the sprite by scaling it on the X axis
+        Vector3 scale = spriteHolder.transform.localScale;
+        scale.x *= -1;  // Reverse the X axis
+        spriteHolder.transform.localScale = scale;
     }
 
     private void FixedUpdate()

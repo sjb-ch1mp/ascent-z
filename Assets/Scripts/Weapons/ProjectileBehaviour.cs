@@ -15,6 +15,9 @@ public class ProjectileBehaviour : MonoBehaviour
     private Collider2D projectileCollider;  // Reference to the projectile's collider
     private Vector2 initialPosition; // To track how far the projectile has traveled
 
+    private SpriteRenderer spriteRenderer;  // Reference to the SpriteRenderer
+    public Sprite projectileSprite;        // Public variable for the sprite
+
     void Start()
     {
         // Cache the projectile's collider to use it later for ignoring collisions
@@ -22,6 +25,23 @@ public class ProjectileBehaviour : MonoBehaviour
 
         // Store the initial position of the projectile
         initialPosition = transform.position;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+        }
+
+        if (projectileSprite != null)
+        {
+            spriteRenderer.sprite = projectileSprite;
+        }
+
+    }
+
+    public void SetProjectileSprite(Sprite newSprite)
+    {
+        projectileSprite = newSprite;
     }
 
     public void SetInitialVelocity(Vector2 velocity)
