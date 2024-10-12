@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3325973994090271829}
   - component: {fileID: 2648738384166782945}
   - component: {fileID: 3796001007543902897}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Survivor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -1625713161, guid: 522a0bc34b9787040b0623a0ac5564f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

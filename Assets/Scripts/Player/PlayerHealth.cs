@@ -75,7 +75,11 @@ public class PlayerHealth : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             TakeDamage(15f);
+        }
 
+        if (collision.gameObject.CompareTag("BossEnemy"))
+        {
+            TakeDamage(40f);
         }
 
         if (collision.gameObject.CompareTag("Lava"))

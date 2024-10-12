@@ -163,15 +163,15 @@ ScriptedImporter:
     uvTransform: {x: 26, y: 25}
   - name: tank-die_Frame_0
     originalName: 
-    pivot: {x: 0.57142854, y: 0}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 26
-      y: 90
-      width: 7
-      height: 25
+      y: 46
+      width: 24
+      height: 13
     spriteID: 17d304e550f152e4a86c171a0453a334
     spriteBone: []
     spriteOutline: []
@@ -180,7 +180,67 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 26, y: 90}
+    uvTransform: {x: 26, y: 46}
+  - name: tank-die_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 26
+      y: 67
+      width: 24
+      height: 13
+    spriteID: 43b79607dcc887c42bb2bd3eee670e31
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 26, y: 67}
+  - name: tank-die_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 26
+      y: 88
+      width: 24
+      height: 13
+    spriteID: 15335b9431a5b674d80af24fec50e552
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 26, y: 88}
+  - name: tank-die_Frame_3
+    originalName: 
+    pivot: {x: 0.57142854, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 36
+      width: 7
+      height: 25
+    spriteID: f92b463ad98e002489c75a16e3b463b0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 36}
   - name: tank-die_Frame_1
     originalName: 
     pivot: {x: 0.42857143, y: 0}
@@ -192,7 +252,7 @@ ScriptedImporter:
       y: 4
       width: 14
       height: 24
-    spriteID: 43b79607dcc887c42bb2bd3eee670e31
+    spriteID: 20db47a93215d774a8c09f6c218c4ebc
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -208,11 +268,11 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 26
-      y: 67
+      x: 58
+      y: 4
       width: 19
       height: 15
-    spriteID: 15335b9431a5b674d80af24fec50e552
+    spriteID: a34a9aa7947b3334b89609da8b494338
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -220,7 +280,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 26, y: 67}
+    uvTransform: {x: 58, y: 4}
   - name: tank-die_Frame_3
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -229,10 +289,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 26
-      y: 46
+      y: 109
       width: 24
       height: 13
-    spriteID: f92b463ad98e002489c75a16e3b463b0
+    spriteID: 2678cd2fd6e2150419394883c0108809
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -240,7 +300,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 26, y: 46}
+    uvTransform: {x: 26, y: 109}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -268,6 +328,33 @@ ScriptedImporter:
         width: 24
         height: 13
       spriteId: cb37a65ead4690a4f8b4702c163c7e9f
+    - name: tank-die_Frame_6
+      frameIndex: 6
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 24
+        height: 13
+      spriteId: 17d304e550f152e4a86c171a0453a334
+    - name: tank-die_Frame_7
+      frameIndex: 7
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 24
+        height: 13
+      spriteId: 43b79607dcc887c42bb2bd3eee670e31
+    - name: tank-die_Frame_8
+      frameIndex: 8
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 24
+        height: 13
+      spriteId: 15335b9431a5b674d80af24fec50e552
     - name: tank-die_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
@@ -276,7 +363,7 @@ ScriptedImporter:
         y: 0
         width: 7
         height: 25
-      spriteId: 17d304e550f152e4a86c171a0453a334
+      spriteId: f92b463ad98e002489c75a16e3b463b0
     - name: tank-die_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
@@ -285,7 +372,7 @@ ScriptedImporter:
         y: 0
         width: 14
         height: 24
-      spriteId: 43b79607dcc887c42bb2bd3eee670e31
+      spriteId: 20db47a93215d774a8c09f6c218c4ebc
     - name: tank-die_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
@@ -294,7 +381,7 @@ ScriptedImporter:
         y: 0
         width: 19
         height: 15
-      spriteId: 15335b9431a5b674d80af24fec50e552
+      spriteId: a34a9aa7947b3334b89609da8b494338
     - name: tank-die_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
@@ -303,7 +390,7 @@ ScriptedImporter:
         y: 0
         width: 24
         height: 13
-      spriteId: f92b463ad98e002489c75a16e3b463b0
+      spriteId: 2678cd2fd6e2150419394883c0108809
     linkedCells: []
     parentIndex: -1
   platformSettings: []

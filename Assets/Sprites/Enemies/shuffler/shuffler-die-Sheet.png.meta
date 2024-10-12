@@ -235,6 +235,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: shuffler-die-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 401aa59f4cefa5544a1a2715d81d3f4d
+      internalID: 1594875913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shuffler-die-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 0
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bbed2a4d55b79c48a3dc9e639c8f6a5
+      internalID: 2040322775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shuffler-die-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b5275494e59b2b4fa580c9b934381c6
+      internalID: 439539070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -252,6 +315,9 @@ TextureImporter:
       shuffler-die-Sheet_3: 1637290110
       shuffler-die-Sheet_4: 463140732
       shuffler-die-Sheet_5: 1095887151
+      shuffler-die-Sheet_6: 1594875913
+      shuffler-die-Sheet_7: 2040322775
+      shuffler-die-Sheet_8: 439539070
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
