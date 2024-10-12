@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2278023970268994386}
   - component: {fileID: 3332831577945676768}
   - component: {fileID: 979021493139839991}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ItemTrunk
   m_TagString: ItemDrop
   m_Icon: {fileID: 0}
@@ -171,3 +171,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 712ec81eff16e7b4d83fef55ee20e70c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collected: 0

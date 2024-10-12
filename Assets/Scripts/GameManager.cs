@@ -54,6 +54,10 @@ public class GameManager : MonoBehaviour
         ui.DepleteArmour();
     }
 
+    public Resources.Weapon GetCurrentWeapon() {
+        return ui.GetCurrentWeapon();
+    }
+
     // Game flow
     public void SetPaused(bool pauseGame) {
         paused = pauseGame;

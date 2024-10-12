@@ -7,20 +7,20 @@ public class Survivor : MonoBehaviour
     public Animator animator;
 
     // Reference
-    CapsuleCollider2D collider;
+    CapsuleCollider2D survivorCollider;
 
     // State
     float health = 100f;
 
     void Start() {
-        collider = GetComponent<CapsuleCollider2D>();
+        survivorCollider = GetComponent<CapsuleCollider2D>();
         int randomSurvivor = Random.Range(1, 12);
         animator.SetInteger("randomSurvivor", randomSurvivor);
     }
 
     public void DestroyCocoon() {
         animator.SetTrigger("open");
-        collider.enabled = false;
+        survivorCollider.enabled = false;
     }
 
     public void DestroyAfterAnimation() {

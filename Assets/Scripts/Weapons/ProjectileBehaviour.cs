@@ -72,7 +72,7 @@ public class ProjectileBehaviour : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if the object is an enemy and if it hasn't been hit before
-        if (collision.gameObject.CompareTag("Enemy") && !collidedEnemies.Contains(collision.gameObject))
+        if (collision.gameObject.tag.EndsWith("Enemy") && !collidedEnemies.Contains(collision.gameObject))
         {
             collidedEnemies.Add(collision.gameObject);  // Mark the enemy as hit
 

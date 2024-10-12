@@ -11,6 +11,7 @@ TagManager:
   - ItemDrop
   - Bullet
   - Collectible
+  - BossEnemy
   layers:
   - Default
   - TransparentFX
@@ -23,12 +24,11 @@ TagManager:
   - Player
   - Bullet
   - Enemy
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Boundary
+  - Hazards
+  - Collectible
+  - Dead
+  - Survivor
   - 
   - 
   - 
