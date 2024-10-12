@@ -17,11 +17,14 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     float mx;
 
-    void Flip()
+    public GameObject spriteHolder;  // Reference to the child object with SpriteRenderer
+
+
+    /*void Flip()
     {
         isFacingRight = !isFacingRight;
         transform.Rotate(0f, 180f, 0f);
-    }
+    }*/
 
     private void Update()
     {
@@ -45,6 +48,17 @@ public class PlayerMovement : MonoBehaviour
 
             CheckGrounded();
         }
+    }
+
+    void Flip()
+    {
+        // Flip the player's facing direction
+        isFacingRight = !isFacingRight;
+
+        // Flip the sprite by scaling it on the X axis
+        Vector3 scale = spriteHolder.transform.localScale;
+        scale.x *= -1;  // Reverse the X axis
+        spriteHolder.transform.localScale = scale;
     }
 
     private void FixedUpdate()
