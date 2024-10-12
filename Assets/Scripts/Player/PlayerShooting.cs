@@ -36,6 +36,10 @@ public class PlayerShooting : MonoBehaviour
 
     private void Update()
     {
+        if (gameManager.IsPaused()) {
+            return;
+        }
+
         // Shooting logic
         if (rapidFire && Input.GetKey(KeyCode.Mouse0))  // Hold down mouse button for rapid fire
         {
