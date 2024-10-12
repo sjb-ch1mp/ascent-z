@@ -39,7 +39,7 @@ public static class Resources
     public static int GetAmountForCollectible(Collectible collectible) {
         switch (collectible) {
             case Collectible.ARMOUR:
-                return 25;
+                return 100;
             case Collectible.LIFE:
                 return 1;
             case Collectible.MEDPACK:

@@ -5,6 +5,7 @@ public class PlayerHealth : MonoBehaviour
 {
 
     private SpriteRenderer healthBarRenderer;
+    private SpriteRenderer armourBarRenderer;
     public float health = 100f;
     public float armour = 0f;
 
@@ -33,16 +34,35 @@ public class PlayerHealth : MonoBehaviour
     {
         // Find the HealthBar sprite by traversing the hierarchy
         healthBarRenderer = transform.Find("HealthBar").GetComponent<SpriteRenderer>();
+        armourBarRenderer = transform.Find("ArmourBar").GetComponent<SpriteRenderer>();
         StartCoroutine(RegenerateHealth());
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateArmourBar();
+
         if (gameManager.IsPaused()) {
             return;
         }
     }
+
+
+    private void UpdateArmourBar()
+    {
+        // Calculate the new width based on the remaining health
+        float armourPercentage = armour / 100f;
+
+        // Adjust the local scale of the health bar along the x-axis
+        Vector3 armourBarScale = armourBarRenderer.transform.localScale;
+        armourBarScale.x = armourPercentage;
+        armourBarRenderer.transform.localScale = armourBarScale;
+    }
+
+
+
+
 
     public void AddLife() {
         lives = Mathf.Clamp(lives + 1, 0, Resources.MAX_LIVES);
