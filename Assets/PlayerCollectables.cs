@@ -36,12 +36,12 @@ public class PlayerCollectables : MonoBehaviour
                 case Resources.Collectible.ARMOUR:
                     playerHealth.armour = Mathf.Clamp(playerHealth.armour + Resources.GetAmountForCollectible(randCollectible), 0, Resources.MAX_ARMOUR);
                     break;
-                /*case Resources.Collectible.LIFE:
+                case Resources.Collectible.LIFE:
                     playerHealth.AddLife();
                     break;
                 case Resources.Collectible.MEDPACK:
                     playerHealth.health = Mathf.Clamp(playerHealth.health + Resources.GetAmountForCollectible(randCollectible), 0, Resources.MAX_HEALTH);
-                    break;*/
+                    break;
             }
             Destroy(collision.gameObject);
         }

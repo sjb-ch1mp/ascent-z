@@ -134,6 +134,20 @@ public class Enemy : MonoBehaviour
         UpdateHealthBar();
     }
 
+    // TakeDamage reduces the enemies health by the damage of the EXPLOSION.
+    void TakeDamageExplosion(ExplosionBehaviour projectile)
+    {
+        health -= projectile.damage;
+        if (health <= 0)
+        {
+            health = 0;
+            isAlive = false;
+            enemyRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+            StartCoroutine(Die(true));
+        }
+        UpdateHealthBar();
+    }
+
     public void KillImmediately() {
         isAlive = false;
         enemyRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
@@ -168,6 +182,10 @@ public class Enemy : MonoBehaviour
                 if (gameManager.GetCurrentWeapon() == Resources.Weapon.BASEBALL_BAT && health > 0) {
                     StartCoroutine(Stun());
                 }
+                break;
+            case "Explosion":
+                TakeDamageExplosion(collision.gameObject.GetComponent<ExplosionBehaviour>());
+                StartCoroutine(Stun());
                 break;
             case "Player":
                 animator.SetTrigger("attack");

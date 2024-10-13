@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic; // For using the List to track enemies
+using System.Collections;
 
-public class ProjectileBehaviour : MonoBehaviour
+
+public class GrenadeBehaviour : MonoBehaviour
 {
     public float pushForce = 2.5f;
     public float speed;
@@ -9,26 +11,24 @@ public class ProjectileBehaviour : MonoBehaviour
     public float sizeMultiplier;
     public float penetration = 0;
     public float maxRange = Mathf.Infinity; // Default to no range limit
-    public float lifeDuration = 5f;
-    public bool visible = true;
-
-    public bool playAnimation = false;
 
     private Vector2 lockedVelocity;  // Store the initial velocity
-    private HashSet<GameObject> collidedEnemies = new HashSet<GameObject>();  // Track enemies already hit
     private Collider2D projectileCollider;  // Reference to the projectile's collider
     private Vector2 initialPosition; // To track how far the projectile has traveled
 
     private SpriteRenderer spriteRenderer;  // Reference to the SpriteRenderer
-    public Sprite projectileSprite;        // Public variable for the sprite
 
-    private float timeElapsed = 0f; // Track how long the object has existed
+
+    public Sprite explosionSprite;        // Public variable for the sprite
+    public ExplosionBehaviour explosionBehaviour;
+
 
     void Start()
     {
         // Cache the projectile's collider to use it later for ignoring collisions
         projectileCollider = GetComponent<Collider2D>();
-
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         // Store the initial position of the projectile
         initialPosition = transform.position;
 
@@ -38,16 +38,21 @@ public class ProjectileBehaviour : MonoBehaviour
             spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
         }
 
-        if (projectileSprite != null && visible)
+ 
+
+        // Ignore collision with the player
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
         {
-            spriteRenderer.sprite = projectileSprite;
+            Collider2D playerCollider = player.GetComponent<Collider2D>();
+            if (playerCollider != null)
+            {
+                Physics2D.IgnoreCollision(projectileCollider, playerCollider);
+            }
         }
 
-    }
+        StartCoroutine(DestroyAfterDelay(3f)); // Start coroutine to destroy after 3 seconds
 
-    public void SetProjectileSprite(Sprite newSprite)
-    {
-        projectileSprite = newSprite;
     }
 
     public void SetInitialVelocity(Vector2 velocity)
@@ -64,10 +69,6 @@ public class ProjectileBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         // Lock the velocity so it doesn't change
-        GetComponent<Rigidbody2D>().velocity = lockedVelocity;
-
-        spriteRenderer.enabled = visible;
-
 
         // Check if projectile has exceeded max range
         float distanceTraveled = Vector2.Distance(initialPosition, transform.position);
@@ -75,31 +76,13 @@ public class ProjectileBehaviour : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        // Increment the timeElapsed by the time that has passed since the last frame
-        timeElapsed += Time.deltaTime;
-        // Check if the object has existed longer than lifeDuration
-        if (timeElapsed >= lifeDuration)
-        {
-            Destroy(gameObject); // Destroy the object if it has exceeded its lifeDuration
-        }
     }
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if the object is an enemy and if it hasn't been hit before
-        if (collision.gameObject.tag.EndsWith("Enemy") && !collidedEnemies.Contains(collision.gameObject))
+        // Check if the object is an enemy
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("OneWayPlatform") || collision.gameObject.CompareTag("Bullet"))
         {
-            collidedEnemies.Add(collision.gameObject);  // Mark the enemy as hit
-
-            // Ignore further collisions between this projectile and this enemy
-            Collider2D enemyCollider = collision.gameObject.GetComponent<Collider2D>();
-            if (enemyCollider != null)
-            {
-                Physics2D.IgnoreCollision(projectileCollider, enemyCollider);
-            }
-
             // Apply force to the enemy
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
             if (rb != null)
@@ -111,18 +94,22 @@ public class ProjectileBehaviour : MonoBehaviour
 
             // You can also apply damage to the enemy here if needed.
         }
+    }
 
-        // Handle penetration and destruction
-        if (!collision.gameObject.CompareTag("Bullet"))
-        {
-            if (penetration <= 0)
-            {
-                Destroy(gameObject); // Destroy the projectile after hitting an object
-            }
-            else
-            {
-                penetration--; // Decrease penetration count
-            }
-        }
+    // Coroutine to handle destruction after a delay
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay); // Wait for the specified delay
+        Debug.Log("Kaboom!"); // Display your custom message
+        ExplosionBehaviour projectile = Instantiate(explosionBehaviour, transform.position, Quaternion.identity);
+        //projectile.SetProjectileSprite(projectileExplosionSprite);
+        projectile.lifeDuration = 1f;
+        projectile.damage = 200;
+        projectile.sizeMultiplier = 1;
+        projectile.penetration = Mathf.Infinity;
+        projectile.playAnimation = true;
+        projectile.SetSize();
+
+        Destroy(gameObject); // Then destroy the object
     }
 }

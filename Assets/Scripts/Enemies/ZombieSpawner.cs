@@ -95,6 +95,19 @@ public class ZombieSpawner : MonoBehaviour
         UpdateHealthBar();
     }
 
+    // TakeDamage reduces the enemies health by the damage of the EXPLOSION.
+    void TakeDamageExplosion(ExplosionBehaviour projectile)
+    {
+        health -= projectile.damage;
+        if (health <= 0)
+        {
+            health = 0;
+            isAlive = false;
+            Die();
+        }
+        UpdateHealthBar();
+    }
+
     void Die() {
         // Kill all the spawn for this spawner to give the player some breathing room
         foreach (Enemy z in spawn) {
@@ -123,6 +136,9 @@ public class ZombieSpawner : MonoBehaviour
         switch (tag) {
             case "Bullet":
                 TakeDamage(collision.gameObject.GetComponent<ProjectileBehaviour>());
+                break;
+            case "Explosion":
+                TakeDamageExplosion(collision.gameObject.GetComponent<ExplosionBehaviour>());
                 break;
         }
     }

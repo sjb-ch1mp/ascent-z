@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerShooting : MonoBehaviour
 {
     public ProjectileBehaviour projectilePrefab;
+    public GrenadeBehaviour grenadePrefab;
     public Transform launchOffset;
 
     public float shootCooldown = 0.5f;  // Minimum time between shots
@@ -60,6 +61,15 @@ public class PlayerShooting : MonoBehaviour
             }
         }
 
+        //grenades
+
+        if (Input.GetKeyDown(KeyCode.Mouse1) && gameManager.HasGrenades())
+        {
+            Debug.Log("GERNADE");
+            gameManager.ConsumeGrenade();
+            ThrowGrenade();
+        }
+
         // Check if need to switch back to original weapon
         if (ammo <= 0 && currentWeapon != 0)
         {
@@ -70,6 +80,28 @@ public class PlayerShooting : MonoBehaviour
         }
 
 
+    }
+
+    void ThrowGrenade()
+    {
+
+        
+
+
+        Vector3 mouseScreenPosition = Input.mousePosition;
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        mouseWorldPosition.z = 0f;  // Ensure z=0 for 2D
+
+        Vector2 direction = (mouseWorldPosition - launchOffset.position).normalized;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion rotation = Quaternion.Euler(0, 0, angle);
+        GrenadeBehaviour projectile = Instantiate(grenadePrefab, launchOffset.position, rotation);
+        projectile.speed = 12.5f;
+        projectile.sizeMultiplier = 1f;
+        projectile.SetSize();
+
+        projectile.SetInitialVelocity(direction * projectile.speed);
     }
 
     void FireProjectile()
@@ -96,7 +128,7 @@ public class PlayerShooting : MonoBehaviour
             projectile.sizeMultiplier = 9;
             projectile.SetSize();
             projectile.SetProjectileSprite(projectileSprites[currentWeapon]);
-
+            projectile.visible = false;
             projectile.SetInitialVelocity(direction * projectile.speed);
 
             // Set max range of projectile

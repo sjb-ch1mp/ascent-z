@@ -11,6 +11,9 @@ TagManager:
   - ItemDrop
   - Bullet
   - Collectible
+  - Undefined
+  - Grenade
+  - Explosion
   - BossEnemy
   layers:
   - Default
@@ -24,6 +27,7 @@ TagManager:
   - Player
   - Bullet
   - Enemy
+  - Grenade
   - Boundary
   - Hazards
   - Collectible
