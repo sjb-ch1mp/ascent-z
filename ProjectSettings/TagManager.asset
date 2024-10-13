@@ -11,6 +11,9 @@ TagManager:
   - ItemDrop
   - Bullet
   - Collectible
+  - Undefined
+  - Grenade
+  - Explosion
   layers:
   - Default
   - TransparentFX
@@ -23,8 +26,7 @@ TagManager:
   - Player
   - Bullet
   - Enemy
-  - 
-  - 
+  - Grenade
   - 
   - 
   - 

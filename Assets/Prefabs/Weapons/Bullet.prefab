@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 3780467753831320209}
   - component: {fileID: 6860077465870988629}
   - component: {fileID: -2027429809247641224}
+  - component: {fileID: -101786951050143423}
   m_Layer: 8
-  m_Name: Circle
+  m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,6 +116,10 @@ MonoBehaviour:
   sizeMultiplier: 0
   penetration: 0
   maxRange: Infinity
+  lifeDuration: 5
+  visible: 1
+  playAnimation: 0
+  explosionAnimation: {fileID: 0}
   projectileSprite: {fileID: 0}
 --- !u!212 &-2027429809247641224
 SpriteRenderer:
@@ -168,3 +173,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!111 &-101786951050143423
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730511685099287227}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 46d9b92f79b9bf14ba2729c1e17bf16d, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 46d9b92f79b9bf14ba2729c1e17bf16d, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 1

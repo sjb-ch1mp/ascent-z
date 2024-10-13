@@ -36,6 +36,20 @@ public class EnemyHealth : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        // Check if the collision is with an Explosion
+        if (collision.gameObject.CompareTag("Explosion"))
+        {
+            // Get the ProjectileBehaviour component from the explosion prefab
+            ExplosionBehaviour explosion = collision.gameObject.GetComponent<ExplosionBehaviour>();
+
+            // Reduce health based on explosion damage
+            ReduceHealth(explosion.damage);
+
+            if (health <= 0)
+            {
+                Destroy(gameObject); // Destroy this object if health reaches zero
+            }
+        }
     }
 
 

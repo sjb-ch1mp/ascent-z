@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic; // For using the List to track enemies
 
-public class ProjectileBehaviour : MonoBehaviour
+public class ExplosionBehaviour : MonoBehaviour
 {
     public float pushForce = 2.5f;
     public float speed;
@@ -44,13 +44,7 @@ public class ProjectileBehaviour : MonoBehaviour
         {
             spriteRenderer.sprite = projectileSprite;
         }
-        playAnimation = true;
-        if (playAnimation)
-        {
-            Debug.Log("Playing animation");
 
-            explosionAnimation.Play();
-        }
 
     }
 
