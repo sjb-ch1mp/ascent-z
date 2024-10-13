@@ -94,6 +94,8 @@ public class PlayerHealth : MonoBehaviour
 
         if (health <= 0f || collision.gameObject.CompareTag("GameBoundary"))
         {
+            gameManager.AddRevivesCount();
+
             // Reset player position to (0, 0) when colliding with a GameBoundary
             transform.position = new Vector3(0, 10, transform.position.z);
 

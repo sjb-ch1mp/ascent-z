@@ -16,9 +16,13 @@ public class PlayerMovement : MonoBehaviour
     public bool isFacingRight = true;
     bool isGrounded;
     float mx;
+    GameManager gameManager;
 
     public GameObject spriteHolder;  // Reference to the child object with SpriteRenderer
 
+    void Start() {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
 
     /*void Flip()
     {
@@ -28,6 +32,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (gameManager.IsGameOver() || gameManager.IsPaused()) {
+            return;
+        }
+        
         mx = Input.GetAxis("Horizontal");
 
         if (Time.time >= pushCooldownTime)  // Only allow movement if the cooldown has expired
@@ -63,6 +71,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (gameManager.IsGameOver() || gameManager.IsPaused()) {
+            return;
+        }
+        
         if (Time.time >= pushCooldownTime)  // Only move if the cooldown has expired
         {
             rb.velocity = new Vector2(mx * speed, rb.velocity.y);

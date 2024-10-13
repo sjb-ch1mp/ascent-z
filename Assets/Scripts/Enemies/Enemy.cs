@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public float jumpPower = 15f;
     public float jumpCooldown = 5.0f;
     public float stunTime = 1.0f;
+    public int score = 10;
 
     // References
     GameObject player;
@@ -128,9 +129,15 @@ public class Enemy : MonoBehaviour
             health = 0;
             isAlive = false;
             enemyRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-            StartCoroutine(Die());
+            StartCoroutine(Die(true));
         }
         UpdateHealthBar();
+    }
+
+    public void KillImmediately() {
+        isAlive = false;
+        enemyRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+        StartCoroutine(Die(false));
     }
 
     // UpdateHealthBar calculates the new proportion of max health
@@ -142,6 +149,9 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (!isAlive) {
+            return;
+        }
         string tag = collision.gameObject.tag;
         switch (tag) {
             case "OneWayPlatform": 
@@ -175,7 +185,10 @@ public class Enemy : MonoBehaviour
 
     // Die ensures that the enemy is grounded before playing the
     // death animation so that it doesn't look funky
-    IEnumerator Die() {
+    IEnumerator Die(bool withScore) {
+        if (withScore) {
+            gameManager.AddKillScore(score);
+        }
         gameObject.layer = LayerMask.NameToLayer("Dead");
         while (onPlatform == null) {
             yield return new WaitForSeconds(0.25f);

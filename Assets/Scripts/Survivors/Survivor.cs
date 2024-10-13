@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Survivor : MonoBehaviour
@@ -8,19 +7,26 @@ public class Survivor : MonoBehaviour
 
     // Reference
     CapsuleCollider2D survivorCollider;
+    GameManager gameManager;
 
     // State
     float health = 100f;
+    bool isSaved = false;
 
     void Start() {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         survivorCollider = GetComponent<CapsuleCollider2D>();
         int randomSurvivor = Random.Range(1, 12);
         animator.SetInteger("randomSurvivor", randomSurvivor);
     }
 
     public void DestroyCocoon() {
-        animator.SetTrigger("open");
-        survivorCollider.enabled = false;
+        if (!isSaved) {
+            isSaved = true;
+            gameManager.AddSurvivorCount();
+            animator.SetTrigger("open");
+            survivorCollider.enabled = false;
+        }
     }
 
     public void DestroyAfterAnimation() {

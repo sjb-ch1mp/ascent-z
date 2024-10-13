@@ -189,9 +189,9 @@ MonoBehaviour:
   aggroRange: 15
   energy: 0.5
   jumpPower: 20
-  elevationOffset: 5
   jumpCooldown: 2
   stunTime: 1.5
+  score: 15
 --- !u!1 &5884962343803589423
 GameObject:
   m_ObjectHideFlags: 0
