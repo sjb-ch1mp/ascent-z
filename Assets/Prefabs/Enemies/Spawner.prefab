@@ -322,6 +322,7 @@ MonoBehaviour:
   - 0.75
   - 0.9
   - 1
-  spawnRate: 3
+  spawnRate: 4
   aggroRange: 50
   health: 2000
+  score: 250

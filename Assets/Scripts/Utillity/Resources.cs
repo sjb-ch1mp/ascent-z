@@ -1,7 +1,7 @@
 public static class Resources
 {
     public static float SPIN_TIME = 0.2f;
-
+    public const int MAX_RANK_PROGRESS = 2500;
     public static int MAX_LIVES = 3;
     public static float MAX_HEALTH = 100f;
     public static float MAX_ARMOUR = 100f;
@@ -50,4 +50,97 @@ public static class Resources
                 return 0;
         }
     }
+
+    // Medal calculators
+    public enum MedalType {
+        Bronze,
+        Silver,
+        Gold
+    }
+    public static MedalType GetMedalForKillScore(int score) {
+        if (score <= 500) {
+            return MedalType.Bronze;
+        } else if (score <= 1000) {
+            return MedalType.Silver;
+        } else {
+            return MedalType.Gold;
+        }
+    }
+    public static MedalType GetMedalForSurvivorCount(int score) {
+        if (score <= 3) {
+            return MedalType.Bronze;
+        } else if (score <= 5) {
+            return MedalType.Silver;
+        } else {
+            return MedalType.Gold;
+        }
+    }
+    public static MedalType GetMedalForReviveScore(int score) {
+        if (score == 0) {
+            return MedalType.Gold;
+        } else if (score == 1) {
+            return MedalType.Silver;
+        } else {
+            return MedalType.Bronze;
+        }
+    }
+
+    // Ranks
+    public enum Rank {
+        Private,
+        Corporal,
+        Sergeant,
+        WarrantOfficerClass1,
+        WarrantOfficerClass2,
+        SecondLieutenant,
+        Lieutenant,
+        Captain,
+        Major,
+        LieutenantColonel,
+        Colonel,
+        Brigadier,
+        MajorGeneral,
+        LieutenantGeneral,
+        General,
+        FieldMarshal
+    }
+
+    public static string GetNameForRank(Rank rank) {
+        switch (rank) {
+            case Rank.Private: 
+                return "Private";
+            case Rank.Corporal:
+                return "Corporal";
+            case Rank.Sergeant:
+                return "Sergeant";
+            case Rank.WarrantOfficerClass1:
+                return "Warrant Officer Class One";
+            case Rank.WarrantOfficerClass2:
+                return "Warrant Officer Class Two";
+            case Rank.SecondLieutenant:
+                return "Second Lieutenant";
+            case Rank.Lieutenant:
+                return "Lieutenant";
+            case Rank.Captain:
+                return "Captain";
+            case Rank.Major:
+                return "Major";
+            case Rank.LieutenantColonel:
+                return "Lieutenant Colonel";
+            case Rank.Colonel:
+                return "Colonel";
+            case Rank.Brigadier:
+                return "Brigadier";
+            case Rank.MajorGeneral:
+                return "Major General";
+            case Rank.LieutenantGeneral:
+                return "Lieutenant General";
+            case Rank.General:
+                return "General";
+            case Rank.FieldMarshal:
+                return "Field Marshal";
+        }
+        return "";
+    }
+    
 }
