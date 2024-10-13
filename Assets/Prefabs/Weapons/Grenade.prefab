@@ -16,6 +16,9 @@ GameObject:
   m_Layer: 11
   m_Name: Grenade
   m_TagString: Grenade
+  m_Layer: 9
+  m_Name: Circle
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

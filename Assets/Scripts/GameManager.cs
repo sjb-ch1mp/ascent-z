@@ -6,10 +6,10 @@ public class GameManager : MonoBehaviour
 
     // Exports
     public GameOverScreen gameOverScreen;
-
     
     // References
     UserInterface ui;
+    ScoreManager scoreManager;
 
     // State
     bool paused = false;
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         ui = GameObject.Find("UserInterface").GetComponent<UserInterface>();
+        scoreManager = new ScoreManager();
     }
 
     // UI functions
@@ -54,6 +55,43 @@ public class GameManager : MonoBehaviour
         ui.DepleteArmour();
     }
 
+    public Resources.Weapon GetCurrentWeapon() {
+        return ui.GetCurrentWeapon();
+    }
+
+    public void AddKillScore(int points) {
+        scoreManager.KillScore += points;
+    }
+
+    public void AddSurvivorCount() {
+        scoreManager.SurvivorCount++;
+    }
+
+    public void AddRevivesCount() {
+        scoreManager.RevivesCount++;
+    }
+
+    public void ResetScore() {
+        scoreManager.ResetScore();
+    }
+
+    public void RunScoreRoutine() {
+        ui.RunScoreRoutine(
+            scoreManager.KillScore,
+            scoreManager.SurvivorCount, 
+            scoreManager.RevivesCount,
+            scoreManager.GetFinalScore()
+        );
+    }
+
+    public int AddFinalScoreToRankProgress(int finalScore) {
+        return scoreManager.AddFinalScoreToRankProgress(finalScore);
+    }
+
+    public Resources.Rank GetCurrentRank() {
+        return scoreManager.CurrentRank;
+    }
+
     // Game flow
     public void SetPaused(bool pauseGame) {
         paused = pauseGame;
@@ -74,6 +112,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        scoreManager.ResetScore();
     }
 
 }

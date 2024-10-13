@@ -45,7 +45,7 @@ public class UserInterface : MonoBehaviour
 
     void Start() {
         PickUpWeapon(Resources.Weapon.BASEBALL_BAT);
-        talkingHead.NewMessage($"Welcome to hell, private!\nIf you're really as green as look, you might need to hold the TAB key to view the controls.\nOtherwise, stop gawking and kill some goddamn zombies!\n");
+        talkingHead.NewMessage($"Welcome to hell, private!\nIf you're really as green as look, you might need to hold the TAB key to view the controls.\nOtherwise, stop gawking and kill some goddamn zombies!\n", TalkingHead.MessageDestination.Communication);
     }
 
     void Update() {
@@ -60,6 +60,10 @@ public class UserInterface : MonoBehaviour
                 controlScheme.SetActive(false);
             }
         }
+    }
+
+    public void RunScoreRoutine(int killScore, int survivorCount, int reviveCount, int finalScore) {
+        talkingHead.ShowScore(killScore, survivorCount, reviveCount, finalScore);
     }
 
     public void PickUpWeapon(Resources.Weapon newWeapon) {
@@ -119,11 +123,8 @@ public class UserInterface : MonoBehaviour
             }
         }
         
-        // Increase the ammo count to the maximum
+        // Increase the ammo count (no maximum)
         ammoCount += Resources.GetAmmoForWeapon(weapon);
-        if (ammoCount > Resources.GetAmmoForWeapon(weapon)) {
-            ammoCount = Resources.GetAmmoForWeapon(weapon);
-        }
 
         // Update labels
         if (weapon == Resources.Weapon.BASEBALL_BAT) {
@@ -136,7 +137,7 @@ public class UserInterface : MonoBehaviour
                 infinityLabel.gameObject.SetActive(false);
                 ammoCountLabel.gameObject.SetActive(true);
             }
-            ammoCountLabel.text = $"{ammoCount} / {Resources.GetAmmoForWeapon(weapon)}";
+            ammoCountLabel.text = $"{ammoCount}";
         }
         
     }
@@ -172,7 +173,7 @@ public class UserInterface : MonoBehaviour
                 // Switch back to baseball bat
                 PickUpWeapon(Resources.Weapon.BASEBALL_BAT);
             } else {
-                ammoCountLabel.text = $"{ammoCount} / {Resources.GetAmmoForWeapon(weapon)}";
+                ammoCountLabel.text = $"{ammoCount}";
             }
         }
     }

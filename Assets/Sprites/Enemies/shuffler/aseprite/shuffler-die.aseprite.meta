@@ -163,15 +163,15 @@ ScriptedImporter:
     uvTransform: {x: 26, y: 25}
   - name: shuffler-die_Frame_0
     originalName: 
-    pivot: {x: 0.57142854, y: 0}
+    pivot: {x: 0.5217391, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 26
-      y: 90
-      width: 7
-      height: 23
+      y: 46
+      width: 23
+      height: 13
     spriteID: c65c776c55208794490c8d2fafa7955a
     spriteBone: []
     spriteOutline: []
@@ -180,7 +180,67 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 26, y: 90}
+    uvTransform: {x: 26, y: 46}
+  - name: shuffler-die_Frame_1
+    originalName: 
+    pivot: {x: 0.5217391, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 26
+      y: 67
+      width: 23
+      height: 13
+    spriteID: 104bf528dce844647857f6180f08c4cd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 26, y: 67}
+  - name: shuffler-die_Frame_2
+    originalName: 
+    pivot: {x: 0.5714286, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 4
+      width: 21
+      height: 12
+    spriteID: c5787f39b36411e4d9c48f0b7e7c84bf
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 57, y: 4}
+  - name: shuffler-die_Frame_3
+    originalName: 
+    pivot: {x: 0.57142854, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 34
+      width: 7
+      height: 23
+    spriteID: 41eda0b4eefe6504bbdc28bcfb81ca96
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 34}
   - name: shuffler-die_Frame_1
     originalName: 
     pivot: {x: 0.42857143, y: 0}
@@ -192,7 +252,7 @@ ScriptedImporter:
       y: 4
       width: 14
       height: 22
-    spriteID: 104bf528dce844647857f6180f08c4cd
+    spriteID: 3f469139c61cad749860d89f51afda60
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -209,10 +269,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 26
-      y: 67
+      y: 109
       width: 17
       height: 15
-    spriteID: c5787f39b36411e4d9c48f0b7e7c84bf
+    spriteID: 0e23201d4ed558745b4e33279199f763
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -220,7 +280,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 26, y: 67}
+    uvTransform: {x: 26, y: 109}
   - name: shuffler-die_Frame_3
     originalName: 
     pivot: {x: 0.5217391, y: 0}
@@ -229,10 +289,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 26
-      y: 46
+      y: 88
       width: 23
       height: 13
-    spriteID: 41eda0b4eefe6504bbdc28bcfb81ca96
+    spriteID: f295997e2895a37418670fbacc828d43
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -240,7 +300,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 26, y: 46}
+    uvTransform: {x: 26, y: 88}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -268,6 +328,33 @@ ScriptedImporter:
         width: 23
         height: 13
       spriteId: 63c4e1f9ccedcb040af58a0b16d5b44e
+    - name: shuffler-die_Frame_6
+      frameIndex: 6
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 23
+        height: 13
+      spriteId: c65c776c55208794490c8d2fafa7955a
+    - name: shuffler-die_Frame_7
+      frameIndex: 7
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 23
+        height: 13
+      spriteId: 104bf528dce844647857f6180f08c4cd
+    - name: shuffler-die_Frame_8
+      frameIndex: 8
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 21
+        height: 12
+      spriteId: c5787f39b36411e4d9c48f0b7e7c84bf
     - name: shuffler-die_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
@@ -276,7 +363,7 @@ ScriptedImporter:
         y: 0
         width: 7
         height: 23
-      spriteId: c65c776c55208794490c8d2fafa7955a
+      spriteId: 41eda0b4eefe6504bbdc28bcfb81ca96
     - name: shuffler-die_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
@@ -285,7 +372,7 @@ ScriptedImporter:
         y: 0
         width: 14
         height: 22
-      spriteId: 104bf528dce844647857f6180f08c4cd
+      spriteId: 3f469139c61cad749860d89f51afda60
     - name: shuffler-die_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
@@ -294,7 +381,7 @@ ScriptedImporter:
         y: 0
         width: 17
         height: 15
-      spriteId: c5787f39b36411e4d9c48f0b7e7c84bf
+      spriteId: 0e23201d4ed558745b4e33279199f763
     - name: shuffler-die_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
@@ -303,7 +390,7 @@ ScriptedImporter:
         y: 0
         width: 23
         height: 13
-      spriteId: 41eda0b4eefe6504bbdc28bcfb81ca96
+      spriteId: f295997e2895a37418670fbacc828d43
     linkedCells: []
     parentIndex: -1
   platformSettings: []

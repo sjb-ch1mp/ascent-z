@@ -37,7 +37,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Update()
     {
-        if (gameManager.IsPaused()) {
+        if (gameManager.IsGameOver() || gameManager.IsPaused()) {
             return;
         }
 

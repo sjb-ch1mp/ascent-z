@@ -13,7 +13,6 @@ public class ProjectileBehaviour : MonoBehaviour
     public bool visible = true;
 
     public bool playAnimation = false;
-    public Animation explosionAnimation;
 
     private Vector2 lockedVelocity;  // Store the initial velocity
     private HashSet<GameObject> collidedEnemies = new HashSet<GameObject>();  // Track enemies already hit
@@ -29,7 +28,6 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         // Cache the projectile's collider to use it later for ignoring collisions
         projectileCollider = GetComponent<Collider2D>();
-        explosionAnimation = GetComponent<Animation>();
 
         // Store the initial position of the projectile
         initialPosition = transform.position;
@@ -43,13 +41,6 @@ public class ProjectileBehaviour : MonoBehaviour
         if (projectileSprite != null && visible)
         {
             spriteRenderer.sprite = projectileSprite;
-        }
-        playAnimation = true;
-        if (playAnimation)
-        {
-            Debug.Log("Playing animation");
-
-            explosionAnimation.Play();
         }
 
     }
@@ -98,7 +89,7 @@ public class ProjectileBehaviour : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if the object is an enemy and if it hasn't been hit before
-        if (collision.gameObject.CompareTag("Enemy") && !collidedEnemies.Contains(collision.gameObject))
+        if (collision.gameObject.tag.EndsWith("Enemy") && !collidedEnemies.Contains(collision.gameObject))
         {
             collidedEnemies.Add(collision.gameObject);  // Mark the enemy as hit
 
