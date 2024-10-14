@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject spriteHolder;  // Reference to the child object with SpriteRenderer
 
+
     void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
