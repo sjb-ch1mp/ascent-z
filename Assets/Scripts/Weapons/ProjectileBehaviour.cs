@@ -106,6 +106,7 @@ public class ProjectileBehaviour : MonoBehaviour
             {
                 Vector2 pushDirection = collision.transform.position - transform.position;
                 pushDirection.Normalize();
+                pushDirection = new Vector2(pushDirection.x, -1); // only apply downward force, because otherwise it gets crazy (zombies walking on bullets, etc)
                 rb.AddForce(pushDirection * pushForce, ForceMode2D.Impulse);
             }
 

@@ -14,12 +14,30 @@ public class GameManager : MonoBehaviour
     // State
     bool paused = false;
     bool gameOver = false;
+    int zombieSpawnerId = 0;
     
     // Start is called before the first frame update
     void Start()
     {
         ui = GameObject.Find("UserInterface").GetComponent<UserInterface>();
         scoreManager = new ScoreManager();
+    }
+
+    // Zombie Spawner system
+    public int GetNewZombieSpawnerId() {
+        int id = zombieSpawnerId;
+        zombieSpawnerId++;
+        return ++id;
+    }
+
+    public void KillZombiesForSpawner(int id) {
+        GameObject zombieContainer = GameObject.Find("Zombies");
+        Enemy[] zombies = zombieContainer.GetComponentsInChildren<Enemy>();
+        foreach (Enemy z in zombies) {
+            if (z != null && z.GetSpawnerId() == id) {
+                z.KillImmediately();
+            }
+        }
     }
 
     // UI functions

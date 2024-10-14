@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
     bool detectedPlayer = false;
     GameObject onPlatform;
     float elevationOffset = 1.0f;
+    int spawnerId;
 
     void Start() {
         player = GameObject.Find("Player");
@@ -85,6 +86,14 @@ public class Enemy : MonoBehaviour
             // Check for player
             detectedPlayer = PlayerNearby();
         }
+    }
+
+    public void Stamp(int id) {
+        spawnerId = id;
+    }
+
+    public int GetSpawnerId() {
+        return spawnerId;
     }
 
     // PlayerNearby checks if the player is within the aggroRange of the enemy
@@ -150,6 +159,8 @@ public class Enemy : MonoBehaviour
 
     public void KillImmediately() {
         isAlive = false;
+        health = 0;
+        UpdateHealthBar();
         enemyRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         StartCoroutine(Die(false));
     }
@@ -233,6 +244,10 @@ public class Enemy : MonoBehaviour
     // used as an animation Event to destroy the enemy
     public void DestroyAfterAnimation() {
         Destroy(gameObject);
+    }
+
+    public bool IsGrounded() {
+        return onPlatform != null;
     }
 }
  

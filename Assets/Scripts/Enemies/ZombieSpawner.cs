@@ -21,6 +21,7 @@ public class ZombieSpawner : MonoBehaviour
     float maxHealthLen;
     Transform spawnBoundLeft;
     Transform spawnBoundRight;
+    GameObject zombieContainer;
 
     // Initial state
     float initialHealth;
@@ -30,11 +31,13 @@ public class ZombieSpawner : MonoBehaviour
     bool isAlive = true;
     bool isDesperate = false;
     float spawnRate = 3.0f;
-    List<Enemy> spawn = new List<Enemy>();
+    int id;
 
     // Start is called before the first frame update
     void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        id = gameManager.GetNewZombieSpawnerId();
+        zombieContainer = GameObject.Find("Zombies");
         player = GameObject.Find("Player");
         animator = GetComponent<Animator>();
         initialHealth = health;
@@ -69,13 +72,15 @@ public class ZombieSpawner : MonoBehaviour
                     float randomZombieThreshold = Random.value;
                     GameObject zombie = null;
                     if (randomZombieThreshold <= zombieSpawnThresholds[0]) {
-                        zombie = Instantiate(zombies[0], new Vector3(randomSpawnX, transform.position.y, transform.position.z), zombies[0].transform.rotation);
+                        zombie = Instantiate(zombies[0], new Vector3(randomSpawnX, transform.position.y, transform.position.z), zombies[0].transform.rotation, zombieContainer.transform);
                     } else if (randomZombieThreshold <= zombieSpawnThresholds[1]) {
-                        zombie = Instantiate(zombies[1], new Vector3(randomSpawnX, transform.position.y, transform.position.z), zombies[1].transform.rotation);
+                        zombie = Instantiate(zombies[1], new Vector3(randomSpawnX, transform.position.y, transform.position.z), zombies[1].transform.rotation, zombieContainer.transform);
                     } else {
-                        zombie = Instantiate(zombies[2], new Vector3(randomSpawnX, transform.position.y, transform.position.z), zombies[2].transform.rotation);
+                        zombie = Instantiate(zombies[2], new Vector3(randomSpawnX, transform.position.y, transform.position.z), zombies[2].transform.rotation, zombieContainer.transform);
                     }
-                    spawn.Add(zombie.GetComponent<Enemy>());
+                    if (zombie != null /*If not dead immediately*/) {
+                        zombie.GetComponent<Enemy>().Stamp(id);
+                    }
                 } else {
                     // If player isn't in range - check for the player
                     isActive = PlayerNearby();
@@ -110,11 +115,7 @@ public class ZombieSpawner : MonoBehaviour
 
     void Die() {
         // Kill all the spawn for this spawner to give the player some breathing room
-        foreach (Enemy z in spawn) {
-            if (z != null) {
-                z.KillImmediately();
-            }
-        }
+        gameManager.KillZombiesForSpawner(id);
         gameManager.AddKillScore(score);
         gameObject.layer = LayerMask.NameToLayer("Dead");
         animator.SetBool("isDead", true);
