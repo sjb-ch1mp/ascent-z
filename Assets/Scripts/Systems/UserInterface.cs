@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UserInterface : MonoBehaviour
 {
@@ -40,12 +41,13 @@ public class UserInterface : MonoBehaviour
 
     // State
     Resources.Weapon weapon;
+    Resources.Rank currentRank = Resources.Rank.Private;
     int ammoCount = 0;
     int grenadeCount = 0;
 
     void Start() {
         PickUpWeapon(Resources.Weapon.BASEBALL_BAT);
-        talkingHead.NewMessage($"Welcome to hell, private!\nIf you're really as green as look, you might need to hold the TAB key to view the controls.\nOtherwise, stop gawking and kill some goddamn zombies!\n", TalkingHead.MessageDestination.Communication);
+        talkingHead.NewMessage($"Welcome to hell, private!\nIf you're really as green as look, hold the TAB key to view your RANK and the GAME CONTROLS.\nOtherwise, stop gawking and kill some goddamn zombies!\n", TalkingHead.MessageDestination.Communication);
     }
 
     void Update() {
@@ -53,6 +55,14 @@ public class UserInterface : MonoBehaviour
             if (!controlScheme.activeSelf) {
                 audioSource.PlayOneShot(openControls);
                 controlScheme.SetActive(true);
+
+                // Update the rank
+                GameObject rankWindow = controlScheme.gameObject.transform.GetChild(0).gameObject;
+                RankScreen rankScreen = rankWindow.transform.GetChild(1).gameObject.GetComponent<RankScreen>();
+                TextMeshProUGUI rankText = rankWindow.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
+                rankScreen.SetRank(currentRank);
+                rankText.text = Resources.GetNameForRank(currentRank);
+
             }
         } else {
             if (controlScheme.activeSelf) {
@@ -65,6 +75,10 @@ public class UserInterface : MonoBehaviour
                 talkingHead.Dismiss();
             }
         }
+    }
+
+    public void IncreaseRank(int newRank) {
+        currentRank += newRank;
     }
 
     public void RunScoreRoutine(int killScore, int survivorCount, int reviveCount, int finalScore) {

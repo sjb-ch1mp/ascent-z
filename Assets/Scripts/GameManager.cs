@@ -115,7 +115,11 @@ public class GameManager : MonoBehaviour
     }
 
     public int AddFinalScoreToRankProgress(int finalScore) {
-        return scoreManager.AddFinalScoreToRankProgress(finalScore);
+        int increasedByRanks = scoreManager.AddFinalScoreToRankProgress(finalScore);
+        if (increasedByRanks > 0) {
+            ui.IncreaseRank(increasedByRanks);
+        }
+        return increasedByRanks;
     }
 
     public Resources.Rank GetCurrentRank() {
