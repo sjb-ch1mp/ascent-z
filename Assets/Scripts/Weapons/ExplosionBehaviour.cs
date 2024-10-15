@@ -20,8 +20,8 @@ public class ExplosionBehaviour : MonoBehaviour
     private Collider2D projectileCollider;  // Reference to the projectile's collider
     private Vector2 initialPosition; // To track how far the projectile has traveled
 
-    private SpriteRenderer spriteRenderer;  // Reference to the SpriteRenderer
-    public Sprite projectileSprite;        // Public variable for the sprite
+    //private SpriteRenderer spriteRenderer;  // Reference to the SpriteRenderer
+    //public Sprite projectileSprite;        // Public variable for the sprite
 
     private float timeElapsed = 0f; // Track how long the object has existed
 
@@ -34,23 +34,14 @@ public class ExplosionBehaviour : MonoBehaviour
         // Store the initial position of the projectile
         initialPosition = transform.position;
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null)
-        {
-            spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-        }
 
-        if (projectileSprite != null && visible)
-        {
-            spriteRenderer.sprite = projectileSprite;
-        }
 
 
     }
 
     public void SetProjectileSprite(Sprite newSprite)
     {
-        projectileSprite = newSprite;
+        //projectileSprite = newSprite;
     }
 
     public void SetInitialVelocity(Vector2 velocity)
@@ -69,7 +60,7 @@ public class ExplosionBehaviour : MonoBehaviour
         // Lock the velocity so it doesn't change
         GetComponent<Rigidbody2D>().velocity = lockedVelocity;
 
-        spriteRenderer.enabled = visible;
+        //spriteRenderer.enabled = visible;
 
 
         // Check if projectile has exceeded max range

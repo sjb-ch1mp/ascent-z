@@ -103,7 +103,7 @@ public class GrenadeBehaviour : MonoBehaviour
         Debug.Log("Kaboom!"); // Display your custom message
         ExplosionBehaviour projectile = Instantiate(explosionBehaviour, transform.position, Quaternion.identity);
         //projectile.SetProjectileSprite(projectileExplosionSprite);
-        projectile.lifeDuration = 1f;
+        projectile.lifeDuration = 0.6f;
         projectile.damage = 200;
         projectile.sizeMultiplier = 1;
         projectile.penetration = Mathf.Infinity;
