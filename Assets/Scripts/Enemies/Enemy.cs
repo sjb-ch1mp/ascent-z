@@ -215,13 +215,23 @@ public class Enemy : MonoBehaviour
     // Die ensures that the enemy is grounded before playing the
     // death animation so that it doesn't look funky
     IEnumerator Die(bool withScore) {
+        animator.SetBool("isAirborne", false);
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isStunned", true);
         if (withScore) {
             gameManager.AddKillScore(score);
         }
         gameObject.layer = LayerMask.NameToLayer("Dead");
+        float lastY = transform.position.y;
         while (onPlatform == null) {
             yield return new WaitForSeconds(0.25f);
+            if (lastY == transform.position.y) {
+                break; // Collision has failed but the zombie has stopped falling
+            } else {
+                lastY = transform.position.y;
+            }
         }
+        animator.SetBool("isStunned", false);
         animator.SetBool("isDead", true);
     }
 
