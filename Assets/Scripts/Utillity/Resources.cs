@@ -20,6 +20,7 @@ public static class Resources
         LIFE,
         MEDPACK,
         GRENADES,
+        AMMUNITION,
     }
 
     public static int GetAmmoForWeapon(Weapon weapon) {
@@ -47,6 +48,8 @@ public static class Resources
                 return 25;
             case Collectible.GRENADES:
                 return 3;
+            case Collectible.AMMUNITION:
+                return 0; // Not needed, the player just picks up the same weapon
             default:
                 return 0;
         }

@@ -38,6 +38,11 @@ public class UserInterface : MonoBehaviour
     public AudioClip shotgunLoad;
     public AudioClip assaultRifleLoad;
     public AudioClip sniperRifleLoad;
+    public AudioClip pickUpArmour;
+    public AudioClip pickUpLife;
+    public AudioClip pickUpHealth;
+    public AudioClip pickUpGrenade;
+    public AudioClip pickUpAmmo;
 
     // State
     Resources.Weapon weapon;
@@ -47,7 +52,7 @@ public class UserInterface : MonoBehaviour
 
     void Start() {
         PickUpWeapon(Resources.Weapon.BASEBALL_BAT);
-        talkingHead.NewMessage($"Welcome to hell, private!\nIf you're really as green as look, hold the TAB key to view your RANK and the GAME CONTROLS.\nOtherwise, stop gawking and kill some goddamn zombies!\n", TalkingHead.MessageDestination.Communication);
+        talkingHead.NewMessage($"Welcome to hell, private!\nIf you're really as green as look, hold the TAB key to view your RANK and the GAME CONTROLS.\nOtherwise, stop gawking and kill some goddamn zombies!\n", TalkingHead.MessageDestination.Communication, null);
     }
 
     void Update() {
@@ -108,10 +113,12 @@ public class UserInterface : MonoBehaviour
         }
 
         // If new weapon, reset ammo count
+        PlayerShooting player = GameObject.Find("Player").GetComponent<PlayerShooting>();
         if (weapon != newWeapon || newWeapon == Resources.Weapon.BASEBALL_BAT) {
             weapon = newWeapon;
             ammoCount = 0;
             DisableAllWeapons();
+            player.PickUpWeapon(newWeapon); // Pass the new weapon to the player
 
             // Reveal the current weapon in the UI 
             // Change the crosshair
@@ -158,19 +165,38 @@ public class UserInterface : MonoBehaviour
             }
             ammoCountLabel.text = $"{ammoCount}";
         }
+
+        // Update the ammo for the player
+        player.UpdateAmmunitionCount(ammoCount);
         
     }
 
     public void PickUpCollectible(Resources.Collectible collectible) {
         int increaseAmount = Resources.GetAmountForCollectible(collectible);
+        PlayerHealth playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
         switch(collectible) {
             case Resources.Collectible.GRENADES:
+                audioSource.PlayOneShot(pickUpGrenade);
                 grenadeCount = increaseAmount;
                 grenadeCountLabel.text = $"{grenadeCount}";
                 grenadeActive.SetActive(true);
                 break;
             case Resources.Collectible.ARMOUR:
+                audioSource.PlayOneShot(pickUpArmour);
                 armourActive.SetActive(true);
+                playerHealth.armour = Mathf.Clamp(playerHealth.armour + increaseAmount, 0, Resources.MAX_ARMOUR);
+                break;
+            case Resources.Collectible.MEDPACK:
+                audioSource.PlayOneShot(pickUpHealth);
+                playerHealth.health = Mathf.Clamp(playerHealth.health + increaseAmount, 0, Resources.MAX_HEALTH);
+                break;
+            case Resources.Collectible.LIFE:
+                audioSource.PlayOneShot(pickUpLife);
+                playerHealth.AddLife();
+                break;
+            case Resources.Collectible.AMMUNITION:
+                audioSource.PlayOneShot(pickUpAmmo);
+                PickUpWeapon(GetCurrentWeapon());
                 break;
             default: 
                 return;

@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 
     // Exports
     public GameOverScreen gameOverScreen;
+    public AudioClip gameOverSound;
     
     // References
     UserInterface ui;
@@ -140,11 +141,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver() {
+        ui.audioSource.PlayOneShot(gameOverSound);
         gameOver = true;
         gameOverScreen.GameOver();
     }
 
     public void Restart() {
+        ui.audioSource.Stop();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         scoreManager.ResetScore();
     }
