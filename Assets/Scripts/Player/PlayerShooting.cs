@@ -5,6 +5,8 @@ public class PlayerShooting : MonoBehaviour
     public ProjectileBehaviour projectilePrefab;
     public GrenadeBehaviour grenadePrefab;
     public Transform launchOffset;
+    public string projectileSortingLayer;
+    public int projectileSortingOrder;
 
     public float shootCooldown = 0.5f;  // Minimum time between shots
     private float nextShootTime;        // Time when the player can shoot again
@@ -24,7 +26,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.Instance;
         playerMovement = GetComponent<PlayerMovement>();
         rb = playerMovement.rb;  // Get reference to Rigidbody2D from PlayerMovement
     }
@@ -127,7 +129,7 @@ public class PlayerShooting : MonoBehaviour
             projectile.speed = 15;
             projectile.sizeMultiplier = 9;
             projectile.SetSize();
-            projectile.SetProjectileSprite(projectileSprites[currentWeapon]);
+            projectile.SetProjectileSprite(projectileSprites[currentWeapon], projectileSortingLayer, projectileSortingOrder);
             projectile.visible = false;
             projectile.SetInitialVelocity(direction * projectile.speed);
 
@@ -146,7 +148,7 @@ public class PlayerShooting : MonoBehaviour
             projectile.speed = 15;
             projectile.sizeMultiplier = 3;
             projectile.SetSize();
-            projectile.SetProjectileSprite(projectileSprites[currentWeapon]);
+            projectile.SetProjectileSprite(projectileSprites[currentWeapon], projectileSortingLayer, projectileSortingOrder);
 
 
             projectile.SetInitialVelocity(direction * projectile.speed);
@@ -185,7 +187,7 @@ public class PlayerShooting : MonoBehaviour
                 projectile.speed = 10;
                 projectile.sizeMultiplier = 1.5f;
                 projectile.SetSize();
-                projectile.SetProjectileSprite(projectileSprites[currentWeapon]);
+                projectile.SetProjectileSprite(projectileSprites[currentWeapon], projectileSortingLayer, projectileSortingOrder);
 
 
 
@@ -203,7 +205,7 @@ public class PlayerShooting : MonoBehaviour
             projectile.speed = 10;
             projectile.sizeMultiplier = 2.25f;
             projectile.SetSize();
-            projectile.SetProjectileSprite(projectileSprites[currentWeapon]);
+            projectile.SetProjectileSprite(projectileSprites[currentWeapon], projectileSortingLayer, projectileSortingOrder);
 
             projectile.SetInitialVelocity(direction * projectile.speed);
 
@@ -219,7 +221,7 @@ public class PlayerShooting : MonoBehaviour
             projectile.sizeMultiplier = 5f;
             projectile.penetration = 3f;
             projectile.SetSize();
-            projectile.SetProjectileSprite(projectileSprites[currentWeapon]);
+            projectile.SetProjectileSprite(projectileSprites[currentWeapon], projectileSortingLayer, projectileSortingOrder);
 
 
             projectile.SetInitialVelocity(direction * projectile.speed);

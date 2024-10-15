@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
     private Coroutine lavaDamageCoroutine;
 
 
-    public GameManager gameManager;
+    private GameManager gameManager;
     private bool isDead = false;
 
 
@@ -33,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         // Find the HealthBar sprite by traversing the hierarchy
+        gameManager = GameManager.Instance;
         healthBarRenderer = transform.Find("HealthBar").GetComponent<SpriteRenderer>();
         armourBarRenderer = transform.Find("ArmourBar").GetComponent<SpriteRenderer>();
         StartCoroutine(RegenerateHealth());
@@ -96,8 +97,7 @@ public class PlayerHealth : MonoBehaviour
         {
             gameManager.AddRevivesCount();
 
-            // Reset player position to (0, 0) when colliding with a GameBoundary
-            transform.position = new Vector3(0, 10, transform.position.z);
+            gameManager.SpawnPlayer();
 
             health = 100f;
 

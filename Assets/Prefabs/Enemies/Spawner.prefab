@@ -222,8 +222,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -879978701
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: -1984677834, guid: 20ff7714f4b4b5147bee441e2e6f5c4d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -322,7 +322,6 @@ MonoBehaviour:
   - 0.75
   - 0.9
   - 1
-  spawnRate: 4
   aggroRange: 50
   health: 2000
   score: 250
