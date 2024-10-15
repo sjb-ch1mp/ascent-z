@@ -66,7 +66,7 @@ public class ZombieSpawner : MonoBehaviour
             }
             // Only spawn if the game isn't paused
             if (!gameManager.IsPaused() && !gameManager.IsGameOver()) {
-                if (isActive) {
+                if (isActive && !gameManager.SpawnCapReached(id)) {
                     animator.SetTrigger("spawn-zombie");
                     float randomSpawnX = Random.Range(spawnBoundLeft.position.x, spawnBoundRight.position.x);
                     float randomZombieThreshold = Random.value;

@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public int GetNewZombieSpawnerId() {
         int id = zombieSpawnerId;
         zombieSpawnerId++;
-        return ++id;
+        return id;
     }
 
     public void KillZombiesForSpawner(int id) {
@@ -38,6 +38,18 @@ public class GameManager : MonoBehaviour
                 z.KillImmediately();
             }
         }
+    }
+
+    public bool SpawnCapReached(int id) {
+        GameObject zombieContainer = GameObject.Find("Zombies");
+        Enemy[] zombies = zombieContainer.GetComponentsInChildren<Enemy>();
+        int zombieCount = 0;
+        foreach (Enemy z in zombies) {
+            if (z != null && z.GetSpawnerId() == id) {
+                zombieCount++;
+            }
+        }
+        return zombieCount >= Resources.MAX_ZOMBIES_PER_SPAWNER;
     }
 
     // UI functions

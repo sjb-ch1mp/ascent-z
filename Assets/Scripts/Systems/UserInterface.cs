@@ -60,6 +60,11 @@ public class UserInterface : MonoBehaviour
                 controlScheme.SetActive(false);
             }
         }
+        if (Input.GetKey(KeyCode.Escape)) {
+            if (talkingHead.gameObject.activeSelf) {
+                talkingHead.Dismiss();
+            }
+        }
     }
 
     public void RunScoreRoutine(int killScore, int survivorCount, int reviveCount, int finalScore) {
