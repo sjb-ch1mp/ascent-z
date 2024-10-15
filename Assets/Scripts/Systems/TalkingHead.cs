@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TalkingHead : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class TalkingHead : MonoBehaviour
     GameManager gameManager;
     GameObject scoreScreen;
     GameObject rankScreen;
+    Image image;
 
     // Enum
     public enum MessageDestination {
@@ -25,12 +27,13 @@ public class TalkingHead : MonoBehaviour
     }
 
     // State
-    bool isTalking = false;
+    public bool IsTalking { get; set; }
 
     void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         scoreScreen = transform.GetChild(2).gameObject;
         rankScreen = transform.GetChild(3).gameObject;
+        image = transform.GetChild(4).gameObject.GetComponent<Image>();
     }
 
     public void Dismiss() {
@@ -46,6 +49,9 @@ public class TalkingHead : MonoBehaviour
         if (rankScreen.activeSelf) {
             rankScreen.GetComponent<RankScreen>().Dismiss();
         }
+        if (image.gameObject.activeSelf) {
+            image.gameObject.SetActive(false);
+        }
         StartCoroutine(WaitForRadioSoundBeforeClose());
     }
 
@@ -53,23 +59,31 @@ public class TalkingHead : MonoBehaviour
         while (audioSource.isPlaying) {
             yield return new WaitForSeconds(characterDelay);
         }
+        IsTalking = false;
         gameObject.SetActive(false);
     }
 
-    public void NewMessage(string message, MessageDestination destination) {
+    public void NewMessage(string message, MessageDestination destination, Sprite messageImage) {
+        gameManager.SetPaused(true);
         if (!gameObject.activeSelf) {
             gameObject.SetActive(true);
-            gameManager.SetPaused(true);
         }
         if (destination == MessageDestination.Communication) {
             audioSource.PlayOneShot(radioActivate);
+        }
+        if (messageImage != null) {
+            messageBox.fontSize = 16; // smaller font to allow for an image
+            image.sprite = messageImage;
+            image.gameObject.SetActive(true);
+        } else {
+            messageBox.fontSize = 18;
         }
         StartCoroutine(RevealMessage(message, destination));
     }
 
     IEnumerator RevealMessage(string message, MessageDestination destination) {
 
-        isTalking = true;
+        IsTalking = true;
 
         // Send the message to the correct text panel
         TextMeshProUGUI targetPanel = null;
@@ -98,48 +112,48 @@ public class TalkingHead : MonoBehaviour
             }
         }
 
-        isTalking = false;
+        IsTalking = false;
     }
 
     public void ShowScore(int killScore, int survivorCount, int reviveCount, int finalScore) {
-        NewMessage($"Stand by for a situation report... .", MessageDestination.Communication);
+        NewMessage($"Stand by for a situation report... .", MessageDestination.Communication, null);
         StartCoroutine(RevealScore(killScore, survivorCount, reviveCount, finalScore));
     }
 
     IEnumerator RevealScore(int killScore, int survivorCount, int reviveCount, int finalScore) {
         // Wait for the commander to finish
-        while (isTalking) {
+        while (IsTalking) {
             yield return new WaitForSeconds(0.25f);
         }
         ScoreScreen scoreController = scoreScreen.GetComponent<ScoreScreen>();
         scoreScreen.SetActive(true);
         // Show revives score
-        NewMessage($"Revives used: {reviveCount}.", MessageDestination.Score);
-        while (isTalking) {
+        NewMessage($"Revives used: {reviveCount}.", MessageDestination.Score, null);
+        while (IsTalking) {
             yield return new WaitForSeconds(0.25f);
         }
         audioSource.PlayOneShot(receiveMedal);
         scoreController.SetReviveMedal(Resources.GetMedalForReviveScore(reviveCount));
         yield return new WaitForSeconds(1f);
         // Show kill score
-        NewMessage($"Kill score: {killScore}.", MessageDestination.Score);
-        while (isTalking) {
+        NewMessage($"Kill score: {killScore}.", MessageDestination.Score, null);
+        while (IsTalking) {
             yield return new WaitForSeconds(0.25f);
         }
         audioSource.PlayOneShot(receiveMedal);
         scoreController.SetKillsMedal(Resources.GetMedalForKillScore(killScore));
         yield return new WaitForSeconds(1f);
         // Show survivor
-        NewMessage($"Survivors rescued: {survivorCount}.", MessageDestination.Score);
-        while (isTalking) {
+        NewMessage($"Survivors rescued: {survivorCount}.", MessageDestination.Score, null);
+        while (IsTalking) {
             yield return new WaitForSeconds(0.25f);
         }
         audioSource.PlayOneShot(receiveMedal);
         scoreController.SetSurvivorMedal(Resources.GetMedalForSurvivorCount(survivorCount));
         yield return new WaitForSeconds(1f);
         // Show final score
-        NewMessage($"Final score: {finalScore}.", MessageDestination.Score);
-        while (isTalking) {
+        NewMessage($"Final score: {finalScore}.", MessageDestination.Score, null);
+        while (IsTalking) {
             yield return new WaitForSeconds(0.25f);
         }
 
@@ -148,19 +162,19 @@ public class TalkingHead : MonoBehaviour
             StartCoroutine(DoPromotion(increasedByRanks));
         } else {
             if (finalScore < 250) {
-                NewMessage("Pathetic. Get back out there and try not to die, greenhorn. .", MessageDestination.Communication);
+                NewMessage("Pathetic. Get back out there and try not to die, greenhorn. .", MessageDestination.Communication, null);
             } else if (finalScore < 500) {
-                NewMessage("Nice work, soldier. But you'll have to do better than that if you want to survive in this hellhole. Over and out. .", MessageDestination.Communication);
+                NewMessage("Nice work, soldier. But you'll have to do better than that if you want to survive in this hellhole. Over and out. .", MessageDestination.Communication, null);
             } else {
-                NewMessage("Outstanding work, soldier. We need more recruits like you for this recovery effort. Over and out. .", MessageDestination.Communication);
+                NewMessage("Outstanding work, soldier. We need more recruits like you for this recovery effort. Over and out. .", MessageDestination.Communication, null);
             }
         }
         
     }
 
     IEnumerator DoPromotion(int increasedByRanks) {
-        NewMessage($"Phenomenal effort, soldier. You've been promoted {((increasedByRanks > 1) ? $"by {increasedByRanks} ranks" : "" )} to {Resources.GetNameForRank(gameManager.GetCurrentRank())} ...", MessageDestination.Communication);
-        while (isTalking) {
+        NewMessage($"Phenomenal effort, soldier. You've been promoted {((increasedByRanks > 1) ? $"by {increasedByRanks} ranks" : "" )} to {Resources.GetNameForRank(gameManager.GetCurrentRank())} ...", MessageDestination.Communication, null);
+        while (IsTalking) {
             yield return new WaitForSeconds(0.5f);
         }
         audioSource.PlayOneShot(increaseRank);

@@ -22,6 +22,7 @@ public class ZombieSpawner : MonoBehaviour
     Transform spawnBoundLeft;
     Transform spawnBoundRight;
     GameObject zombieContainer;
+    TutorialManager tutorialManager;
 
     // Initial state
     float initialHealth;
@@ -29,13 +30,15 @@ public class ZombieSpawner : MonoBehaviour
     // State
     bool isActive;
     bool isAlive = true;
+    bool isHit = false;
     bool isDesperate = false;
-    float spawnRate = 3.0f;
+    float spawnRate = 3;
     int id;
 
     // Start is called before the first frame update
     void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        tutorialManager = GameObject.Find("TutorialManager").GetComponent<TutorialManager>();
         id = gameManager.GetNewZombieSpawnerId();
         zombieContainer = GameObject.Find("Zombies");
         player = GameObject.Find("Player");
@@ -61,7 +64,7 @@ public class ZombieSpawner : MonoBehaviour
             yield return new WaitForSeconds(isActive ? spawnRate : 0.5f);
             // When a spawner is about to die, it's spawn rate is significantly increased
             if (!isDesperate && health / initialHealth < 0.25) {
-                spawnRate = 1.5f;
+                spawnRate = 1.0f;
                 isDesperate = true;
             }
             // Only spawn if the game isn't paused
@@ -137,6 +140,11 @@ public class ZombieSpawner : MonoBehaviour
         switch (tag) {
             case "Bullet":
                 TakeDamage(collision.gameObject.GetComponent<ProjectileBehaviour>());
+                if (!isHit) {
+                    isHit = true;
+                    spawnRate = 2.5f; // Increase spawn rate slightly on first hit
+                    StartCoroutine(tutorialManager.SpawnerFirstHitEvent());
+                }
                 break;
             case "Explosion":
                 TakeDamageExplosion(collision.gameObject.GetComponent<ExplosionBehaviour>());
