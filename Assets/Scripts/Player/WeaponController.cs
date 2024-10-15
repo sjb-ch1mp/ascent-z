@@ -62,7 +62,6 @@ public class WeaponController : MonoBehaviour
             }
         }
     }
-
     void RotateActiveWeaponTowardsMouse()
     {
         if (activeWeapon == null || activeWeaponRenderer == null)
@@ -78,17 +77,22 @@ public class WeaponController : MonoBehaviour
         // Calculate the angle in degrees
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Apply the rotation to the weapon's pivot GameObject
-        activeWeapon.transform.parent.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        // Rotate the parent object, which contains the weapon
+        Transform weaponParent = activeWeapon.transform.parent;
+        if (weaponParent != null)
+        {
+            weaponParent.rotation = Quaternion.Euler(0, 0, angle);
 
-        // Flip the weapon sprite based on the angle
-        if (angle > 90 || angle < -90)
-        {
-            activeWeaponRenderer.flipY = true;
-        }
-        else
-        {
-            activeWeaponRenderer.flipY = false;
+            // Flip the entire parent object by rotating 180 degrees around the Y axis
+            if (angle > 90 || angle < -90)
+            {
+                weaponParent.localScale = new Vector3(1, -1, 1); // Flip on Y axis
+            }
+            else
+            {
+                weaponParent.localScale = new Vector3(1, 1, 1);  // Reset flip
+            }
         }
     }
+
 }

@@ -17,19 +17,16 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     float mx;
     GameManager gameManager;
+    private Animator animator;
 
     public GameObject spriteHolder;  // Reference to the child object with SpriteRenderer
 
 
     void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        animator = transform.Find("SpriteHolder").GetComponent<Animator>();
     }
 
-    /*void Flip()
-    {
-        isFacingRight = !isFacingRight;
-        transform.Rotate(0f, 180f, 0f);
-    }*/
 
     private void Update()
     {
@@ -39,8 +36,12 @@ public class PlayerMovement : MonoBehaviour
         
         mx = Input.GetAxis("Horizontal");
 
+        animator.SetFloat("Speed", Mathf.Abs(mx));
+
         if (Time.time >= pushCooldownTime)  // Only allow movement if the cooldown has expired
         {
+            animator.SetTrigger("NotStunned");
+
             if (mx > 0 && !isFacingRight)
             {
                 Flip();
@@ -86,8 +87,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded || jumpCount < extraJump)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+            animator.SetTrigger("Jump");  // Set the trigger for the jump animation
+            rb.velocity = new Vector2(rb.velocity.x, jumpPower);  // Apply the jump force
             jumpCount++;
+            animator.SetBool("IsGrounded", false);  // Set IsGrounded to false when jumping
         }
     }
 
@@ -98,10 +101,12 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = true;
             jumpCount = 0;
+            animator.SetBool("IsGrounded", true);  // Set IsGrounded to true when grounded
         }
         else
         {
             isGrounded = false;
+            animator.SetBool("IsGrounded", false);  // Set IsGrounded to false when airborne
         }
     }
 
@@ -109,6 +114,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            animator.SetTrigger("Stunned");
+
             pushCooldownTime = Time.time + pushCooldown;  // Reset the cooldown timer when hit by an enemy
 
             // Determine the direction to push the player
