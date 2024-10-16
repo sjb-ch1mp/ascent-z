@@ -33,7 +33,10 @@ public class PlayerMovement : MonoBehaviour
         if (gameManager.IsGameOver() || gameManager.IsPaused()) {
             return;
         }
-        
+
+
+
+
         mx = Input.GetAxis("Horizontal");
 
         animator.SetFloat("Speed", Mathf.Abs(mx));

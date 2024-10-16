@@ -4,6 +4,7 @@ public class WeaponController : MonoBehaviour
 {
     private Camera mainCamera;
     private PlayerShooting playerShooting;
+    private Animator animator;
 
     // Array of weapon GameObjects
     [SerializeField]
@@ -19,6 +20,9 @@ public class WeaponController : MonoBehaviour
         // Get reference to PlayerShooting script
         playerShooting = GetComponent<PlayerShooting>();
 
+        animator = transform.Find("Weapon").Find("BaseballBatPivot").Find("BaseballBat").GetComponent<Animator>();
+
+
         // Deactivate all weapons initially
         foreach (GameObject weapon in weaponObjects)
         {
@@ -32,6 +36,17 @@ public class WeaponController : MonoBehaviour
 
     void Update()
     {
+        // Play the animation and loop back after 0.01 seconds
+
+        // Keep the animation stuck at 0.01 normalized time
+        animator.speed = 0;  // Stops animation from progressing
+
+
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            animator.SetTrigger("BatAttack");
+        }
+
         // Update the active weapon if currentWeapon has changed
         UpdateActiveWeapon();
 
