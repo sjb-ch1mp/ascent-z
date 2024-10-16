@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class WeaponController : MonoBehaviour
 {
@@ -12,6 +13,14 @@ public class WeaponController : MonoBehaviour
 
     private GameObject activeWeapon;              // Currently active weapon GameObject
     private SpriteRenderer activeWeaponRenderer;  // SpriteRenderer of the active weapon
+
+
+    public GameObject batAttack;
+
+
+    private float lastBatAttackTime = -0.5f; // Start it with -0.6f so it can attack right away
+    private float batCooldown = 0.5f;
+
 
     void Start()
     {
@@ -36,15 +45,11 @@ public class WeaponController : MonoBehaviour
 
     void Update()
     {
-        // Play the animation and loop back after 0.01 seconds
-
-        // Keep the animation stuck at 0.01 normalized time
-        animator.speed = 0;  // Stops animation from progressing
-
-
-        if (Input.GetKey(KeyCode.Mouse0))
+        // section for the bat attack
+        if (Input.GetKey(KeyCode.Mouse0) && activeWeapon == weaponObjects[0] && Time.time >= lastBatAttackTime + batCooldown)
         {
-            animator.SetTrigger("BatAttack");
+            lastBatAttackTime = Time.time; // Update the last attack time
+            StartCoroutine(BatAttackRoutine());
         }
 
         // Update the active weapon if currentWeapon has changed
@@ -52,6 +57,17 @@ public class WeaponController : MonoBehaviour
 
         // Rotate the active weapon towards the mouse cursor
         RotateActiveWeaponTowardsMouse();
+    }
+
+    IEnumerator BatAttackRoutine()
+    {
+        activeWeapon.SetActive(false);
+        batAttack.SetActive(true);
+
+        yield return new WaitForSeconds(0.4f); // Swing duration
+
+        batAttack.SetActive(false);
+        activeWeapon.SetActive(true);
     }
 
     void UpdateActiveWeapon()
