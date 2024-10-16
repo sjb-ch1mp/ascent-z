@@ -5,6 +5,7 @@ public static class Resources
     public static int MAX_LIVES = 3;
     public static float MAX_HEALTH = 100f;
     public static float MAX_ARMOUR = 100f;
+    public static int MAX_ZOMBIES_PER_SPAWNER = 50;
 
     public enum Weapon {
         BASEBALL_BAT,
@@ -19,6 +20,7 @@ public static class Resources
         LIFE,
         MEDPACK,
         GRENADES,
+        AMMUNITION,
     }
 
     public static int GetAmmoForWeapon(Weapon weapon) {
@@ -46,6 +48,8 @@ public static class Resources
                 return 25;
             case Collectible.GRENADES:
                 return 3;
+            case Collectible.AMMUNITION:
+                return 0; // Not needed, the player just picks up the same weapon
             default:
                 return 0;
         }

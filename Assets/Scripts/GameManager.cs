@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 
     // Exports
     public GameOverScreen gameOverScreen;
+    public AudioClip gameOverSound;
     
     // References
     UserInterface ui;
@@ -14,12 +15,42 @@ public class GameManager : MonoBehaviour
     // State
     bool paused = false;
     bool gameOver = false;
+    int zombieSpawnerId = 0;
     
     // Start is called before the first frame update
     void Start()
     {
         ui = GameObject.Find("UserInterface").GetComponent<UserInterface>();
         scoreManager = new ScoreManager();
+    }
+
+    // Zombie Spawner system
+    public int GetNewZombieSpawnerId() {
+        int id = zombieSpawnerId;
+        zombieSpawnerId++;
+        return id;
+    }
+
+    public void KillZombiesForSpawner(int id) {
+        GameObject zombieContainer = GameObject.Find("Zombies");
+        Enemy[] zombies = zombieContainer.GetComponentsInChildren<Enemy>();
+        foreach (Enemy z in zombies) {
+            if (z != null && z.GetSpawnerId() == id) {
+                z.KillImmediately();
+            }
+        }
+    }
+
+    public bool SpawnCapReached(int id) {
+        GameObject zombieContainer = GameObject.Find("Zombies");
+        Enemy[] zombies = zombieContainer.GetComponentsInChildren<Enemy>();
+        int zombieCount = 0;
+        foreach (Enemy z in zombies) {
+            if (z != null && z.GetSpawnerId() == id) {
+                zombieCount++;
+            }
+        }
+        return zombieCount >= Resources.MAX_ZOMBIES_PER_SPAWNER;
     }
 
     // UI functions
@@ -85,7 +116,11 @@ public class GameManager : MonoBehaviour
     }
 
     public int AddFinalScoreToRankProgress(int finalScore) {
-        return scoreManager.AddFinalScoreToRankProgress(finalScore);
+        int increasedByRanks = scoreManager.AddFinalScoreToRankProgress(finalScore);
+        if (increasedByRanks > 0) {
+            ui.IncreaseRank(increasedByRanks);
+        }
+        return increasedByRanks;
     }
 
     public Resources.Rank GetCurrentRank() {
@@ -106,11 +141,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver() {
+        ui.audioSource.PlayOneShot(gameOverSound);
         gameOver = true;
         gameOverScreen.GameOver();
     }
 
     public void Restart() {
+        ui.audioSource.Stop();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         scoreManager.ResetScore();
     }

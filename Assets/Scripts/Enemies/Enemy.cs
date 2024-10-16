@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
     bool detectedPlayer = false;
     GameObject onPlatform;
     float elevationOffset = 1.0f;
+    int spawnerId;
 
     void Start() {
         player = GameObject.Find("Player");
@@ -85,6 +86,14 @@ public class Enemy : MonoBehaviour
             // Check for player
             detectedPlayer = PlayerNearby();
         }
+    }
+
+    public void Stamp(int id) {
+        spawnerId = id;
+    }
+
+    public int GetSpawnerId() {
+        return spawnerId;
     }
 
     // PlayerNearby checks if the player is within the aggroRange of the enemy
@@ -150,6 +159,8 @@ public class Enemy : MonoBehaviour
 
     public void KillImmediately() {
         isAlive = false;
+        health = 0;
+        UpdateHealthBar();
         enemyRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         StartCoroutine(Die(false));
     }
@@ -204,13 +215,23 @@ public class Enemy : MonoBehaviour
     // Die ensures that the enemy is grounded before playing the
     // death animation so that it doesn't look funky
     IEnumerator Die(bool withScore) {
+        animator.SetBool("isAirborne", false);
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isStunned", true);
         if (withScore) {
             gameManager.AddKillScore(score);
         }
         gameObject.layer = LayerMask.NameToLayer("Dead");
+        float lastY = transform.position.y;
         while (onPlatform == null) {
             yield return new WaitForSeconds(0.25f);
+            if (lastY == transform.position.y) {
+                break; // Collision has failed but the zombie has stopped falling
+            } else {
+                lastY = transform.position.y;
+            }
         }
+        animator.SetBool("isStunned", false);
         animator.SetBool("isDead", true);
     }
 
@@ -233,6 +254,10 @@ public class Enemy : MonoBehaviour
     // used as an animation Event to destroy the enemy
     public void DestroyAfterAnimation() {
         Destroy(gameObject);
+    }
+
+    public bool IsGrounded() {
+        return onPlatform != null;
     }
 }
  

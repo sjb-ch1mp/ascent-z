@@ -65,7 +65,7 @@ public class PlayerShooting : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse1) && gameManager.HasGrenades())
         {
-            Debug.Log("GERNADE");
+            Debug.Log("GRENADE");
             gameManager.ConsumeGrenade();
             ThrowGrenade();
         }
@@ -229,11 +229,50 @@ public class PlayerShooting : MonoBehaviour
         nextShootTime = Time.time + shootCooldown;
     }
 
+    public void PickUpWeapon(Resources.Weapon newWeapon) {
+        // Weapon: baseball bat
+        if (newWeapon == Resources.Weapon.BASEBALL_BAT)
+        {
+            currentWeapon = 0;
+            rapidFire = false;
+            shootCooldown = 0.5f;
+            ammo = 0;
+        }
+        // Weapon: handgun
+        else if (newWeapon == Resources.Weapon.HANDGUN)
+        {
+            currentWeapon = 1;
+            rapidFire = false;
+            shootCooldown = 0.25f;
+        }
+        // Weapon: shotgun
+        else if (newWeapon == Resources.Weapon.SHOTGUN)
+        {
+            currentWeapon = 2;
+            rapidFire = false;
+            shootCooldown = 1.0f;
+        }
+        // Weapon: machinegun
+        else if (newWeapon == Resources.Weapon.ASSAULT_RIFLE)
+        {
+            currentWeapon = 3;
+            rapidFire = true;
+            shootCooldown = 0.1f;
+        }
+        // Weapon: sniper
+        else if (newWeapon == Resources.Weapon.SNIPER_RIFLE)
+        {
+            currentWeapon = 4;
+            rapidFire = false;
+            shootCooldown = 1.25f;
+        }
+    }
 
+    public void UpdateAmmunitionCount(int newAmmoCount) {
+        ammo = newAmmoCount;
+    }
 
-
-
-
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("ItemDrop"))
@@ -275,5 +314,5 @@ public class PlayerShooting : MonoBehaviour
                 ammo = Resources.GetAmmoForWeapon(Resources.Weapon.SNIPER_RIFLE);
             }
         }
-    }
+    }*/
 }

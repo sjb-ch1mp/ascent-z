@@ -8,10 +8,12 @@ public class SpawnerScript : MonoBehaviour
     public float spawnInterval = 30f; // Time interval between spawn attempts
 
     GameManager gameManager;
+    GameObject collectibleContainer;
 
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        collectibleContainer = GameObject.Find("Collectibles");
         StartCoroutine(SpawnObject());
     }
 
@@ -32,11 +34,11 @@ public class SpawnerScript : MonoBehaviour
                 {
                     if (Random.value < 0.5f) // 50% chance between weapon case and collectable
                     {
-                        Instantiate(weaponCase, transform.position, Quaternion.identity);
+                        Instantiate(weaponCase, transform.position, Quaternion.identity, collectibleContainer.transform);
                     }
                     else
                     {
-                        Instantiate(collectable, transform.position, Quaternion.identity);
+                        Instantiate(collectable, transform.position, Quaternion.identity, collectibleContainer.transform);
                     }
                 }
             }
