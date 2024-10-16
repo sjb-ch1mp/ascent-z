@@ -32,13 +32,13 @@ public class Enemy : MonoBehaviour
     bool isAlive = true;
     bool isStunned = false;
     bool detectedPlayer = false;
-    GameObject onPlatform;
+    Collider2D onPlatform;
     float elevationOffset = 1.0f;
     int spawnerId;
 
     void Start() {
-        player = GameObject.Find("Player");
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.Instance;
+        player = gameManager.GetPlayer();
         enemyRigidbody = GetComponent<Rigidbody2D>();
         enemyCollider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
@@ -114,7 +114,8 @@ public class Enemy : MonoBehaviour
     // Descend temporarily disables collisions between the enemy and the platform 
     // so that it can drop down to the platform below
     IEnumerator Descend() {
-        BoxCollider2D platformCollider = onPlatform.GetComponent<BoxCollider2D>();
+        // Cache local collider
+        Collider2D platformCollider = onPlatform;
         Physics2D.IgnoreCollision(enemyCollider, platformCollider);
         yield return new WaitForSeconds(0.25f);
         Physics2D.IgnoreCollision(enemyCollider, platformCollider, false);
@@ -182,7 +183,7 @@ public class Enemy : MonoBehaviour
             case "OneWayPlatform": 
                 animator.SetBool("isAirborne", false);
                 if (onPlatform == null) {
-                    onPlatform = collision.gameObject;
+                    onPlatform = collision.collider;
                 }
                 break;
             case "GameBoundary":

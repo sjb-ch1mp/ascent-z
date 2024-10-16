@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5966124071899395659}
   - component: {fileID: 6525371594735601953}
   - component: {fileID: 8544536138912280815}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: trunks
   m_TagString: Untagged
   m_Icon: {fileID: 0}

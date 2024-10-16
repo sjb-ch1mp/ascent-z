@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameOverScreen gameOverScreen;
     public LevelManager levelManager;
     public GameObject player;
+    public CameraTracking cameraTracking;
 
     // References
     UserInterface ui;
@@ -54,7 +55,11 @@ public class GameManager : MonoBehaviour
             in_player = Instantiate(player, Vector3.zero, Quaternion.identity);
         }
 
+        // Ensure the player can move
+        in_player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
         in_player.transform.position = levelManager.GetSpawn();
+        cameraTracking.ResetTo(in_player.transform.position);
     }
 
     // Zombie Spawner system

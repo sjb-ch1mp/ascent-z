@@ -93,35 +93,18 @@ public class PlayerHealth : MonoBehaviour
         }
 
 
-        if (health <= 0f || collision.gameObject.CompareTag("GameBoundary"))
+        if (health <= 0f)
         {
-            gameManager.AddRevivesCount();
-
-            gameManager.SpawnPlayer();
-
-            health = 100f;
-
-            // Calculate the new width based on the remaining health
-            float healthPercentage = health / 100f;
-
-            // Adjust the local scale of the health bar along the x-axis
-            Vector3 healthBarScale = healthBarRenderer.transform.localScale;
-            healthBarScale.x = healthPercentage;
-            healthBarRenderer.transform.localScale = healthBarScale;
-
-            lives--;
-            gameManager.RenderLives(lives);
-
-            if (lives <= 0 && isDead == false)
-            {
-                isDead = true;
-                gameManager.GameOver();
-                GetComponent<Rigidbody2D>().gravityScale = 0; // Just remove gravity until the spawning system is established so that the player doesn't fall into the scene (FIXME)
-            }
+            KillPlayer();
         }
+    }
 
-
-
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("MainCamera"))
+        {
+            KillPlayer();
+        }
     }
 
 
@@ -158,6 +141,36 @@ public class PlayerHealth : MonoBehaviour
                 // Update health bar
                 UpdateHealthBar();
             }
+        }
+    }
+
+    private void KillPlayer()
+    {
+        gameManager.AddRevivesCount();
+
+        health = 100f;
+
+        // Calculate the new width based on the remaining health
+        float healthPercentage = health / 100f;
+
+        // Adjust the local scale of the health bar along the x-axis
+        Vector3 healthBarScale = healthBarRenderer.transform.localScale;
+        healthBarScale.x = healthPercentage;
+        healthBarRenderer.transform.localScale = healthBarScale;
+
+        lives--;
+        gameManager.RenderLives(lives);
+
+        if (lives <= 0 && isDead == false)
+        {
+            isDead = true;
+            gameManager.GameOver();
+            // Remove gravity to enusre the player does not fall forever
+            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        } 
+        else
+        {
+            gameManager.SpawnPlayer();
         }
     }
 
