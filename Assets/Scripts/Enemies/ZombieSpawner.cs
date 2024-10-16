@@ -37,11 +37,11 @@ public class ZombieSpawner : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.Instance;
         tutorialManager = GameObject.Find("TutorialManager").GetComponent<TutorialManager>();
         id = gameManager.GetNewZombieSpawnerId();
         zombieContainer = GameObject.Find("Zombies");
-        player = GameObject.Find("Player");
+        player = gameManager.GetPlayer();
         animator = GetComponent<Animator>();
         initialHealth = health;
         spawnBoundLeft = transform.GetChild(0);
@@ -53,6 +53,15 @@ public class ZombieSpawner : MonoBehaviour
 
     // PlayerNearby checks if the player is within the aggroRange of the enemy
     bool PlayerNearby() {
+        if (player == null)
+        {
+            player = gameManager.GetPlayer();
+            if (player == null)
+            {
+                return false;
+            }
+        }
+
         return Physics2D.Distance(
             GetComponent<BoxCollider2D>(), 
             player.GetComponent<BoxCollider2D>()

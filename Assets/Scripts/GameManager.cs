@@ -7,7 +7,10 @@ public class GameManager : MonoBehaviour
     // Exports
     public GameOverScreen gameOverScreen;
     public AudioClip gameOverSound;
-    
+    public LevelManager levelManager;
+    public GameObject player;
+    public CameraTracking cameraTracking;
+
     // References
     UserInterface ui;
     ScoreManager scoreManager;
@@ -16,12 +19,48 @@ public class GameManager : MonoBehaviour
     bool paused = false;
     bool gameOver = false;
     int zombieSpawnerId = 0;
-    
+    private GameObject in_player;
+
+    public static GameManager Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         ui = GameObject.Find("UserInterface").GetComponent<UserInterface>();
         scoreManager = new ScoreManager();
+
+        SpawnPlayer();
+    }
+
+    public GameObject GetPlayer()
+    {
+        return in_player;
+    }
+
+    public void SpawnPlayer()
+    {
+        if (in_player == null)
+        {
+            in_player = Instantiate(player, Vector3.zero, Quaternion.identity);
+        }
+
+        // Ensure the player can move
+        in_player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
+        in_player.transform.position = levelManager.GetSpawn();
+        cameraTracking.ResetTo(in_player.transform.position);
     }
 
     // Zombie Spawner system

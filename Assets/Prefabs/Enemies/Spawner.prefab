@@ -175,8 +175,8 @@ Transform:
   m_GameObject: {fileID: 9016099862831294691}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1511272, y: 2.3323278, z: 0}
-  m_LocalScale: {x: 2.2135, y: 2.2135, z: 2.2135}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7313037875754042826}
@@ -222,8 +222,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -879978701
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: -1984677834, guid: 20ff7714f4b4b5147bee441e2e6f5c4d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -293,7 +293,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.24, y: 0.87}
+    oldSize: {x: 7.75, y: 5.4375}
     newSize: {x: 1.24, y: 0.87}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -322,7 +322,6 @@ MonoBehaviour:
   - 0.75
   - 0.9
   - 1
-  spawnRate: 4
   aggroRange: 50
   health: 2000
   score: 250

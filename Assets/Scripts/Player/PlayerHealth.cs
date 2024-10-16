@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
     private Coroutine lavaDamageCoroutine;
 
 
-    public GameManager gameManager;
+    private GameManager gameManager;
     private bool isDead = false;
 
 
@@ -33,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         // Find the HealthBar sprite by traversing the hierarchy
+        gameManager = GameManager.Instance;
         healthBarRenderer = transform.Find("HealthBar").GetComponent<SpriteRenderer>();
         armourBarRenderer = transform.Find("ArmourBar").GetComponent<SpriteRenderer>();
         StartCoroutine(RegenerateHealth());
@@ -92,36 +93,18 @@ public class PlayerHealth : MonoBehaviour
         }
 
 
-        if (health <= 0f || collision.gameObject.CompareTag("GameBoundary"))
+        if (health <= 0f)
         {
-            gameManager.AddRevivesCount();
-
-            // Reset player position to (0, 0) when colliding with a GameBoundary
-            transform.position = new Vector3(0, 10, transform.position.z);
-
-            health = 100f;
-
-            // Calculate the new width based on the remaining health
-            float healthPercentage = health / 100f;
-
-            // Adjust the local scale of the health bar along the x-axis
-            Vector3 healthBarScale = healthBarRenderer.transform.localScale;
-            healthBarScale.x = healthPercentage;
-            healthBarRenderer.transform.localScale = healthBarScale;
-
-            lives--;
-            gameManager.RenderLives(lives);
-
-            if (lives <= 0 && isDead == false)
-            {
-                isDead = true;
-                gameManager.GameOver();
-                GetComponent<Rigidbody2D>().gravityScale = 0; // Just remove gravity until the spawning system is established so that the player doesn't fall into the scene (FIXME)
-            }
+            KillPlayer();
         }
+    }
 
-
-
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("MainCamera"))
+        {
+            KillPlayer();
+        }
     }
 
 
@@ -158,6 +141,37 @@ public class PlayerHealth : MonoBehaviour
                 // Update health bar
                 UpdateHealthBar();
             }
+        }
+    }
+
+    private void KillPlayer()
+    {
+        Debug.Log("KillPlayer");
+        gameManager.AddRevivesCount();
+
+        health = 100f;
+
+        // Calculate the new width based on the remaining health
+        float healthPercentage = health / 100f;
+
+        // Adjust the local scale of the health bar along the x-axis
+        Vector3 healthBarScale = healthBarRenderer.transform.localScale;
+        healthBarScale.x = healthPercentage;
+        healthBarRenderer.transform.localScale = healthBarScale;
+
+        lives--;
+        gameManager.RenderLives(lives);
+
+        if (lives <= 0 && isDead == false)
+        {
+            isDead = true;
+            gameManager.GameOver();
+            // Remove gravity to enusre the player does not fall forever
+            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        } 
+        else
+        {
+            gameManager.SpawnPlayer();
         }
     }
 

@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     void Start() {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.Instance;
         animator = transform.Find("SpriteHolder").GetComponent<Animator>();
     }
 
@@ -126,11 +126,6 @@ public class PlayerMovement : MonoBehaviour
 
             // Apply pushback force
             rb.velocity = new Vector2(pushDirection.x * 10f, rb.velocity.y);  // Adjust the 10f to change the pushback force
-        }
-        else if (collision.gameObject.CompareTag("GameBoundary"))
-        {
-            // Reset player position to (0, 10) when colliding with a GameBoundary
-            transform.position = new Vector3(0, 10, transform.position.z);
         }
     }
 }
