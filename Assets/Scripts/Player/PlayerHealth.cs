@@ -146,6 +146,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void KillPlayer()
     {
+        Debug.Log("KillPlayer");
         gameManager.AddRevivesCount();
 
         health = 100f;
