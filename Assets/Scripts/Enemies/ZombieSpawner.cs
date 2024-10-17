@@ -38,7 +38,7 @@ public class ZombieSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         gameManager = GameManager.Instance;
-        tutorialManager = GameObject.Find("TutorialManager").GetComponent<TutorialManager>();
+        tutorialManager = TutorialManager.Instance;
         id = gameManager.GetNewZombieSpawnerId();
         zombieContainer = GameObject.Find("Zombies");
         player = gameManager.GetPlayer();
@@ -63,7 +63,7 @@ public class ZombieSpawner : MonoBehaviour
         }
 
         return Physics2D.Distance(
-            GetComponent<BoxCollider2D>(), 
+            GetComponent<CapsuleCollider2D>(), 
             player.GetComponent<BoxCollider2D>()
         ).distance <= aggroRange;
     }

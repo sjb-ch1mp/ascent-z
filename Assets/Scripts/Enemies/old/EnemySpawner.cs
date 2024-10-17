@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.Instance;
         StartCoroutine(SpawnWave());
     }
 

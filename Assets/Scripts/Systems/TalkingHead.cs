@@ -30,7 +30,7 @@ public class TalkingHead : MonoBehaviour
     public bool IsTalking { get; set; }
 
     void Awake() {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.Instance;
         scoreScreen = transform.GetChild(2).gameObject;
         rankScreen = transform.GetChild(3).gameObject;
         image = transform.GetChild(4).gameObject.GetComponent<Image>();

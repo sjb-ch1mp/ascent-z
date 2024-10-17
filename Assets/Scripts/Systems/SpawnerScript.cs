@@ -12,7 +12,7 @@ public class SpawnerScript : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.Instance;
         collectibleContainer = GameObject.Find("Collectibles");
         StartCoroutine(SpawnObject());
     }

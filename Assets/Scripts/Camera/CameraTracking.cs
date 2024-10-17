@@ -5,13 +5,33 @@ using UnityEngine;
 public class CameraTracking : MonoBehaviour
 {
     [SerializeField] private Camera cameraTarget;
-    private BoxCollider2D triggerZone;
+    [SerializeField] private BoxCollider2D triggerZone;
     private GameObject player;
+    public static CameraTracking Instance { get; private set; }
 
+    // Destructive Singleton, i.e. will refresh upon load
     void Awake()
     {
-        triggerZone = GetComponent<BoxCollider2D>();
-        ResizeToCamera();
+        if (Instance == null)
+        {
+            Instance = this;
+            ResizeToCamera();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
+    public void DisableTrigger()
+    {
+        triggerZone.enabled = false;
+    }
+
+    public void EnableTrigger()
+    {
+        triggerZone.enabled = true;
     }
 
     // Update is called once per frame

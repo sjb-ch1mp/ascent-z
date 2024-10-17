@@ -15,8 +15,8 @@ public class Survivor : MonoBehaviour
     bool isSaved = false;
 
     void Start() {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        tutorialManager = GameObject.Find("TutorialManager").GetComponent<TutorialManager>();
+        gameManager = GameManager.Instance;
+        tutorialManager = TutorialManager.Instance;
         survivorCollider = GetComponent<CapsuleCollider2D>();
         int randomSurvivor = Random.Range(1, 12);
         animator.SetInteger("randomSurvivor", randomSurvivor);

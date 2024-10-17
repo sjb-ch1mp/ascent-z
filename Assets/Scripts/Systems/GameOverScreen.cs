@@ -14,6 +14,6 @@ public class GameOverScreen : MonoBehaviour
     }
 
     public void TryAgain() {
-        GameObject.Find("GameManager").GetComponent<GameManager>().Restart();
+        GameManager.Instance.Restart();
     }
 }

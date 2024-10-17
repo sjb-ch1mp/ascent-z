@@ -43,6 +43,8 @@ public class UserInterface : MonoBehaviour
     public AudioClip pickUpHealth;
     public AudioClip pickUpGrenade;
     public AudioClip pickUpAmmo;
+    // == Screens
+    public GameOverScreen gameOverScreen;
 
     // State
     Resources.Weapon weapon;
@@ -50,8 +52,22 @@ public class UserInterface : MonoBehaviour
     int ammoCount = 0;
     int grenadeCount = 0;
 
+    public static UserInterface Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
     void Start() {
-        PickUpWeapon(Resources.Weapon.BASEBALL_BAT);
         talkingHead.NewMessage($"Welcome to hell, private!\nIf you're really as green as look, hold the TAB key to view your RANK and the GAME CONTROLS.\nOtherwise, stop gawking and kill some goddamn zombies!\n", TalkingHead.MessageDestination.Communication, null);
     }
 
@@ -90,6 +106,11 @@ public class UserInterface : MonoBehaviour
         talkingHead.ShowScore(killScore, survivorCount, reviveCount, finalScore);
     }
 
+    public void PlayerSpawn()
+    {
+        PickUpWeapon(Resources.Weapon.BASEBALL_BAT);
+    }
+
     public void PickUpWeapon(Resources.Weapon newWeapon) {
 
         // Do sounds regardless
@@ -113,7 +134,7 @@ public class UserInterface : MonoBehaviour
         }
 
         // If new weapon, reset ammo count
-        PlayerShooting player = GameObject.Find("Player").GetComponent<PlayerShooting>();
+        PlayerShooting player = GameManager.Instance.GetPlayer().GetComponent<PlayerShooting>();
         if (weapon != newWeapon || newWeapon == Resources.Weapon.BASEBALL_BAT) {
             weapon = newWeapon;
             ammoCount = 0;
@@ -173,7 +194,7 @@ public class UserInterface : MonoBehaviour
 
     public void PickUpCollectible(Resources.Collectible collectible) {
         int increaseAmount = Resources.GetAmountForCollectible(collectible);
-        PlayerHealth playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
+        PlayerHealth playerHealth = GameManager.Instance.GetPlayer().GetComponent<PlayerHealth>();
         switch(collectible) {
             case Resources.Collectible.GRENADES:
                 audioSource.PlayOneShot(pickUpGrenade);

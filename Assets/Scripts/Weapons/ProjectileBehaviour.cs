@@ -24,9 +24,6 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private float timeElapsed = 0f; // Track how long the object has existed
 
-    private string sortingLayer;
-    private int sortingOrder;
-
     void Start()
     {
         // Cache the projectile's collider to use it later for ignoring collisions
@@ -44,17 +41,13 @@ public class ProjectileBehaviour : MonoBehaviour
         if (projectileSprite != null && visible)
         {
             spriteRenderer.sprite = projectileSprite;
-            spriteRenderer.sortingLayerName = sortingLayer;
-            spriteRenderer.sortingOrder = sortingOrder;
         }
 
     }
 
-    public void SetProjectileSprite(Sprite newSprite, string sortingLayer, int sortingOrder)
+    public void SetProjectileSprite(Sprite newSprite)
     {
         projectileSprite = newSprite;
-        this.sortingLayer = sortingLayer;
-        this.sortingOrder = sortingOrder;
     }
 
     public void SetInitialVelocity(Vector2 velocity)

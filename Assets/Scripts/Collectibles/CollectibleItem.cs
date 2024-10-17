@@ -15,7 +15,7 @@ public class CollectibleItem : MonoBehaviour
     bool isCollected = false;
 
     void Start() {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.Instance;
         weaponsCache = GetComponent<UtilityCrate>() == null || GetComponent<WeaponsCache>() != null;
         StartCoroutine(DestroyOnTimeUp());
     }

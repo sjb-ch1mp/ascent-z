@@ -19,6 +19,21 @@ public class TutorialManager : MonoBehaviour
     // References
     TalkingHead talkingHead;
 
+    public static TutorialManager Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start() {
         talkingHead = GameObject.Find("TalkingHead").GetComponent<TalkingHead>();
     }

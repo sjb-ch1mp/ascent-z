@@ -12,7 +12,7 @@ public class PlayerCollectables : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.Instance;
         playerHealth = GetComponent<PlayerHealth>();
     }
 

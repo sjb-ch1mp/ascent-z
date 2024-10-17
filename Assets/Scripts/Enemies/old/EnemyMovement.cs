@@ -25,7 +25,7 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
 
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameManager.Instance;
 
         rb = GetComponent<Rigidbody2D>();
 

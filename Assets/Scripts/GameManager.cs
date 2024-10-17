@@ -5,11 +5,8 @@ public class GameManager : MonoBehaviour
 {
 
     // Exports
-    public GameOverScreen gameOverScreen;
     public AudioClip gameOverSound;
-    public LevelManager levelManager;
-    public GameObject player;
-    public CameraTracking cameraTracking;
+    [SerializeField] private GameObject player;
 
     // References
     UserInterface ui;
@@ -20,6 +17,9 @@ public class GameManager : MonoBehaviour
     bool gameOver = false;
     int zombieSpawnerId = 0;
     private GameObject in_player;
+    private GameOverScreen gameOverScreen;
+    private LevelManager levelManager;
+    private CameraTracking cameraTracking;
 
     public static GameManager Instance { get; private set; }
 
@@ -28,20 +28,31 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Destroy(gameObject);
         }
+
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        ui = GameObject.Find("UserInterface").GetComponent<UserInterface>();
+        Debug.Log("Loaded");
+        levelManager = LevelManager.Instance;
+        ui = UserInterface.Instance;
+        gameOverScreen = ui.gameOverScreen;
+        cameraTracking = CameraTracking.Instance;
         scoreManager = new ScoreManager();
 
         SpawnPlayer();
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     public GameObject GetPlayer()
@@ -61,6 +72,8 @@ public class GameManager : MonoBehaviour
 
         in_player.transform.position = levelManager.GetSpawn();
         cameraTracking.ResetTo(in_player.transform.position);
+        ui.PlayerSpawn();
+        cameraTracking.EnableTrigger();
     }
 
     // Zombie Spawner system
@@ -189,6 +202,7 @@ public class GameManager : MonoBehaviour
         ui.audioSource.Stop();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         scoreManager.ResetScore();
+        SpawnPlayer();
     }
 
 }

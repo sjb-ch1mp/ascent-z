@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     GameManager gameManager;
     private Animator animator;
 
-    public GameObject spriteHolder;  // Reference to the child object with SpriteRenderer
+    public SpriteRenderer spriteHolder;  // Reference to the child object with SpriteRenderer
 
 
     void Start() {
@@ -65,13 +65,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Flip()
     {
-        // Flip the player's facing direction
         isFacingRight = !isFacingRight;
-
-        // Flip the sprite by scaling it on the X axis
-        Vector3 scale = spriteHolder.transform.localScale;
-        scale.x *= -1;  // Reverse the X axis
-        spriteHolder.transform.localScale = scale;
+        spriteHolder.flipX = !spriteHolder.flipX;
+//        // Flip the player's facing direction
+//        
+//
+//        // Flip the sprite by scaling it on the X axis
+//        Vector3 scale = spriteHolder.transform.localScale;
+//        scale.x *= -1;  // Reverse the X axis
+//        spriteHolder.transform.localScale = scale;
     }
 
     private void FixedUpdate()

@@ -8,18 +8,29 @@ public class LevelManager : MonoBehaviour
 
     private int currentCheckpoint = 0;
 
+    public static LevelManager Instance { get; private set; }
+
+    // Destructive Singleton, i.e. will refresh upon load
     void Awake()
     {
-
-        int i = 0;
-        foreach (Checkpoint check in checkpoints)
+        if (Instance == null)
         {
-            check.Assign(this, i);
-            i++;
+            Instance = this;
+            int i = 0;
+            foreach (Checkpoint check in checkpoints)
+            {
+                check.Assign(this, i);
+                i++;
+            }
+
+            // Trigger the initial checkpoint
+            checkpoints[0].Trigger();
+        }
+        else
+        {
+            Destroy(gameObject);
         }
 
-        // Trigger the initial checkpoint
-        checkpoints[0].Trigger();
     }
 
     public void SetCheckpoint(int checkpoint)
