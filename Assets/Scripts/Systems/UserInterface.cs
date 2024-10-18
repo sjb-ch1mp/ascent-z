@@ -134,7 +134,7 @@ public class UserInterface : MonoBehaviour
         }
 
         // If new weapon, reset ammo count
-        PlayerShooting player = GameManager.Instance.GetPlayer().GetComponent<PlayerShooting>();
+        Player player = GameManager.Instance.GetPlayer().GetComponent<Player>();
         if (weapon != newWeapon || newWeapon == Resources.Weapon.BASEBALL_BAT) {
             weapon = newWeapon;
             ammoCount = 0;
@@ -186,15 +186,12 @@ public class UserInterface : MonoBehaviour
             }
             ammoCountLabel.text = $"{ammoCount}";
         }
-
-        // Update the ammo for the player
-        player.UpdateAmmunitionCount(ammoCount);
         
     }
 
     public void PickUpCollectible(Resources.Collectible collectible) {
         int increaseAmount = Resources.GetAmountForCollectible(collectible);
-        PlayerHealth playerHealth = GameManager.Instance.GetPlayer().GetComponent<PlayerHealth>();
+        Player player = GameManager.Instance.GetPlayer().GetComponent<Player>();
         switch(collectible) {
             case Resources.Collectible.GRENADES:
                 audioSource.PlayOneShot(pickUpGrenade);
@@ -205,15 +202,15 @@ public class UserInterface : MonoBehaviour
             case Resources.Collectible.ARMOUR:
                 audioSource.PlayOneShot(pickUpArmour);
                 armourActive.SetActive(true);
-                playerHealth.armour = Mathf.Clamp(playerHealth.armour + increaseAmount, 0, Resources.MAX_ARMOUR);
+                player.Armour = Mathf.Clamp(player.Armour + increaseAmount, 0, Resources.MAX_ARMOUR);
                 break;
             case Resources.Collectible.MEDPACK:
                 audioSource.PlayOneShot(pickUpHealth);
-                playerHealth.health = Mathf.Clamp(playerHealth.health + increaseAmount, 0, Resources.MAX_HEALTH);
+                player.Health = Mathf.Clamp(player.Health + increaseAmount, 0, Resources.MAX_HEALTH);
                 break;
             case Resources.Collectible.LIFE:
                 audioSource.PlayOneShot(pickUpLife);
-                playerHealth.AddLife();
+                player.AddLife();
                 break;
             case Resources.Collectible.AMMUNITION:
                 audioSource.PlayOneShot(pickUpAmmo);

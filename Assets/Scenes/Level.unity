@@ -2494,11 +2494,11 @@ MonoBehaviour:
   shotgunLoad: {fileID: 8300000, guid: 28a514a0bec5c7342abd7ed2da08beb1, type: 3}
   assaultRifleLoad: {fileID: 8300000, guid: bfb8c9f515c560a459298e0256420742, type: 3}
   sniperRifleLoad: {fileID: 8300000, guid: 845bdd591e06b954da0019c98e7dc07a, type: 3}
-  pickUpArmour: {fileID: 0}
-  pickUpLife: {fileID: 0}
-  pickUpHealth: {fileID: 0}
-  pickUpGrenade: {fileID: 0}
-  pickUpAmmo: {fileID: 0}
+  pickUpArmour: {fileID: 8300000, guid: fa8f50c110c95d94b93d73ea9eab6ac0, type: 3}
+  pickUpLife: {fileID: 8300000, guid: 4f4a8c16e90e65b48920d3e14005e80f, type: 3}
+  pickUpHealth: {fileID: 8300000, guid: 47b7d3871e9f2f244bf78b7faae4d8e7, type: 3}
+  pickUpGrenade: {fileID: 8300000, guid: f685a81606ac49d439348363732a6734, type: 3}
+  pickUpAmmo: {fileID: 8300000, guid: 6996ed3581cdc3f479097b056144642d, type: 3}
   gameOverScreen: {fileID: 2028170060}
 --- !u!82 &632326127
 AudioSource:
@@ -2812,8 +2812,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8e12018a4171c438a906dda6c2770f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverSound: {fileID: 0}
-  player: {fileID: 3609407878567921543, guid: 955042978575f3446a48b0e472d38c14, type: 3}
+  gameOverSound: {fileID: 8300000, guid: 8fa9eaf4c2d61f54e9deae52db717c30, type: 3}
+  player: {fileID: 8035131512334399403, guid: f1c09f0e3b7dd4942928a2be46328674, type: 3}
 --- !u!1 &681790599
 GameObject:
   m_ObjectHideFlags: 0
@@ -7442,6 +7442,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1837279571
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 730511685099287227, guid: a30a6eae8350cb9429ea14141f27b425, type: 3}
+      propertyPath: m_Name
+      value: Grenade
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618119978098898496, guid: a30a6eae8350cb9429ea14141f27b425, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.4110913
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618119978098898496, guid: a30a6eae8350cb9429ea14141f27b425, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.058435
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618119978098898496, guid: a30a6eae8350cb9429ea14141f27b425, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618119978098898496, guid: a30a6eae8350cb9429ea14141f27b425, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618119978098898496, guid: a30a6eae8350cb9429ea14141f27b425, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618119978098898496, guid: a30a6eae8350cb9429ea14141f27b425, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618119978098898496, guid: a30a6eae8350cb9429ea14141f27b425, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618119978098898496, guid: a30a6eae8350cb9429ea14141f27b425, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618119978098898496, guid: a30a6eae8350cb9429ea14141f27b425, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618119978098898496, guid: a30a6eae8350cb9429ea14141f27b425, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a30a6eae8350cb9429ea14141f27b425, type: 3}
 --- !u!1 &1843719240
 GameObject:
   m_ObjectHideFlags: 0
@@ -18629,3 +18686,4 @@ SceneRoots:
   - {fileID: 7033768450399978711}
   - {fileID: 681790601}
   - {fileID: 1681471932}
+  - {fileID: 1837279571}

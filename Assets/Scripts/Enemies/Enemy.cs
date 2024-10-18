@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour
     bool PlayerNearby() {
         return Physics2D.Distance(
             GetComponent<CapsuleCollider2D>(), 
-            player.GetComponent<BoxCollider2D>()
+            player.GetComponent<CapsuleCollider2D>()
         ).distance <= aggroRange;
     }
 
@@ -238,7 +238,7 @@ public class Enemy : MonoBehaviour
 
     // When stunned, the player will not take damage from enemies
     IEnumerator Stun() {
-        BoxCollider2D playerCollider = player.GetComponent<BoxCollider2D>();
+        CapsuleCollider2D playerCollider = player.GetComponent<CapsuleCollider2D>();
         // Stun the enemy
         isStunned = true;
         animator.SetBool("isStunned", true);

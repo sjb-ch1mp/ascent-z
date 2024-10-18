@@ -20,8 +20,9 @@ public class ProjectileBehaviour : MonoBehaviour
     private Vector2 initialPosition; // To track how far the projectile has traveled
 
     private SpriteRenderer spriteRenderer;  // Reference to the SpriteRenderer
-    public Sprite projectileSprite;        // Public variable for the sprite
+    public Sprite[] projectileSprites;
 
+    Sprite projectileSprite;        // Public variable for the sprite
     private float timeElapsed = 0f; // Track how long the object has existed
 
     void Start()
@@ -43,6 +44,20 @@ public class ProjectileBehaviour : MonoBehaviour
             spriteRenderer.sprite = projectileSprite;
         }
 
+    }
+
+    public void SetCharacteristics(PlayerArms.Weapon weapon, Vector2 direction) {
+        damage = weapon.damage;
+        speed = weapon.projectileSpeed;
+        visible = weapon.projectileVisible;
+        penetration = weapon.projectilePenetration;
+        if (weapon.projectileRange > -1) {
+            maxRange = weapon.projectileRange;
+        }
+        sizeMultiplier = weapon.projectileSize;
+        SetSize();
+        SetInitialVelocity(direction * speed);
+        projectileSprite = projectileSprites[(int) weapon.type];
     }
 
     public void SetProjectileSprite(Sprite newSprite)

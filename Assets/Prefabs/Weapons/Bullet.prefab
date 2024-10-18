@@ -118,7 +118,12 @@ MonoBehaviour:
   lifeDuration: 5
   visible: 1
   playAnimation: 0
-  projectileSprite: {fileID: 0}
+  projectileSprites:
+  - {fileID: 21300000, guid: 1bcb9d4c9bf20a64a91ab51afa5797ad, type: 3}
+  - {fileID: 21300000, guid: 1bcb9d4c9bf20a64a91ab51afa5797ad, type: 3}
+  - {fileID: 21300000, guid: d8a1c0ac1eeb9834fb1c6d8a3bb2b783, type: 3}
+  - {fileID: 21300000, guid: 1bcb9d4c9bf20a64a91ab51afa5797ad, type: 3}
+  - {fileID: 21300000, guid: 4cab4b33b90986c4ea3f579962539bf6, type: 3}
 --- !u!212 &-2027429809247641224
 SpriteRenderer:
   m_ObjectHideFlags: 0

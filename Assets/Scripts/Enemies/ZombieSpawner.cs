@@ -64,7 +64,7 @@ public class ZombieSpawner : MonoBehaviour
 
         return Physics2D.Distance(
             GetComponent<CapsuleCollider2D>(), 
-            player.GetComponent<BoxCollider2D>()
+            player.GetComponent<CapsuleCollider2D>()
         ).distance <= aggroRange;
     }
 
