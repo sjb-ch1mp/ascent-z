@@ -22,7 +22,7 @@ public class PlayerOneWayPlatform : MonoBehaviour
         {
             if (currentOneWayPlatform != null)
             {
-                currentOneWayPlatform.Enter(playerCollider);
+                //currentOneWayPlatform.Enter(playerCollider);
             }
         }
     }

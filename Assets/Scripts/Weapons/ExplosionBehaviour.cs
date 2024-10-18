@@ -11,6 +11,8 @@ public class ExplosionBehaviour : MonoBehaviour
     public float maxRange = Mathf.Infinity; // Default to no range limit
     public float lifeDuration = 5f;
     public bool visible = true;
+    public AudioClip explodeSFX;
+    AudioSource audioSource;
 
     public bool playAnimation = false;
     public Animation explosionAnimation;
@@ -34,8 +36,8 @@ public class ExplosionBehaviour : MonoBehaviour
         // Store the initial position of the projectile
         initialPosition = transform.position;
 
-
-
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(explodeSFX);
 
     }
 

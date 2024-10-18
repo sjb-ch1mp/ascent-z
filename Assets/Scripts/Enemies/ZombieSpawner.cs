@@ -12,6 +12,9 @@ public class ZombieSpawner : MonoBehaviour
     public float aggroRange = 50.0f;
     public float health = 2000f;
     public int score = 250;
+    public float damage = 30;
+    public AudioClip deathSound;
+    public AudioClip[] painSounds;
 
     // References
     GameManager gameManager;
@@ -23,6 +26,7 @@ public class ZombieSpawner : MonoBehaviour
     Transform spawnBoundRight;
     GameObject zombieContainer;
     TutorialManager tutorialManager;
+    AudioSource audioSource;
 
     // Initial state
     float initialHealth;
@@ -48,6 +52,7 @@ public class ZombieSpawner : MonoBehaviour
         spawnBoundRight = transform.GetChild(1);
         healthBarDimensions = transform.GetChild(2);
         maxHealthLen = healthBarDimensions.localScale.x;
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(SpawnZombie());
     }
 
@@ -103,6 +108,7 @@ public class ZombieSpawner : MonoBehaviour
 
     // TakeDamage reduces the enemies health by the damage of the projectile.
     void TakeDamage(ProjectileBehaviour projectile) {
+        audioSource.PlayOneShot(painSounds[Random.Range(0, painSounds.Length)]);
         health -= projectile.damage;
         if (health <= 0) {
             health = 0;
@@ -126,6 +132,7 @@ public class ZombieSpawner : MonoBehaviour
     }
 
     void Die() {
+        audioSource.PlayOneShot(deathSound);
         // Kill all the spawn for this spawner to give the player some breathing room
         gameManager.KillZombiesForSpawner(id);
         gameManager.AddKillScore(score);

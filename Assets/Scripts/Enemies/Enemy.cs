@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // Exports - define different zombie types
+    public float damage = 5.0f;
     public float moveSpeed = 3.0f;
     public float health = 100f;
     public float aggroRange = 10f;
@@ -12,7 +13,10 @@ public class Enemy : MonoBehaviour
     public float jumpPower = 15f;
     public float jumpCooldown = 5.0f;
     public float stunTime = 1.0f;
+    public float pushForce = 15f;
     public int score = 10;
+    public AudioClip aggroSound;
+    public AudioClip dieSound;
 
     // References
     GameObject player;
@@ -23,6 +27,7 @@ public class Enemy : MonoBehaviour
     SpriteRenderer sprite;    
     Transform healthBarDimensions;
     float maxHealthLen;
+    AudioSource audioSource;
 
     // Initial Values
     float initialHealth;
@@ -32,6 +37,7 @@ public class Enemy : MonoBehaviour
     bool isAlive = true;
     bool isStunned = false;
     bool detectedPlayer = false;
+    bool isGrounded = false;
     Collider2D onPlatform;
     float elevationOffset = 1.0f;
     int spawnerId;
@@ -47,6 +53,7 @@ public class Enemy : MonoBehaviour
         maxHealthLen = healthBarDimensions.localScale.x;
         initialHealth = health;
         initialEnergy = energy;
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(JumpCooldown()); // Set the energy to zero, so zombies don't jump on spawn
         sprite.flipX = Random.value >= 0.5f; // random flip (50/50)
     }
@@ -58,7 +65,6 @@ public class Enemy : MonoBehaviour
         }
 
         // Get state of zombie for this frame
-        bool isGrounded = onPlatform != null;
         bool playerOnRight = player.transform.position.x > transform.position.x;
         sprite.flipX = !playerOnRight;
 
@@ -70,11 +76,14 @@ public class Enemy : MonoBehaviour
             }
 
             // Change elevation if the zombie is energetic enough (on a jump cooldown, the zombie will have 0 energy)
+            
             if (Random.value < energy && isGrounded) {
                 if (player.transform.position.y - elevationOffset > transform.position.y) {
+                    Debug.Log($"Player is higher than zombie. Player elevation: {player.transform.position.y}, Zombie elevation: {transform.position.y}");
                     // Jump up
                     Jump();
                 } else if (player.transform.position.y + elevationOffset < transform.position.y) {
+                    Debug.Log($"Player is lower than zombie. Player elevation: {player.transform.position.y}, Zombie elevation: {transform.position.y}");
                     // Jump down
                     StartCoroutine(Descend());
                 }
@@ -98,15 +107,20 @@ public class Enemy : MonoBehaviour
 
     // PlayerNearby checks if the player is within the aggroRange of the enemy
     bool PlayerNearby() {
-        return Physics2D.Distance(
+        if (Physics2D.Distance(
             GetComponent<CapsuleCollider2D>(), 
             player.GetComponent<CapsuleCollider2D>()
-        ).distance <= aggroRange;
+        ).distance <= aggroRange) {
+            audioSource.PlayOneShot(aggroSound);
+            return true;
+        }
+        return false;
     }
 
     void Jump() {
         enemyRigidbody.velocity = new Vector2(enemyRigidbody.velocity.x, jumpPower);
         onPlatform = null;
+        isGrounded = false;
         animator.SetBool("isAirborne", true);
         StartCoroutine(JumpCooldown());
     }
@@ -182,26 +196,30 @@ public class Enemy : MonoBehaviour
         switch (tag) {
             case "OneWayPlatform": 
                 animator.SetBool("isAirborne", false);
+                isGrounded = true;
                 if (onPlatform == null) {
                     onPlatform = collision.collider;
                 }
-                break;
+                return;
             case "GameBoundary":
                 Destroy(gameObject);
-                break;
+                return;
             case "Bullet":
                 TakeDamage(collision.gameObject.GetComponent<ProjectileBehaviour>());
                 if (gameManager.GetCurrentWeapon() == Resources.Weapon.BASEBALL_BAT && health > 0) {
                     StartCoroutine(Stun());
                 }
-                break;
+                return;
             case "Explosion":
                 TakeDamageExplosion(collision.gameObject.GetComponent<ExplosionBehaviour>());
                 StartCoroutine(Stun());
-                break;
+                return;
             case "Player":
-                animator.SetTrigger("attack");
-                break;
+                StartCoroutine(Attack(collision.gameObject.GetComponent<Rigidbody2D>()));
+                return;
+        }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+            isGrounded = true;
         }
     }
 
@@ -216,6 +234,7 @@ public class Enemy : MonoBehaviour
     // Die ensures that the enemy is grounded before playing the
     // death animation so that it doesn't look funky
     IEnumerator Die(bool withScore) {
+        audioSource.PlayOneShot(dieSound);
         animator.SetBool("isAirborne", false);
         animator.SetBool("isMoving", false);
         animator.SetBool("isStunned", true);
@@ -251,14 +270,22 @@ public class Enemy : MonoBehaviour
         Physics2D.IgnoreCollision(enemyCollider, playerCollider, false);
     }
 
+    IEnumerator Attack(Rigidbody2D playerRigidBody) {
+        animator.SetTrigger("attack");
+        audioSource.PlayOneShot(aggroSound);
+        playerRigidBody.AddForce((sprite.flipX ? Vector2.left : Vector2.right) * pushForce, ForceMode2D.Impulse);
+        // Stun the enemy
+        isStunned = true;
+        // Wait for stun duration
+        yield return new WaitForSeconds(0.5f);
+        // Unstun enemy
+        isStunned = false;
+    }
+
     // DestroyAfterAnimation is a public function that is 
     // used as an animation Event to destroy the enemy
     public void DestroyAfterAnimation() {
         Destroy(gameObject);
-    }
-
-    public bool IsGrounded() {
-        return onPlatform != null;
     }
 }
  

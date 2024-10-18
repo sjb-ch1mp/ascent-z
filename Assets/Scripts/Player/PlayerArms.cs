@@ -1,38 +1,38 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerArms : MonoBehaviour
 {
 
     // Exports
-    public Vector2[] bulletOffsets; // Must be in the order of Resources.Weapon
     public ProjectileBehaviour projectilePrefab;
+    public AudioClip[] shootSounds; // Must be in the order of Resources.Weapon
 
     // References
     Animator animator;
     GameManager gameManager;
+    AudioSource audioSource;
+    Transform projectileContainer;
 
     // State
     Weapon currentWeapon;
     bool canShoot = true;
-    float angle = 0f;
+    Vector2 currentDirection = Vector2.zero;
 
     void Awake() {
         gameManager = GameManager.Instance;
         currentWeapon = Weapon.BaseballBat();
         animator = GetComponent<Animator>();
+        projectileContainer = GameObject.Find("Projectiles").transform;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // =========== Functions
     public void FireWeapon() {
         if (canShoot) {
+            audioSource.PlayOneShot(shootSounds[(int) currentWeapon.type]);
             StartCoroutine(ShootCooldown(currentWeapon.cooldown)); // Block further shooting
             gameManager.ConsumeAmmo();
-            // Calculate the direction from the player to the mouse cursor
-            Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = (mouseWorldPosition - GetBulletOffset()).normalized;
             if (currentWeapon.type == Resources.Weapon.SHOTGUN) {
                 // Shotgun is unique because it has a spread
                 int projectileCount = 12;
@@ -42,19 +42,19 @@ public class PlayerArms : MonoBehaviour
                 for (int i=0; i<projectileCount; i++) {
                     float currentAngle = startingAngle + (angleStep * i);
                     Quaternion spreadRotation = Quaternion.Euler(0, 0, currentAngle);
-                    Vector2 spreadDirection = spreadRotation * direction;
+                    Vector2 spreadDirection = spreadRotation * currentDirection;
                     // Calculate the angle for projectile rotation
-                    //float angle = Mathf.Atan2(spreadDirection.y, spreadDirection.x) * Mathf.Rad2Deg;// - 90f;
+                    float angle = Mathf.Atan2(spreadDirection.y, spreadDirection.x) * Mathf.Rad2Deg - 90f;
                     Quaternion projectileRotation = Quaternion.Euler(0, 0, angle);
-                    ProjectileBehaviour projectile = Instantiate(projectilePrefab, GetBulletOffset(), projectileRotation);
+                    ProjectileBehaviour projectile = Instantiate(projectilePrefab, transform.position, projectileRotation, projectileContainer);
                     projectile.SetCharacteristics(currentWeapon, spreadDirection);
                 }
             } else {
                 // All other weapons simply fire a single projectile
-                //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f; // init projectile with direction
+                float angle = Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg - 90f; // init projectile with direction
                 Quaternion rotation = Quaternion.Euler(0, 0, angle);
-                ProjectileBehaviour projectile = Instantiate(projectilePrefab, GetBulletOffset(), rotation);
-                projectile.SetCharacteristics(currentWeapon, direction);
+                ProjectileBehaviour projectile = Instantiate(projectilePrefab, transform.position, rotation, projectileContainer);
+                projectile.SetCharacteristics(currentWeapon, currentDirection);
                 if (currentWeapon.type == Resources.Weapon.BASEBALL_BAT) {
                     animator.SetTrigger("baseballBatAttack");
                 }
@@ -62,16 +62,12 @@ public class PlayerArms : MonoBehaviour
         }
     }
 
-    Vector2 GetBulletOffset() {
-        Vector2 offset = bulletOffsets[(int) currentWeapon.type];
-        return new Vector2(
-            transform.position.x + offset.x,
-            transform.position.y + offset.y
-        );
+    public bool RapidFire() {
+        return currentWeapon.rapidFire;
     }
 
-    public void SetAngle(float angle) {
-        this.angle = angle;
+    public void SetDirection(Vector2 direction) {
+        currentDirection = direction;
     }
 
     // PickUpWeapon changes the current weapon that the player is holding
@@ -126,6 +122,7 @@ public class PlayerArms : MonoBehaviour
         public bool projectileVisible { get; set; }
         public float projectileRange { get; set; }
         public float projectilePenetration { get; set; }
+        public float projectilePushback { get; set; }
 
         Weapon(
             Resources.Weapon type, 
@@ -136,7 +133,8 @@ public class PlayerArms : MonoBehaviour
             float projectileSize,
             bool projectileVisible,
             float projectileRange,
-            float projectilePenetration
+            float projectilePenetration,
+            float projectilePushback
         ) {
             this.type = type;
             this.rapidFire = rapidFire;
@@ -147,26 +145,27 @@ public class PlayerArms : MonoBehaviour
             this.projectileVisible = projectileVisible;
             this.projectileRange = projectileRange;
             this.projectilePenetration = projectilePenetration;
+            this.projectilePushback = projectilePushback;
         }
 
         public static Weapon BaseballBat() {
-            return new Weapon(Resources.Weapon.BASEBALL_BAT, false, 0.5f, 5, 15, 9, /* DEBUG false*/true, 0.8f, Mathf.Infinity);
+            return new Weapon(Resources.Weapon.BASEBALL_BAT, false, 0.5f, 10, 30, 9, false, 0.8f, 0, 5);
         }
 
         public static Weapon Handgun() {
-            return new Weapon(Resources.Weapon.HANDGUN, false, 0.25f, 15, 15, 3, true, -1, 1);
+            return new Weapon(Resources.Weapon.HANDGUN, false, 0.25f, 30, 25, 3, true, -1, 0, 3);
         }
 
         public static Weapon Shotgun() {
-            return new Weapon(Resources.Weapon.SHOTGUN, false, 1.0f, 25, 10, 1.5f, true, -1, 2);
+            return new Weapon(Resources.Weapon.SHOTGUN, false, 1.0f, 50, 10, 1.5f, true, -1, 0, 5);
         }
 
         public static Weapon AssaultRifle() {
-            return new Weapon(Resources.Weapon.ASSAULT_RIFLE, true, 0.1f, 10, 10, 2.25f, true, -1, 1);
+            return new Weapon(Resources.Weapon.ASSAULT_RIFLE, true, 0.1f, 30, 30, 2.25f, true, -1, 0, 3);
         }
 
         public static Weapon SniperRifle() {
-            return new Weapon(Resources.Weapon.SNIPER_RIFLE, false, 1.25f, 100, 25, 5f, true, -1, 4);
+            return new Weapon(Resources.Weapon.SNIPER_RIFLE, false, 1.25f, 200, 30, 5f, true, -1, 2, 7);
         }
     }
 }

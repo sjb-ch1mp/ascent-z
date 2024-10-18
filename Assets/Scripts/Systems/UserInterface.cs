@@ -108,7 +108,7 @@ public class UserInterface : MonoBehaviour
 
     public void PlayerSpawn()
     {
-        PickUpWeapon(Resources.Weapon.BASEBALL_BAT);
+        PickUpWeapon(Resources.Weapon.HANDGUN);
     }
 
     public void PickUpWeapon(Resources.Weapon newWeapon) {
@@ -202,11 +202,11 @@ public class UserInterface : MonoBehaviour
             case Resources.Collectible.ARMOUR:
                 audioSource.PlayOneShot(pickUpArmour);
                 armourActive.SetActive(true);
-                player.Armour = Mathf.Clamp(player.Armour + increaseAmount, 0, Resources.MAX_ARMOUR);
+                player.PickUpArmour(increaseAmount);
                 break;
             case Resources.Collectible.MEDPACK:
                 audioSource.PlayOneShot(pickUpHealth);
-                player.Health = Mathf.Clamp(player.Health + increaseAmount, 0, Resources.MAX_HEALTH);
+                player.PickUpHealth(increaseAmount);
                 break;
             case Resources.Collectible.LIFE:
                 audioSource.PlayOneShot(pickUpLife);

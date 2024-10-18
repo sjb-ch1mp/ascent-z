@@ -15,6 +15,7 @@ TagManager:
   - Grenade
   - Explosion
   - BossEnemy
+  - Survivor
   layers:
   - Default
   - TransparentFX

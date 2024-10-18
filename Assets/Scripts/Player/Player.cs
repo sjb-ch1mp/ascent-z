@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public int extraJump = 1;
     public GrenadeBehaviour grenadePrefab;
     public PlayerArms arms;
+    public AudioClip[] deathSounds;
 
     // References
     GameManager gameManager;
@@ -21,6 +22,8 @@ public class Player : MonoBehaviour
     SpriteRenderer playerSprite;
     SpriteRenderer healthBar;
     SpriteRenderer armourBar;
+    Transform feet;
+    AudioSource audioSource;
 
     // State
     bool isAlive = true;
@@ -40,6 +43,12 @@ public class Player : MonoBehaviour
         playerSprite = GetComponent<SpriteRenderer>();
         healthBar = transform.Find("Health").GetComponent<SpriteRenderer>();
         armourBar = transform.Find("Armour").GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
+        feet = transform.Find("Feet");
+        Health = Resources.MAX_HEALTH;
+        UpdateStatusBar(false);
+        Armour = 0;
+        UpdateStatusBar(true);
         // Start Coroutines
         StartCoroutine(RegenerateHealth());
     }
@@ -54,7 +63,10 @@ public class Player : MonoBehaviour
             // Movement
             float movementDirection = Input.GetAxis("Horizontal");
             if (movementDirection > 0 || movementDirection < 0) {
+                animator.SetBool("isMoving", true);
                 playerRigidBody.velocity = new Vector2(movementDirection * moveSpeed, playerRigidBody.velocity.y);
+            } else {
+                animator.SetBool("isMoving", false);
             }
         }
     }
@@ -64,29 +76,49 @@ public class Player : MonoBehaviour
             // Sprite positioning
             Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             playerSprite.flipX = mouseWorldPosition.x < transform.position.x;
-            arms.SetAngle(RotateArms());
+            arms.SetDirection(RotateArms());
 
             // Jumping
-            if (isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))) {
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) {
                 Jump();
             }
 
             // Firing
-            if (Input.GetKeyDown(KeyCode.Mouse0)) {
+            if (Input.GetKeyDown(KeyCode.Mouse0) || (arms.RapidFire() && Input.GetKey(KeyCode.Mouse0))) {
                 arms.FireWeapon();
             } else if (Input.GetKeyDown(KeyCode.Mouse1)) {
                 ThrowGrenade();
             }
         }
+        CheckOnGround();
     }
 
     // ========== Movement
-    void Jump()
-    {
-        if (jumpCount < extraJump) {
+    void ResetAnimations() {
+        animator.SetBool("isAirborne", false);
+        animator.SetBool("isStunned", false);
+        animator.SetBool("isMoving", false);
+    }
+
+    void Jump() {
+        if (isGrounded || jumpCount < extraJump) {
+            animator.SetBool("isAirborne", true);
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower);  // Apply the jump force
             jumpCount++;
         }
+    }
+
+    void CheckOnGround() {
+        RaycastHit2D hit = Physics2D.Raycast(feet.position, Vector2.down, 0.5f);
+        if (hit.collider != null) {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground") || 
+                hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+                jumpCount = 0;
+                isGrounded = true;
+                animator.SetBool("isAirborne", false);
+            } 
+        }
+        isGrounded = false;
     }
 
     void ThrowGrenade() {
@@ -106,11 +138,6 @@ public class Player : MonoBehaviour
     }
 
     // =========== Health
-    // Alternative function to kill the player immediately (e.g. 
-    // if they fall out of the boundary)
-    public void KillImmediately() {
-
-    }
     // TakeDamage first depletes armour (if it is non-zero) before
     // depleting health.
     public void TakeDamage(float damage) {
@@ -166,8 +193,18 @@ public class Player : MonoBehaviour
         gameManager.RenderLives(Lives);
     }
 
+    public void PickUpArmour(float increaseAmount) {
+        Armour = Mathf.Clamp(Armour + increaseAmount, 0, Resources.MAX_ARMOUR);
+        UpdateStatusBar(true);
+    }
+
+    public void PickUpHealth(float increaseAmount) {
+        Health = Mathf.Clamp(Health + increaseAmount, 0, Resources.MAX_HEALTH);
+        UpdateStatusBar(false);
+    }
+
     // ========= Weapons
-    float RotateArms() {
+    Vector2 RotateArms() {
         Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Get the mouse position in world space
         Vector2 direction = (mouseWorldPosition - (Vector2) transform.position).normalized; // Calculate direction from player to mouse
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; // Calculate the angle in degrees
@@ -178,11 +215,19 @@ public class Player : MonoBehaviour
         } else {
             armsPivot.localScale = new Vector3(1, 1, 1);  // Reset flip
         }
-        return angle;
+        return direction;
     }
 
     public void PickUpWeapon(Resources.Weapon newWeapon) {
         arms.PickUpWeapon(newWeapon);
+    }
+
+    IEnumerator Stun(float stunTime) {
+        isStunned = true;
+        animator.SetBool("isStunned", true);
+        yield return new WaitForSeconds(stunTime);
+        isStunned = false;
+        animator.SetBool("isStunned", false);
     }
 
     // ========= Collision
@@ -193,9 +238,19 @@ public class Player : MonoBehaviour
         }
     }
     void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
-            jumpCount = 0;
-            isGrounded = true;
+        string tag = collision.gameObject.tag;
+        switch (tag) {
+            case "Enemy":
+                Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+                TakeDamage(enemy.damage);
+                StartCoroutine(Stun(enemy.stunTime));
+                break;  
+            case "BossEnemy":
+                ZombieSpawner zombieSpawner = collision.gameObject.GetComponent<ZombieSpawner>();
+                if (zombieSpawner != null) {
+                    TakeDamage(zombieSpawner.damage);
+                }
+                break;
         }
     }
 
@@ -218,7 +273,9 @@ public class Player : MonoBehaviour
     private IEnumerator Die() {
         if (isAlive) {
             isAlive = false; // Block further calls
-            CameraTracking.Instance.DisableTrigger(); // Stop tracking player with camera
+            ResetAnimations();
+            animator.SetBool("isDead", true);
+            audioSource.PlayOneShot(deathSounds[Random.Range(0, deathSounds.Length)]);
             gameManager.AddRevivesCount(); //  Update the death count for scoring
             Lives = Mathf.Clamp(Lives - 1, 0, Resources.MAX_LIVES); // Update lives
             gameManager.RenderLives(Lives);

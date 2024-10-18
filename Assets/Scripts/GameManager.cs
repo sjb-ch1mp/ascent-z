@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,10 +8,12 @@ public class GameManager : MonoBehaviour
     // Exports
     public AudioClip gameOverSound;
     [SerializeField] private GameObject player;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     // References
     UserInterface ui;
     ScoreManager scoreManager;
+    AudioSource audioSource;
 
     // State
     bool paused = false;
@@ -19,7 +22,6 @@ public class GameManager : MonoBehaviour
     private GameObject in_player;
     private GameOverScreen gameOverScreen;
     private LevelManager levelManager;
-    private CameraTracking cameraTracking;
 
     public static GameManager Instance { get; private set; }
 
@@ -44,10 +46,10 @@ public class GameManager : MonoBehaviour
         levelManager = LevelManager.Instance;
         ui = UserInterface.Instance;
         gameOverScreen = ui.gameOverScreen;
-        cameraTracking = CameraTracking.Instance;
         scoreManager = new ScoreManager();
-
-        SpawnPlayer();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
+        SpawnPlayer(); 
     }
 
     void OnDestroy()
@@ -69,11 +71,12 @@ public class GameManager : MonoBehaviour
 
         // Ensure the player can move
         in_player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-
         in_player.transform.position = levelManager.GetSpawn();
-        cameraTracking.ResetTo(in_player.transform.position);
         ui.PlayerSpawn();
-        cameraTracking.EnableTrigger();
+        virtualCamera.Follow = in_player.transform;
+        virtualCamera.LookAt = in_player.transform;
+        //cameraTracking.ResetTo(in_player.transform.position);
+        //cameraTracking.EnableTrigger();
     }
 
     // Zombie Spawner system

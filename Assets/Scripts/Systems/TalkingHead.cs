@@ -28,6 +28,7 @@ public class TalkingHead : MonoBehaviour
 
     // State
     public bool IsTalking { get; set; }
+    bool dismissed = false;
 
     void Awake() {
         gameManager = GameManager.Instance;
@@ -37,7 +38,10 @@ public class TalkingHead : MonoBehaviour
     }
 
     public void Dismiss() {
-        gameManager.SetPaused(false);
+        if (dismissed) {
+            return;
+        }
+        dismissed = true;
         audioSource.Stop();
         audioSource.PlayOneShot(radioActivate);
         StopAllCoroutines();
@@ -59,7 +63,9 @@ public class TalkingHead : MonoBehaviour
         while (audioSource.isPlaying) {
             yield return new WaitForSeconds(characterDelay);
         }
+        gameManager.SetPaused(false);
         IsTalking = false;
+        dismissed = false;
         gameObject.SetActive(false);
     }
 
