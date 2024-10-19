@@ -8,12 +8,12 @@ public class GameManager : MonoBehaviour
     // Exports
     public AudioClip gameOverSound;
     [SerializeField] private GameObject player;
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private AudioSource audioSource;
 
     // References
     UserInterface ui;
     ScoreManager scoreManager;
-    AudioSource audioSource;
+    CinemachineVirtualCamera virtualCamera;
 
     // State
     bool paused = false;
@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     private GameObject in_player;
     private GameOverScreen gameOverScreen;
     private LevelManager levelManager;
+    public int Lives { get; set; } // Need to store lives here so it's persistent across deaths and loads
 
     public static GameManager Instance { get; private set; }
 
@@ -47,8 +48,10 @@ public class GameManager : MonoBehaviour
         ui = UserInterface.Instance;
         gameOverScreen = ui.gameOverScreen;
         scoreManager = new ScoreManager();
-        audioSource = GetComponent<AudioSource>();
-        audioSource.Play();
+        Lives = Resources.MAX_LIVES;
+        ui.RenderLives(Lives);
+        virtualCamera = GameObject.Find("VCFollowCamera").GetComponent<CinemachineVirtualCamera>();
+        gameOver = false;
         SpawnPlayer(); 
     }
 
@@ -75,8 +78,14 @@ public class GameManager : MonoBehaviour
         ui.PlayerSpawn();
         virtualCamera.Follow = in_player.transform;
         virtualCamera.LookAt = in_player.transform;
-        //cameraTracking.ResetTo(in_player.transform.position);
-        //cameraTracking.EnableTrigger();
+    }
+
+    public void RespawnPlayer() {
+        if (in_player != null) {
+            Destroy(in_player.gameObject);
+            in_player = null;
+        }
+        SpawnPlayer();
     }
 
     // Zombie Spawner system
@@ -133,8 +142,12 @@ public class GameManager : MonoBehaviour
         return ui.HasGrenades();
     }
 
-    public void RenderLives(int lives) {
-        ui.RenderLives(lives);
+    public void LoseLife() {
+        Lives = Mathf.Clamp(Lives - 1, 0, Resources.MAX_LIVES);
+        ui.RenderLives(Lives);
+        if (Lives == 0) {
+            GameOver();
+        }
     }
 
     public void DepleteArmour() {
@@ -183,6 +196,13 @@ public class GameManager : MonoBehaviour
     }
 
     // Game flow
+    public bool LastManStanding() {
+        // There should be exactly one enemy left on this call (the one calling the function)
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] bosses = GameObject.FindGameObjectsWithTag("BossEnemy");
+        return enemies.Length + bosses.Length == 1;
+    }
+
     public void SetPaused(bool pauseGame) {
         paused = pauseGame;
     }

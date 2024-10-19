@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public static class Resources
 {
     public static float SPIN_TIME = 0.2f;
@@ -6,6 +8,7 @@ public static class Resources
     public static float MAX_HEALTH = 100f;
     public static float MAX_ARMOUR = 100f;
     public static int MAX_ZOMBIES_PER_SPAWNER = 50;
+    public static int MAX_AMMO = 100;
 
     public enum Weapon {
         BASEBALL_BAT,
@@ -53,6 +56,15 @@ public static class Resources
             default:
                 return 0;
         }
+    }
+
+    public static Dictionary<Weapon, int> GetAmmoCache() {
+        return new Dictionary<Weapon, int>(){
+            {Weapon.HANDGUN, 0},
+            {Weapon.SHOTGUN, 0},
+            {Weapon.ASSAULT_RIFLE, 0},
+            {Weapon.SNIPER_RIFLE, 0},
+        };
     }
 
     // Medal calculators
