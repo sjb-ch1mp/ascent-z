@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -19,7 +18,7 @@ public class Enemy : MonoBehaviour
     public AudioClip dieSound;
 
     // References
-    GameObject player;
+    Vector2 target;
     GameManager gameManager;
     Rigidbody2D enemyRigidbody;
     CapsuleCollider2D enemyCollider;
@@ -36,15 +35,14 @@ public class Enemy : MonoBehaviour
     // State
     bool isAlive = true;
     bool isStunned = false;
-    bool detectedPlayer = false;
     bool isGrounded = false;
+    bool isAggroed = false;
     Collider2D onPlatform;
     float elevationOffset = 1.0f;
     int spawnerId;
 
     void Start() {
         gameManager = GameManager.Instance;
-        player = gameManager.GetPlayer();
         enemyRigidbody = GetComponent<Rigidbody2D>();
         enemyCollider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
@@ -64,36 +62,36 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        // Get state of zombie for this frame
-        bool playerOnRight = player.transform.position.x > transform.position.x;
-        sprite.flipX = !playerOnRight;
+        if (GetTarget()) {
+            // Get state of zombie for this frame
+            bool targetOnRight = target.x > transform.position.x;
+            sprite.flipX = !targetOnRight;
 
-        // Do movement based on state
-        if (detectedPlayer) {
             // If the zombie has found itself falling - try to jump a random direction
             if (!isGrounded && energy != 0) {
                 Jump();
             }
 
             // Change elevation if the zombie is energetic enough (on a jump cooldown, the zombie will have 0 energy)
-            
             if (Random.value < energy && isGrounded) {
-                if (player.transform.position.y - elevationOffset > transform.position.y) {
-                    Debug.Log($"Player is higher than zombie. Player elevation: {player.transform.position.y}, Zombie elevation: {transform.position.y}");
+                if (target.y - elevationOffset > transform.position.y) {
                     // Jump up
-                    Jump();
-                } else if (player.transform.position.y + elevationOffset < transform.position.y) {
-                    Debug.Log($"Player is lower than zombie. Player elevation: {player.transform.position.y}, Zombie elevation: {transform.position.y}");
+                    Jump(); // FIXME: Climb!
+                } else if (target.y + elevationOffset < transform.position.y) {
                     // Jump down
                     StartCoroutine(Descend());
                 }
             }
 
-            // Ultimately move towards the player
-            MoveTowardsPlayer();
+            // Ultimately move towards the current target
+            MoveTowardsTarget();
         } else {
-            // Check for player
-            detectedPlayer = PlayerNearby();
+            // No target - idle
+            if (animator.GetBool("isMoving")) {
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isStunned", false);
+                animator.SetBool("isAirborne", false);
+            }
         }
     }
 
@@ -106,15 +104,8 @@ public class Enemy : MonoBehaviour
     }
 
     // PlayerNearby checks if the player is within the aggroRange of the enemy
-    bool PlayerNearby() {
-        if (Physics2D.Distance(
-            GetComponent<CapsuleCollider2D>(), 
-            player.GetComponent<CapsuleCollider2D>()
-        ).distance <= aggroRange) {
-            audioSource.PlayOneShot(aggroSound);
-            return true;
-        }
-        return false;
+    bool PlayerNearby(GameObject player) {
+        return Physics2D.Distance(GetComponent<CapsuleCollider2D>(), player.GetComponent<CapsuleCollider2D>()).distance <= aggroRange;
     }
 
     void Jump() {
@@ -135,10 +126,47 @@ public class Enemy : MonoBehaviour
         Physics2D.IgnoreCollision(enemyCollider, platformCollider, false);
     }
 
-    // MoveTowardsPlayer causes the zombie to walk towards the player
-    void MoveTowardsPlayer() {
+    // GetTarget gives a zombie a new target to walk to
+    bool GetTarget() {
+        // Check player is available
+        GameObject player = gameManager.GetPlayer();
+        if (player != null && !player.GetComponent<Player>().IsDead() && PlayerNearby(player)) {
+            if (!isAggroed) {
+                isAggroed = true;
+                audioSource.PlayOneShot(aggroSound);
+            }
+            target = player.transform.position;
+            return true;
+        }
+        // If not, target a random spot around the parent spawner
+        if (isAggroed) {
+            isAggroed = false;
+        }
+        ZombieSpawner zombieSpawner = GetParentSpawner();
+        if (zombieSpawner != null) {
+            target = new Vector2(zombieSpawner.GetRandomXInVicinity(), zombieSpawner.gameObject.transform.position.y);
+            return true;
+        }
+        // Neither the spawner nor player are available
+        return false;
+    }
+
+    // GetParentSpawner retrives the gameobject of the zombie spawner that 
+    // spawned this zombie
+    ZombieSpawner GetParentSpawner() {
+        ZombieSpawner[] zombieSpawners = FindObjectsOfType<ZombieSpawner>();
+        for (int i = 0; i < zombieSpawners.Length; i++) {
+            if (zombieSpawners[i] != null && zombieSpawners[i].id == spawnerId) {
+                return zombieSpawners[i];
+            }
+        }
+        return null;
+    }
+
+    // MoveTowardsTarget causes the zombie to walk towards their current target
+    void MoveTowardsTarget() {
         // Calculate the direction towards the player
-        Vector2 direction = (player.transform.position - transform.position).normalized;
+        Vector2 direction = (target - (Vector2) transform.position).normalized;
         enemyRigidbody.velocity = new Vector2(direction.x * moveSpeed, enemyRigidbody.velocity.y);
         // Ensure the move animation is playing
         if (!animator.GetBool("isMoving")) {
@@ -257,17 +285,26 @@ public class Enemy : MonoBehaviour
 
     // When stunned, the player will not take damage from enemies
     IEnumerator Stun() {
-        CapsuleCollider2D playerCollider = player.GetComponent<CapsuleCollider2D>();
+        /*GameObject player = gameManager.GetPlayer();
+        if (player != null) {
+            CapsuleCollider2D playerCollider = player.GetComponent<CapsuleCollider2D>();
+            Physics2D.IgnoreCollision(enemyCollider, playerCollider);
+        }*/
+        gameObject.layer = LayerMask.NameToLayer("Dead");
         // Stun the enemy
         isStunned = true;
         animator.SetBool("isStunned", true);
-        Physics2D.IgnoreCollision(enemyCollider, playerCollider);
         // Wait for stun duration
         yield return new WaitForSeconds(stunTime);
         // Unstun enemy
         isStunned = false;
         animator.SetBool("isStunned", false);
-        Physics2D.IgnoreCollision(enemyCollider, playerCollider, false);
+        gameObject.layer = LayerMask.NameToLayer("Enemy");
+        /*
+        if (player != null) {
+            CapsuleCollider2D playerCollider = player.GetComponent<CapsuleCollider2D>();
+            Physics2D.IgnoreCollision(enemyCollider, playerCollider, false);
+        }*/
     }
 
     IEnumerator Attack(Rigidbody2D playerRigidBody) {
@@ -285,6 +322,9 @@ public class Enemy : MonoBehaviour
     // DestroyAfterAnimation is a public function that is 
     // used as an animation Event to destroy the enemy
     public void DestroyAfterAnimation() {
+        if (gameManager.LastManStanding()) {
+            gameManager.RunScoreRoutine();
+        }
         Destroy(gameObject);
     }
 }

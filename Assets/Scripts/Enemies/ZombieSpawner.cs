@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ZombieSpawner : MonoBehaviour
@@ -37,7 +35,7 @@ public class ZombieSpawner : MonoBehaviour
     bool isHit = false;
     bool isDesperate = false;
     float spawnRate = 3;
-    int id;
+    public int id;
 
     // Start is called before the first frame update
     void Start() {
@@ -89,11 +87,11 @@ public class ZombieSpawner : MonoBehaviour
                     float randomZombieThreshold = Random.value;
                     GameObject zombie = null;
                     if (randomZombieThreshold <= zombieSpawnThresholds[0]) {
-                        zombie = Instantiate(zombies[0], new Vector3(randomSpawnX, transform.position.y, transform.position.z), zombies[0].transform.rotation, zombieContainer.transform);
+                        zombie = Instantiate(zombies[0], new Vector3(randomSpawnX, spawnBoundLeft.position.y, transform.position.z), zombies[0].transform.rotation, zombieContainer.transform);
                     } else if (randomZombieThreshold <= zombieSpawnThresholds[1]) {
-                        zombie = Instantiate(zombies[1], new Vector3(randomSpawnX, transform.position.y, transform.position.z), zombies[1].transform.rotation, zombieContainer.transform);
+                        zombie = Instantiate(zombies[1], new Vector3(randomSpawnX, spawnBoundLeft.position.y, transform.position.z), zombies[1].transform.rotation, zombieContainer.transform);
                     } else {
-                        zombie = Instantiate(zombies[2], new Vector3(randomSpawnX, transform.position.y, transform.position.z), zombies[2].transform.rotation, zombieContainer.transform);
+                        zombie = Instantiate(zombies[2], new Vector3(randomSpawnX, spawnBoundLeft.position.y, transform.position.z), zombies[2].transform.rotation, zombieContainer.transform);
                     }
                     if (zombie != null /*If not dead immediately*/) {
                         zombie.GetComponent<Enemy>().Stamp(id);
@@ -118,6 +116,10 @@ public class ZombieSpawner : MonoBehaviour
         UpdateHealthBar();
     }
 
+    public float GetRandomXInVicinity() {
+        return Random.Range(spawnBoundLeft.position.x, spawnBoundRight.position.x);
+    }
+
     // TakeDamage reduces the enemies health by the damage of the EXPLOSION.
     void TakeDamageExplosion(ExplosionBehaviour projectile)
     {
@@ -134,7 +136,7 @@ public class ZombieSpawner : MonoBehaviour
     void Die() {
         audioSource.PlayOneShot(deathSound);
         // Kill all the spawn for this spawner to give the player some breathing room
-        gameManager.KillZombiesForSpawner(id);
+        //gameManager.KillZombiesForSpawner(id);
         gameManager.AddKillScore(score);
         gameObject.layer = LayerMask.NameToLayer("Dead");
         animator.SetBool("isDead", true);
@@ -171,7 +173,9 @@ public class ZombieSpawner : MonoBehaviour
     // DestroyAfterAnimation is a public function that is 
     // used as an animation Event to destroy the enemy
     public void DestroyAfterAnimation() {
-        gameManager.RunScoreRoutine();
+        if (gameManager.LastManStanding()) {
+            gameManager.RunScoreRoutine();
+        }
         Destroy(gameObject);
     }
 }

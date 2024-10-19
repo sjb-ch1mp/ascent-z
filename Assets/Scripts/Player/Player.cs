@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,9 +11,12 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpPower = 15f;
     public int extraJump = 1;
+    public float fallDamage = 2;
+    public float fallMin = 50;
     public GrenadeBehaviour grenadePrefab;
     public PlayerArms arms;
     public AudioClip[] deathSounds;
+    public AudioClip[] fallDamageSounds;
 
     // References
     GameManager gameManager;
@@ -30,7 +34,7 @@ public class Player : MonoBehaviour
     bool isStunned = false;
     bool isGrounded = false;
     int jumpCount = 0;
-    public int Lives { get; set; }
+    Vector2 offGroundPosition = Vector2.negativeInfinity;
     public float Health { get; set; }
     public float Armour { get; set; }
 
@@ -94,15 +98,8 @@ public class Player : MonoBehaviour
     }
 
     // ========== Movement
-    void ResetAnimations() {
-        animator.SetBool("isAirborne", false);
-        animator.SetBool("isStunned", false);
-        animator.SetBool("isMoving", false);
-    }
-
     void Jump() {
         if (isGrounded || jumpCount < extraJump) {
-            animator.SetBool("isAirborne", true);
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower);  // Apply the jump force
             jumpCount++;
         }
@@ -113,10 +110,32 @@ public class Player : MonoBehaviour
         if (hit.collider != null) {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground") || 
                 hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+                if (!isGrounded) {
+                    // Moment that we first land
+                    float fallLength = offGroundPosition.y - transform.position.y;
+                    if (fallLength > 0 && Math.Abs(fallLength) > fallMin) {
+                        // apply fall damage
+                        float dmg = (fallLength - fallMin) * fallDamage;
+                        audioSource.PlayOneShot(fallDamageSounds[UnityEngine.Random.Range(0, fallDamageSounds.Length)]);
+                        TakeDamage(dmg);
+                    }
+                    if (animator.GetBool("isAirborne")) {
+                        animator.SetBool("isAirborne", false);
+                    }
+                }
                 jumpCount = 0;
                 isGrounded = true;
-                animator.SetBool("isAirborne", false);
+                return;
             } 
+        } 
+        
+        // No ground or enemy hit
+        if (isGrounded) {
+            // Moment that we first leave the ground
+            if (!animator.GetBool("isAirborne")) {
+                animator.SetBool("isAirborne", true);
+            }
+            offGroundPosition = transform.position;
         }
         isGrounded = false;
     }
@@ -188,11 +207,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void AddLife() {
-        Lives = Mathf.Clamp(Lives + 1, 0, Resources.MAX_LIVES);
-        gameManager.RenderLives(Lives);
-    }
-
     public void PickUpArmour(float increaseAmount) {
         Armour = Mathf.Clamp(Armour + increaseAmount, 0, Resources.MAX_ARMOUR);
         UpdateStatusBar(true);
@@ -201,6 +215,10 @@ public class Player : MonoBehaviour
     public void PickUpHealth(float increaseAmount) {
         Health = Mathf.Clamp(Health + increaseAmount, 0, Resources.MAX_HEALTH);
         UpdateStatusBar(false);
+    }
+
+    public bool IsDead() {
+        return !isAlive;
     }
 
     // ========= Weapons
@@ -260,7 +278,7 @@ public class Player : MonoBehaviour
     private IEnumerator RegenerateHealth() {
         while (isAlive) {
             yield return new WaitForSeconds(healthTickTime);
-            if (Health < 100f) {
+            if (Health < 100f && !isStunned && isAlive) {
                 Health = Mathf.Clamp(Health + healthTickAmount, 0, 100);
                 UpdateStatusBar(false);
             }
@@ -273,19 +291,25 @@ public class Player : MonoBehaviour
     private IEnumerator Die() {
         if (isAlive) {
             isAlive = false; // Block further calls
-            ResetAnimations();
-            animator.SetBool("isDead", true);
-            audioSource.PlayOneShot(deathSounds[Random.Range(0, deathSounds.Length)]);
-            gameManager.AddRevivesCount(); //  Update the death count for scoring
-            Lives = Mathf.Clamp(Lives - 1, 0, Resources.MAX_LIVES); // Update lives
-            gameManager.RenderLives(Lives);
+            gameObject.layer = LayerMask.NameToLayer("Dead");
+            playerRigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+
+            Health = 0;
+            UpdateStatusBar(false);
+
+            audioSource.PlayOneShot(deathSounds[UnityEngine.Random.Range(0, deathSounds.Length)]);
+            animator.SetBool("isAirborne", false);
+            animator.SetBool("isMoving", false);
+            animator.SetBool("isStunned", false);
             arms.gameObject.SetActive(false); // Turn off arms for the death animation
-            animator.SetBool("isDead", true); // Start the death animation
+            animator.SetTrigger("die");
+
+            gameManager.AddRevivesCount(); //  Update the death count for scoring
+            gameManager.LoseLife();
+            
             yield return new WaitForSeconds(deathWaitTime); // Force the player to watch their avatar die horribly
-            if (Lives == 0) {
-                gameManager.GameOver();
-            } else {
-                gameManager.SpawnPlayer();
+            if (!gameManager.IsGameOver()) {
+                gameManager.RespawnPlayer();
             }
         }
     }

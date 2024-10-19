@@ -67,7 +67,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void AddLife() {
         lives = Mathf.Clamp(lives + 1, 0, Resources.MAX_LIVES);
-        gameManager.RenderLives(lives);
+        //gameManager.RenderLives(lives);
     }
 
 
@@ -161,7 +161,7 @@ public class PlayerHealth : MonoBehaviour
         healthBarRenderer.transform.localScale = healthBarScale;
 
         lives--;
-        gameManager.RenderLives(lives);
+        //gameManager.RenderLives(lives);
 
         if (lives <= 0 && isDead == false)
         {

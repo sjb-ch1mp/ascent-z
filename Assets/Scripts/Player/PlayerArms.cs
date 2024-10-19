@@ -32,7 +32,9 @@ public class PlayerArms : MonoBehaviour
         if (canShoot) {
             audioSource.PlayOneShot(shootSounds[(int) currentWeapon.type]);
             StartCoroutine(ShootCooldown(currentWeapon.cooldown)); // Block further shooting
-            gameManager.ConsumeAmmo();
+            if (currentWeapon.type != Resources.Weapon.BASEBALL_BAT && gameManager.HasAmmo()) {
+                gameManager.ConsumeAmmo();
+            }
             if (currentWeapon.type == Resources.Weapon.SHOTGUN) {
                 // Shotgun is unique because it has a spread
                 int projectileCount = 12;
