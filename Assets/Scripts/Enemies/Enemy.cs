@@ -37,8 +37,7 @@ public class Enemy : MonoBehaviour
     bool isStunned = false;
     bool isGrounded = false;
     bool isAggroed = false;
-    Collider2D onPlatform;
-    float elevationOffset = 1.0f;
+    float elevationOffset = 2.0f;
     int spawnerId;
 
     void Start() {
@@ -76,7 +75,7 @@ public class Enemy : MonoBehaviour
             if (Random.value < energy && isGrounded) {
                 if (target.y - elevationOffset > transform.position.y) {
                     // Jump up
-                    Jump(); // FIXME: Climb!
+                    Jump(); 
                 } else if (target.y + elevationOffset < transform.position.y) {
                     // Jump down
                     StartCoroutine(Descend());
@@ -110,7 +109,6 @@ public class Enemy : MonoBehaviour
 
     void Jump() {
         enemyRigidbody.velocity = new Vector2(enemyRigidbody.velocity.x, jumpPower);
-        onPlatform = null;
         isGrounded = false;
         animator.SetBool("isAirborne", true);
         StartCoroutine(JumpCooldown());
@@ -119,11 +117,10 @@ public class Enemy : MonoBehaviour
     // Descend temporarily disables collisions between the enemy and the platform 
     // so that it can drop down to the platform below
     IEnumerator Descend() {
-        // Cache local collider
-        Collider2D platformCollider = onPlatform;
-        Physics2D.IgnoreCollision(enemyCollider, platformCollider);
-        yield return new WaitForSeconds(0.25f);
-        Physics2D.IgnoreCollision(enemyCollider, platformCollider, false);
+        Debug.Log("Descending");
+        gameObject.layer = LayerMask.NameToLayer("WallCrawling");
+        yield return new WaitForSeconds(0.5f);
+        gameObject.layer = LayerMask.NameToLayer("Enemy");
     }
 
     // GetTarget gives a zombie a new target to walk to
@@ -225,9 +222,6 @@ public class Enemy : MonoBehaviour
             case "OneWayPlatform": 
                 animator.SetBool("isAirborne", false);
                 isGrounded = true;
-                if (onPlatform == null) {
-                    onPlatform = collision.collider;
-                }
                 return;
             case "GameBoundary":
                 Destroy(gameObject);
@@ -271,7 +265,7 @@ public class Enemy : MonoBehaviour
         }
         gameObject.layer = LayerMask.NameToLayer("Dead");
         float lastY = transform.position.y;
-        while (onPlatform == null) {
+        while (!isGrounded) {
             yield return new WaitForSeconds(0.25f);
             if (lastY == transform.position.y) {
                 break; // Collision has failed but the zombie has stopped falling

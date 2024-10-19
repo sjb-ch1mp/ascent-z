@@ -11,6 +11,7 @@ public class ZombieSpawner : MonoBehaviour
     public float health = 2000f;
     public int score = 250;
     public float damage = 30;
+    public int surgeZombies = 10;
     public AudioClip deathSound;
     public AudioClip[] painSounds;
 
@@ -56,11 +57,9 @@ public class ZombieSpawner : MonoBehaviour
 
     // PlayerNearby checks if the player is within the aggroRange of the enemy
     bool PlayerNearby() {
-        if (player == null)
-        {
+        if (player == null) {
             player = gameManager.GetPlayer();
-            if (player == null)
-            {
+            if (player == null) {
                 return false;
             }
         }
@@ -78,29 +77,41 @@ public class ZombieSpawner : MonoBehaviour
             if (!isDesperate && health / initialHealth < 0.25) {
                 spawnRate = 1.0f;
                 isDesperate = true;
+                StartCoroutine(DoSurge());
             }
             // Only spawn if the game isn't paused
             if (!gameManager.IsPaused() && !gameManager.IsGameOver()) {
                 if (isActive && !gameManager.SpawnCapReached(id)) {
-                    animator.SetTrigger("spawn-zombie");
-                    float randomSpawnX = Random.Range(spawnBoundLeft.position.x, spawnBoundRight.position.x);
-                    float randomZombieThreshold = Random.value;
-                    GameObject zombie = null;
-                    if (randomZombieThreshold <= zombieSpawnThresholds[0]) {
-                        zombie = Instantiate(zombies[0], new Vector3(randomSpawnX, spawnBoundLeft.position.y, transform.position.z), zombies[0].transform.rotation, zombieContainer.transform);
-                    } else if (randomZombieThreshold <= zombieSpawnThresholds[1]) {
-                        zombie = Instantiate(zombies[1], new Vector3(randomSpawnX, spawnBoundLeft.position.y, transform.position.z), zombies[1].transform.rotation, zombieContainer.transform);
-                    } else {
-                        zombie = Instantiate(zombies[2], new Vector3(randomSpawnX, spawnBoundLeft.position.y, transform.position.z), zombies[2].transform.rotation, zombieContainer.transform);
-                    }
-                    if (zombie != null /*If not dead immediately*/) {
-                        zombie.GetComponent<Enemy>().Stamp(id);
-                    }
+                    InstantiateZombie();
                 } else {
                     // If player isn't in range - check for the player
                     isActive = PlayerNearby();
                 }
             }
+        }
+    }
+
+    IEnumerator DoSurge() {
+        for (int i=0; i<surgeZombies; i++) {
+            yield return new WaitForSeconds(Random.Range(0.2f, 0.8f));
+            InstantiateZombie();
+        }
+    }
+
+    void InstantiateZombie() {
+        animator.SetTrigger("spawn-zombie");
+        float randomSpawnX = Random.Range(spawnBoundLeft.position.x, spawnBoundRight.position.x);
+        float randomZombieThreshold = Random.value;
+        GameObject zombie = null;
+        if (randomZombieThreshold <= zombieSpawnThresholds[0]) {
+            zombie = Instantiate(zombies[0], new Vector3(randomSpawnX, spawnBoundLeft.position.y, transform.position.z), zombies[0].transform.rotation, zombieContainer.transform);
+        } else if (randomZombieThreshold <= zombieSpawnThresholds[1]) {
+            zombie = Instantiate(zombies[1], new Vector3(randomSpawnX, spawnBoundLeft.position.y, transform.position.z), zombies[1].transform.rotation, zombieContainer.transform);
+        } else {
+            zombie = Instantiate(zombies[2], new Vector3(randomSpawnX, spawnBoundLeft.position.y, transform.position.z), zombies[2].transform.rotation, zombieContainer.transform);
+        }
+        if (zombie != null /*If not dead immediately*/) {
+            zombie.GetComponent<Enemy>().Stamp(id);
         }
     }
 
@@ -161,6 +172,7 @@ public class ZombieSpawner : MonoBehaviour
                 if (!isHit) {
                     isHit = true;
                     spawnRate = 2.5f; // Increase spawn rate slightly on first hit
+                    StartCoroutine(DoSurge());
                     StartCoroutine(tutorialManager.SpawnerFirstHitEvent());
                 }
                 break;

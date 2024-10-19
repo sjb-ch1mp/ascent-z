@@ -6,6 +6,8 @@ public class OneWayPlatform : MonoBehaviour
 {
     private Collider2D platformCollider;
     private Collider2D playerCollider;
+    private Collider2D enemyCollider;
+    private bool ignoringEnemy;
 
     private void Start() {
         platformCollider = GetComponent<CompositeCollider2D>(); // Collision doesn't work on TileMapCollider2D
