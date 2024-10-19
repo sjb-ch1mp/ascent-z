@@ -9,6 +9,7 @@ public static class Resources
     public static float MAX_ARMOUR = 100f;
     public static int MAX_ZOMBIES_PER_SPAWNER = 50;
     public static int MAX_AMMO = 100;
+    public static float GRAVITY_SCALE = 5;
 
     public enum Weapon {
         BASEBALL_BAT,

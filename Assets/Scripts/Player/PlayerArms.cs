@@ -155,19 +155,19 @@ public class PlayerArms : MonoBehaviour
         }
 
         public static Weapon Handgun() {
-            return new Weapon(Resources.Weapon.HANDGUN, false, 0.25f, 30, 25, 3, true, -1, 0, 3);
+            return new Weapon(Resources.Weapon.HANDGUN, false, 0.25f, 30, 25, 3, true, 30, 0, 3);
         }
 
         public static Weapon Shotgun() {
-            return new Weapon(Resources.Weapon.SHOTGUN, false, 1.0f, 50, 10, 1.5f, true, -1, 0, 5);
+            return new Weapon(Resources.Weapon.SHOTGUN, false, 1.0f, 50, 10, 1.5f, true, 5, 0, 5);
         }
 
         public static Weapon AssaultRifle() {
-            return new Weapon(Resources.Weapon.ASSAULT_RIFLE, true, 0.1f, 30, 30, 2.25f, true, -1, 0, 3);
+            return new Weapon(Resources.Weapon.ASSAULT_RIFLE, true, 0.1f, 30, 30, 2.25f, true, 30, 0, 3);
         }
 
         public static Weapon SniperRifle() {
-            return new Weapon(Resources.Weapon.SNIPER_RIFLE, false, 1.25f, 200, 30, 5f, true, -1, 2, 7);
+            return new Weapon(Resources.Weapon.SNIPER_RIFLE, false, 1.25f, 200, 30, 5f, true, 50, 2, 7);
         }
     }
 }

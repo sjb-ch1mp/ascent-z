@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3dccdffe83ad7ea4d8c09a7580a74c31
+guid: c6fa554683331c74c8b5d80d2928e566
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,38 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: controls_Frame_0
+  - name: tank-wall-crawl_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: -0.041666668}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 46
+      y: 4
+      width: 12
+      height: 24
+    spriteID: 539ab7fd0a4c57245b901c210796658c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 46, y: 4}
+  - name: tank-wall-crawl_Frame_1
+    originalName: 
+    pivot: {x: 0.53846157, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 156
-      height: 187
-    spriteID: 7964edd66b6e0ca46856d96180e67eff
+      width: 13
+      height: 25
+    spriteID: d6ea023ea1897f740864abda23f8285b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,28 +161,95 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: tank-wall-crawl_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: -0.041666668}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 46
+      y: 36
+      width: 12
+      height: 24
+    spriteID: b96dd163f6cf53c4696b3d11c05098cd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 46, y: 36}
+  - name: tank-wall-crawl_Frame_3
+    originalName: 
+    pivot: {x: 0.4615385, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 25
+      y: 4
+      width: 13
+      height: 25
+    spriteID: c77267e6e018d6048a39d6cbf184c877
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 25, y: 4}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -247725952
-    name: controls
+    guid: 581631129
+    name: tank-wall-crawl
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: controls
+    - name: tank-wall-crawl_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 2
+        y: 1
+        width: 12
+        height: 24
+      spriteId: 539ab7fd0a4c57245b901c210796658c
+    - name: tank-wall-crawl_Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
         y: 0
-        width: 156
-        height: 187
-      spriteId: 7964edd66b6e0ca46856d96180e67eff
+        width: 13
+        height: 25
+      spriteId: d6ea023ea1897f740864abda23f8285b
+    - name: tank-wall-crawl_Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 1
+        width: 12
+        height: 24
+      spriteId: b96dd163f6cf53c4696b3d11c05098cd
+    - name: tank-wall-crawl_Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 0
+        width: 13
+        height: 25
+      spriteId: c77267e6e018d6048a39d6cbf184c877
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 156, y: 187}
+  canvasSize: {x: 16, y: 32}

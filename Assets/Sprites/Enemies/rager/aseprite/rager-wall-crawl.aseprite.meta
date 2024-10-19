@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3dccdffe83ad7ea4d8c09a7580a74c31
+guid: 63a5eda563cd974419a7e44867231b1e
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,38 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: controls_Frame_0
+  - name: rager-wall-crawl_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: -0.045454547}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 46
+      y: 4
+      width: 12
+      height: 22
+    spriteID: 79de1a245c19a8947b2edcd3d95a2cca
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 46, y: 4}
+  - name: rager-wall-crawl_Frame_1
+    originalName: 
+    pivot: {x: 0.53846157, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 156
-      height: 187
-    spriteID: 7964edd66b6e0ca46856d96180e67eff
+      width: 13
+      height: 23
+    spriteID: 2ae789a0259d5ab40808cc4e715ff34f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,28 +161,95 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: rager-wall-crawl_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: -0.045454547}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 35
+      width: 12
+      height: 22
+    spriteID: b2c9315aeb5231043b8dda29a6510368
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 35}
+  - name: rager-wall-crawl_Frame_3
+    originalName: 
+    pivot: {x: 0.4615385, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 25
+      y: 4
+      width: 13
+      height: 23
+    spriteID: 7d78eab906c11ff498a2fa662a0d7b1b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 25, y: 4}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -247725952
-    name: controls
+    guid: 650793388
+    name: rager-wall-crawl
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: controls
+    - name: rager-wall-crawl_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 2
+        y: 1
+        width: 12
+        height: 22
+      spriteId: 79de1a245c19a8947b2edcd3d95a2cca
+    - name: rager-wall-crawl_Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
         y: 0
-        width: 156
-        height: 187
-      spriteId: 7964edd66b6e0ca46856d96180e67eff
+        width: 13
+        height: 23
+      spriteId: 2ae789a0259d5ab40808cc4e715ff34f
+    - name: rager-wall-crawl_Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 1
+        width: 12
+        height: 22
+      spriteId: b2c9315aeb5231043b8dda29a6510368
+    - name: rager-wall-crawl_Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 0
+        width: 13
+        height: 23
+      spriteId: 7d78eab906c11ff498a2fa662a0d7b1b
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 156, y: 187}
+  canvasSize: {x: 16, y: 32}

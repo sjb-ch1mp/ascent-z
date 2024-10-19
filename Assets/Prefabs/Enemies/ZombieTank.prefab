@@ -191,10 +191,10 @@ MonoBehaviour:
   health: 500
   aggroRange: 10
   energy: 0.33
-  jumpPower: 15
+  jumpPower: 20
   jumpCooldown: 4
   stunTime: 1.5
-  pushForce: 20
+  pushForce: 10
   score: 50
   aggroSound: {fileID: 8300000, guid: bca845f0a59d851419b067d1623baaab, type: 3}
   dieSound: {fileID: 8300000, guid: 9af52ba9092ed6c488bc08f80eb23c5e, type: 3}

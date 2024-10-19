@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UserInterface : MonoBehaviour
@@ -79,7 +80,7 @@ public class UserInterface : MonoBehaviour
 
     void Update() {
         if (!gameManager.IsGameOver()) {
-            if (Input.GetKey(KeyCode.Tab)) {
+            if (Input.GetKeyDown(KeyCode.Tab)) {
                 if (!controlScheme.activeSelf) {
                     audioSource.PlayOneShot(openControls);
                     controlScheme.SetActive(true);
@@ -90,7 +91,6 @@ public class UserInterface : MonoBehaviour
                     TextMeshProUGUI rankText = rankWindow.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
                     rankScreen.SetRank(currentRank);
                     rankText.text = Resources.GetNameForRank(currentRank);
-
                 }
             } else {
                 if (controlScheme.activeSelf) {
@@ -176,6 +176,7 @@ public class UserInterface : MonoBehaviour
     }
 
     public void UpdateLabelsForWeapon() {
+        Debug.Log("Updating label");
         // Update labels
         if (activeWeapon == Resources.Weapon.BASEBALL_BAT) {
             if (!infinityLabel.gameObject.activeSelf) {
@@ -187,6 +188,7 @@ public class UserInterface : MonoBehaviour
                 infinityLabel.gameObject.SetActive(false);
                 ammoCountLabel.gameObject.SetActive(true);
             }
+            Debug.Log($"new amount: {ammoCache[activeWeapon]}");
             ammoCountLabel.text = $"{ammoCache[activeWeapon]}";
         }
         weaponStatusKeys.UpdateAmmoStatus(activeWeapon, true);
@@ -228,6 +230,8 @@ public class UserInterface : MonoBehaviour
             ammoCache[newWeapon] = Mathf.Clamp(ammoCache[newWeapon] + Resources.GetAmmoForWeapon(newWeapon), 0, Resources.MAX_AMMO);
             if (newAmmoForWeapon) {
                 ActivateWeapon(newWeapon);
+            } else {
+                UpdateLabelsForWeapon();
             }
         }
     }
@@ -257,6 +261,10 @@ public class UserInterface : MonoBehaviour
                 RenderLives(gameManager.Lives);
                 break;
             case Resources.Collectible.AMMUNITION:
+                if (activeWeapon == Resources.Weapon.BASEBALL_BAT) {
+                    return;
+                }
+                Debug.Log("Picked up ammo");
                 audioSource.PlayOneShot(pickUpAmmo);
                 ammoCache[activeWeapon] = Mathf.Clamp(ammoCache[activeWeapon] + Resources.GetAmmoForWeapon(activeWeapon), 0, Resources.MAX_AMMO);
                 UpdateLabelsForWeapon();
