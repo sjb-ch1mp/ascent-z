@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d223ffade0c59f948b7f9491c5b0cdaf
+guid: f17f0d8c5919892489f9fcf480bb6ea2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -93,89 +93,102 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: crate
+      name: spawn-car-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
-        width: 16
-        height: 16
+        y: 0
+        width: 213
+        height: 91
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d2a8c585bceb8e249a5d343a93a8213e
-      internalID: 647423150
+      spriteID: e2686ca3eacf62248a64073832b7bbcb
+      internalID: -350930349
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: trunk
+      name: spawn-car-Sheet_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
+        x: 213
+        y: 0
+        width: 213
+        height: 91
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25ab25280ce53aa4ca44724c8c8f39d9
-      internalID: -1866656450
+      spriteID: 440f8cfee335f4f4a9cdee986336a15f
+      internalID: 1891480398
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: trunks
+      name: spawn-car-Sheet_2
       rect:
         serializedVersion: 2
-        x: 32
-        y: 20
-        width: 12
-        height: 12
+        x: 426
+        y: 0
+        width: 213
+        height: 91
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09e57170289ddfe4885b7f645a7dc608
-      internalID: 609935135
+      spriteID: 57b3aed049965b947a60dca18dd14efc
+      internalID: 815578134
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crates
+      name: spawn-car-Sheet_3
       rect:
         serializedVersion: 2
-        x: 48
-        y: 20
-        width: 12
-        height: 12
+        x: 639
+        y: 0
+        width: 213
+        height: 91
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f4fe972837fce0c428e2770779a83444
-      internalID: -1569321315
+      spriteID: 06c4d0ec010949c4eb19823ed86ed230
+      internalID: -864076869
       vertices: []
       indices: 
       edges: []
@@ -191,11 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      crate: 647423150
-      crates: -1569321315
-      smaller_2: 1998282323
-      trunk: -1866656450
-      trunks: 609935135
+      spawn-car-Sheet_0: -350930349
+      spawn-car-Sheet_1: 1891480398
+      spawn-car-Sheet_2: 815578134
+      spawn-car-Sheet_3: -864076869
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -10,9 +8,10 @@ public class LevelManager : MonoBehaviour
 
     public static LevelManager Instance { get; private set; }
 
+    public int Level { get; set; }
+
     // Destructive Singleton, i.e. will refresh upon load
-    void Awake()
-    {
+    void Awake() {
         if (Instance == null)
         {
             Instance = this;
@@ -25,6 +24,7 @@ public class LevelManager : MonoBehaviour
 
             // Trigger the initial checkpoint
             checkpoints[0].Trigger();
+            Level = 1;
         }
         else
         {
@@ -33,8 +33,7 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    public void SetCheckpoint(int checkpoint)
-    {
+    public void SetCheckpoint(int checkpoint) {
         // Silently trigger all checkpoints until the current
         for (int i = 0; i < checkpoint; i++)
         {
@@ -43,20 +42,8 @@ public class LevelManager : MonoBehaviour
         currentCheckpoint = checkpoint;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    public Vector3 GetSpawn()
-    {
+    public Vector3 GetSpawn() {
         return checkpoints[currentCheckpoint].GetPosition();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

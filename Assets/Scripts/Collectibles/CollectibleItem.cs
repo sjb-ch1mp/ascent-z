@@ -20,8 +20,8 @@ public class CollectibleItem : MonoBehaviour
         StartCoroutine(DestroyOnTimeUp());
     }
 
-    void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Player") && !isCollected) {
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.CompareTag("Player") && !isCollected) {
             isCollected = true;
             if (weaponsCache) {
                 WeaponsCache weaponsCache = GetComponent<WeaponsCache>();
@@ -31,7 +31,7 @@ public class CollectibleItem : MonoBehaviour
                 gameManager.PickUpCollectible(utilityCrate.CollectibleType);
             }
             Destroy(gameObject);
-        } else if (collision.gameObject.CompareTag("GameBoundary")) {
+        } else if (other.gameObject.CompareTag("GameBoundary")) {
             // Destroy cache if it falls out of the boundary
             Destroy(gameObject);
         }

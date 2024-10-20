@@ -65,7 +65,6 @@ public class PlayerShooting : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse1) && gameManager.HasGrenades())
         {
-            Debug.Log("GRENADE");
             gameManager.ConsumeGrenade();
             ThrowGrenade();
         }

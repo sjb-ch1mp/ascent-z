@@ -75,11 +75,11 @@ public class UserInterface : MonoBehaviour
 
     void Start() {
         gameManager = GameManager.Instance;
-        talkingHead.NewMessage($"Welcome to hell, private!\nIf you're really as green as look, hold the TAB key to view your RANK and the GAME CONTROLS.\nOtherwise, stop gawking and kill some goddamn zombies!\n", TalkingHead.MessageDestination.Communication, null);
     }
 
     void Update() {
         if (!gameManager.IsGameOver()) {
+            // Toggle control scheme
             if (Input.GetKeyDown(KeyCode.Tab)) {
                 if (!controlScheme.activeSelf) {
                     audioSource.PlayOneShot(openControls);
@@ -91,19 +91,17 @@ public class UserInterface : MonoBehaviour
                     TextMeshProUGUI rankText = rankWindow.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
                     rankScreen.SetRank(currentRank);
                     rankText.text = Resources.GetNameForRank(currentRank);
-                }
-            } else {
-                if (controlScheme.activeSelf) {
+                } else {
                     audioSource.PlayOneShot(closeControls);
                     controlScheme.SetActive(false);
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Q)) {
+            // Dismiss talking head
+            if (Input.GetKeyDown(KeyCode.E)) {
                 if (talkingHead.gameObject.activeSelf) {
                     talkingHead.Dismiss();
                 }
             }
-            
             // Weapons
             if (Input.GetKeyDown("1")) {
                 ActivateWeapon(Resources.Weapon.BASEBALL_BAT);
@@ -134,6 +132,7 @@ public class UserInterface : MonoBehaviour
             weaponStatusKeys.UpdateAmmoStatus(Resources.Weapon.HANDGUN, true);
         }
         ActivateNextWeaponWithAmmo();
+        StartCoroutine(TutorialManager.Instance.PlayIntroduction());
     }
 
     public void ActivateWeapon(Resources.Weapon weaponToActivate) {
@@ -176,7 +175,6 @@ public class UserInterface : MonoBehaviour
     }
 
     public void UpdateLabelsForWeapon() {
-        Debug.Log("Updating label");
         // Update labels
         if (activeWeapon == Resources.Weapon.BASEBALL_BAT) {
             if (!infinityLabel.gameObject.activeSelf) {
@@ -188,7 +186,6 @@ public class UserInterface : MonoBehaviour
                 infinityLabel.gameObject.SetActive(false);
                 ammoCountLabel.gameObject.SetActive(true);
             }
-            Debug.Log($"new amount: {ammoCache[activeWeapon]}");
             ammoCountLabel.text = $"{ammoCache[activeWeapon]}";
         }
         weaponStatusKeys.UpdateAmmoStatus(activeWeapon, true);
@@ -264,7 +261,6 @@ public class UserInterface : MonoBehaviour
                 if (activeWeapon == Resources.Weapon.BASEBALL_BAT) {
                     return;
                 }
-                Debug.Log("Picked up ammo");
                 audioSource.PlayOneShot(pickUpAmmo);
                 ammoCache[activeWeapon] = Mathf.Clamp(ammoCache[activeWeapon] + Resources.GetAmmoForWeapon(activeWeapon), 0, Resources.MAX_AMMO);
                 UpdateLabelsForWeapon();
@@ -295,15 +291,12 @@ public class UserInterface : MonoBehaviour
     }
 
     public void ActivateNextWeaponWithAmmo() {
-        Debug.Log("Got weapon: ");
         for (int i=(int)Resources.Weapon.SNIPER_RIFLE; i>(int)Resources.Weapon.BASEBALL_BAT; i--) {
             if (ammoCache[(Resources.Weapon)i] > 0) {
-                Debug.Log($"Got weapon: {(Resources.Weapon)i}");
                 ActivateWeapon((Resources.Weapon)i);
                 return;
             }
         }
-        Debug.Log($"Got weapon: {Resources.Weapon.BASEBALL_BAT}");
         ActivateWeapon(Resources.Weapon.BASEBALL_BAT);
     }
 

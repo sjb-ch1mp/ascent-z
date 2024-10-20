@@ -28,6 +28,9 @@ public class Player : MonoBehaviour
     SpriteRenderer armourBar;
     Transform feet;
     AudioSource audioSource;
+    SpawnCar spawnCar;
+    Transform worldBorderLeft;
+    Transform worldBorderRight;
 
     // State
     bool isAlive = true;
@@ -48,13 +51,18 @@ public class Player : MonoBehaviour
         healthBar = transform.Find("Health").GetComponent<SpriteRenderer>();
         armourBar = transform.Find("Armour").GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
+        worldBorderLeft = GameObject.Find("WorldBorderLeft").transform;
+        worldBorderRight = GameObject.Find("WorldBorderRight").transform;
         feet = transform.Find("Feet");
         Health = Resources.MAX_HEALTH;
         UpdateStatusBar(false);
         Armour = 0;
         UpdateStatusBar(true);
+        spawnCar = GameObject.Find("SpawnCar").GetComponent<SpawnCar>();
+        spawnCar.DoSpawnCar(this);
         // Start Coroutines
         StartCoroutine(RegenerateHealth());
+        StartCoroutine(DoRandomDriveBy());
     }
 
     // =========== Updates
@@ -95,6 +103,12 @@ public class Player : MonoBehaviour
             }
         }
         CheckOnGround();
+        // World boundaries
+        if (transform.position.x < worldBorderLeft.position.x) {
+            transform.position = new Vector2(worldBorderLeft.position.x, transform.position.y);
+        } else if (transform.position.x > worldBorderRight.position.x) {
+            transform.position = new Vector2(worldBorderRight.position.x, transform.position.y);
+        }
     }
 
     // ========== Movement
@@ -138,6 +152,14 @@ public class Player : MonoBehaviour
             offGroundPosition = transform.position;
         }
         isGrounded = false;
+    }
+
+    public void ShowPlayer(bool showPlayer) {
+        isAlive = showPlayer;
+        playerSprite.enabled = showPlayer;
+        healthBar.enabled = showPlayer;
+        armourBar.enabled = showPlayer;
+        arms.gameObject.GetComponent<SpriteRenderer>().enabled = showPlayer;
     }
 
     void ThrowGrenade() {
@@ -248,6 +270,19 @@ public class Player : MonoBehaviour
         animator.SetBool("isStunned", false);
     }
 
+    IEnumerator DoRandomDriveBy() {
+        while (!gameManager.IsGameOver()) {
+            float randomTime = UnityEngine.Random.Range(30f, 60f);
+            Debug.Log($"{randomTime} seconds until next drive by");
+            yield return new WaitForSeconds(randomTime);
+            Debug.Log("Doing Driveby!");
+            if (isAlive) {
+                spawnCar.DoDriveBy();
+            }
+        }
+        Debug.Log("DriveBy cancelled");
+    }
+
     // ========= Collision
     private void OnTriggerEnter2D(Collider2D other) {
         Checkpoint check = other.gameObject.GetComponent<Checkpoint>();
@@ -276,7 +311,7 @@ public class Player : MonoBehaviour
     // While the player is alive, they will continuously
     // regenerate 'healthTickAmount' every 'healthTickTime'
     private IEnumerator RegenerateHealth() {
-        while (isAlive) {
+        while (!gameManager.IsGameOver()) {
             yield return new WaitForSeconds(healthTickTime);
             if (Health < 100f && !isStunned && isAlive) {
                 Health = Mathf.Clamp(Health + healthTickAmount, 0, 100);

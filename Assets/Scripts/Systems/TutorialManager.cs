@@ -5,6 +5,7 @@ public class TutorialManager : MonoBehaviour
 {
 
     // Exports
+    public TalkingHead talkingHead;
     public Sprite spawnerSprite;
     public Sprite weaponCacheSprite;
     public Sprite crateSprite;
@@ -12,12 +13,9 @@ public class TutorialManager : MonoBehaviour
 
     // State
     public bool firstSpawnerContact { get; set; }
-    public bool firstWeaponCollected { get; set; }
-    public bool firstCollectibleCollected { get; set; }
     public bool firstSurvivorCocoonImpact { get; set; }
-
-    // References
-    TalkingHead talkingHead;
+    bool gameIntroductionPlayed = false;
+    bool firstReviveOccurred = false;
 
     public static TutorialManager Instance { get; private set; }
 
@@ -34,14 +32,47 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    void Start() {
-        talkingHead = GameObject.Find("TalkingHead").GetComponent<TalkingHead>();
+    public IEnumerator PlayIntroduction() {
+        while (talkingHead.IsTalking) {
+            yield return new WaitForSeconds(0.25f);
+        }
+        if (!gameIntroductionPlayed) {
+            gameIntroductionPlayed = true;
+            talkingHead.NewMessage(
+                "Welcome to hell, private!\nOur recon team has detected an anomaly at the top of this building and we need you to investigate. .", 
+                TalkingHead.MessageDestination.Communication, 
+                null
+            );
+            // Wait for player to dismiss head
+            while (talkingHead.gameObject.activeSelf) {
+                yield return new WaitForSeconds(0.25f);
+            }
+            talkingHead.NewMessage(
+                "This area is swarming with the dead, so you'll have to fight your way to the top with minimal support.\nKeep an eye out for air drop locations marked by flares! .", 
+                TalkingHead.MessageDestination.Communication, 
+                null
+            );
+            // Wait for player to dismiss head
+            while (talkingHead.gameObject.activeSelf) {
+                yield return new WaitForSeconds(0.25f);
+            }
+            talkingHead.NewMessage(
+                "If you're as green as you look, make sure you press 'TAB' so you know what the controls are.\nGet to the top of this building and try not to die. .", 
+                TalkingHead.MessageDestination.Communication, 
+                null
+            );
+        } else if (!firstReviveOccurred) {
+            firstReviveOccurred = true;
+            talkingHead.NewMessage(
+                "I thought I said try not to die, soldier. You're lucky we have some revive kits lying around, but they don't grow on trees! .", 
+                TalkingHead.MessageDestination.Communication, 
+                null
+            );
+        }
     }
 
     public IEnumerator SpawnerFirstHitEvent() {
-        Debug.Log("SpawnerFirstHitEvent");
         if (!firstSpawnerContact) {   
-            Debug.Log($"Talking head talking? {talkingHead.IsTalking}"); 
             while (talkingHead.IsTalking) {
                 yield return new WaitForSeconds(0.25f);
             }
@@ -51,34 +82,6 @@ public class TutorialManager : MonoBehaviour
                 TalkingHead.MessageDestination.Communication,
                 spawnerSprite
             );    
-        }
-    }
-
-    public IEnumerator FirstWeaponCacheCollectedEvent() {
-        if (!firstWeaponCollected) {    
-            while (talkingHead.IsTalking) {
-                yield return new WaitForSeconds(0.25f);
-            }
-            firstWeaponCollected = true;
-            talkingHead.NewMessage(
-                "Looks like you've found a weapon cache. Make sure to grab these for more firepower! .",
-                TalkingHead.MessageDestination.Communication,
-                weaponCacheSprite
-            );   
-        }
-    }
-
-    public IEnumerator FirstCrateCollectedEvent() {
-        if (!firstCollectibleCollected) {
-            while (talkingHead.IsTalking) {
-                yield return new WaitForSeconds(0.25f);
-            }
-            firstCollectibleCollected = true;
-            talkingHead.NewMessage(
-                "I see you've picked up a crate. These contain useful objects like armour, health and explosives. .",
-                TalkingHead.MessageDestination.Communication,
-                crateSprite
-            );   
         }
     }
 
