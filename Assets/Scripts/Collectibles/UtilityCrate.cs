@@ -10,15 +10,11 @@ public class UtilityCrate : MonoBehaviour
     public float ammoDropThreshold = 0.75f;
     public float armourDropThreshold = 0.95f;
 
-    // References
-    SpriteRenderer spriteRenderer;
-
     // State
     public Resources.Collectible CollectibleType { get; set; }
 
     // Start is called before the first frame update
-    void Start() {
-        
+    void Awake() {
         float randomValue = Random.value;
         if (randomValue < healthDropThreshold) {
             CollectibleType = Resources.Collectible.MEDPACK;
@@ -31,9 +27,5 @@ public class UtilityCrate : MonoBehaviour
         } else {
             CollectibleType = Resources.Collectible.LIFE;
         }
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = utilityCrateSprites[(int) CollectibleType];
-
     }
 }

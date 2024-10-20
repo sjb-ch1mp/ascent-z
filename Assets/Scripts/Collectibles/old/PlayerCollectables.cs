@@ -22,12 +22,10 @@ public class PlayerCollectables : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Collectible"))
         {
-            Debug.Log($"Picked up collectible");
 
             // Armour, Medpack, Lives, Grenades
             Resources.Collectible randCollectible = (Resources.Collectible)Random.Range((int)Resources.Collectible.ARMOUR, (int)Resources.Collectible.GRENADES + 1);
             gameManager.PickUpCollectible(randCollectible);
-            Debug.Log($"Picked up collectible: {randCollectible}");
 
             // Handle collectibles
             /*PlayerHealth playerHealth = gameObject.GetComponent<PlayerHealth>();*/

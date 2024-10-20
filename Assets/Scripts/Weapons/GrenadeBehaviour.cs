@@ -100,7 +100,6 @@ public class GrenadeBehaviour : MonoBehaviour
     private IEnumerator DestroyAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay); // Wait for the specified delay
-        Debug.Log("Kaboom!"); // Display your custom message
         ExplosionBehaviour projectile = Instantiate(explosionBehaviour, transform.position, Quaternion.identity);
         //projectile.SetProjectileSprite(projectileExplosionSprite);
         projectile.lifeDuration = 0.6f;

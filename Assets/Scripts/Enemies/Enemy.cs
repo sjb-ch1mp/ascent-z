@@ -37,8 +37,10 @@ public class Enemy : MonoBehaviour
     bool isStunned = false;
     bool isGrounded = false;
     bool isAggroed = false;
+    bool onPlatform = false;
     float elevationOffset = 2.0f;
     int spawnerId;
+    Vector2 spawnPoint;
 
     void Start() {
         gameManager = GameManager.Instance;
@@ -53,6 +55,7 @@ public class Enemy : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         StartCoroutine(JumpCooldown()); // Set the energy to zero, so zombies don't jump on spawn
         sprite.flipX = Random.value >= 0.5f; // random flip (50/50)
+        spawnPoint = transform.position;
     }
 
     void Update() {
@@ -74,11 +77,13 @@ public class Enemy : MonoBehaviour
             // Change elevation if the zombie is energetic enough (on a jump cooldown, the zombie will have 0 energy)
             if (Random.value < energy && isGrounded) {
                 if (target.y - elevationOffset > transform.position.y) {
-                    // Jump up
+                    // Jump up if not on the actual ground
                     Jump(); 
                 } else if (target.y + elevationOffset < transform.position.y) {
-                    // Jump down
-                    StartCoroutine(Descend());
+                    if (onPlatform) {    
+                        // Jump down
+                        StartCoroutine(Descend());
+                    }
                 }
             }
 
@@ -92,6 +97,10 @@ public class Enemy : MonoBehaviour
                 animator.SetBool("isAirborne", false);
             }
         }
+    }
+
+    public bool IsDead() {
+        return !isAlive;
     }
 
     public void Stamp(int id) {
@@ -108,8 +117,9 @@ public class Enemy : MonoBehaviour
     }
 
     void Jump() {
-        enemyRigidbody.velocity = new Vector2(enemyRigidbody.velocity.x, jumpPower);
+        enemyRigidbody.velocity = new Vector2(enemyRigidbody.velocity.x, onPlatform ? jumpPower : jumpPower / 2);
         isGrounded = false;
+        onPlatform = false;
         animator.SetBool("isAirborne", true);
         StartCoroutine(JumpCooldown());
     }
@@ -117,7 +127,6 @@ public class Enemy : MonoBehaviour
     // Descend temporarily disables collisions between the enemy and the platform 
     // so that it can drop down to the platform below
     IEnumerator Descend() {
-        Debug.Log("Descending");
         gameObject.layer = LayerMask.NameToLayer("WallCrawling");
         yield return new WaitForSeconds(0.5f);
         gameObject.layer = LayerMask.NameToLayer("Enemy");
@@ -183,6 +192,19 @@ public class Enemy : MonoBehaviour
         UpdateHealthBar();
     }
 
+    // TakeDamage overloaded for interger variable
+    // @overload
+    void TakeDamage(int damage) {
+        health -= damage;
+        if (health <= 0) {
+            health = 0;
+            isAlive = false;
+            enemyRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+            StartCoroutine(Die(true));
+        }
+        UpdateHealthBar();
+    }
+
     // TakeDamage reduces the enemies health by the damage of the EXPLOSION.
     void TakeDamageExplosion(ExplosionBehaviour projectile)
     {
@@ -222,6 +244,7 @@ public class Enemy : MonoBehaviour
             case "OneWayPlatform": 
                 animator.SetBool("isAirborne", false);
                 isGrounded = true;
+                onPlatform = true;
                 return;
             case "GameBoundary":
                 Destroy(gameObject);
@@ -242,6 +265,8 @@ public class Enemy : MonoBehaviour
         }
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
             isGrounded = true;
+            onPlatform = false;
+            animator.SetBool("isAirborne", false);
         }
     }
 
@@ -256,6 +281,7 @@ public class Enemy : MonoBehaviour
     // Die ensures that the enemy is grounded before playing the
     // death animation so that it doesn't look funky
     IEnumerator Die(bool withScore) {
+        gameObject.layer = LayerMask.NameToLayer("Dead");
         audioSource.PlayOneShot(dieSound);
         animator.SetBool("isAirborne", false);
         animator.SetBool("isMoving", false);
@@ -263,7 +289,6 @@ public class Enemy : MonoBehaviour
         if (withScore) {
             gameManager.AddKillScore(score);
         }
-        gameObject.layer = LayerMask.NameToLayer("Dead");
         float lastY = transform.position.y;
         while (!isGrounded) {
             yield return new WaitForSeconds(0.25f);
@@ -279,12 +304,7 @@ public class Enemy : MonoBehaviour
 
     // When stunned, the player will not take damage from enemies
     IEnumerator Stun() {
-        /*GameObject player = gameManager.GetPlayer();
-        if (player != null) {
-            CapsuleCollider2D playerCollider = player.GetComponent<CapsuleCollider2D>();
-            Physics2D.IgnoreCollision(enemyCollider, playerCollider);
-        }*/
-        gameObject.layer = LayerMask.NameToLayer("Dead");
+        gameObject.layer = LayerMask.NameToLayer("Stunned");
         // Stun the enemy
         isStunned = true;
         animator.SetBool("isStunned", true);
@@ -294,11 +314,6 @@ public class Enemy : MonoBehaviour
         isStunned = false;
         animator.SetBool("isStunned", false);
         gameObject.layer = LayerMask.NameToLayer("Enemy");
-        /*
-        if (player != null) {
-            CapsuleCollider2D playerCollider = player.GetComponent<CapsuleCollider2D>();
-            Physics2D.IgnoreCollision(enemyCollider, playerCollider, false);
-        }*/
     }
 
     IEnumerator Attack(Rigidbody2D playerRigidBody) {
@@ -320,6 +335,12 @@ public class Enemy : MonoBehaviour
             gameManager.RunScoreRoutine();
         }
         Destroy(gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.CompareTag("Car")) {
+            KillImmediately();
+        }
     }
 }
  

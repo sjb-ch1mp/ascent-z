@@ -147,7 +147,6 @@ public class PlayerHealth : MonoBehaviour
     private void KillPlayer()
     {
         CameraTracking.Instance.DisableTrigger();
-        Debug.Log("KillPlayer");
         gameManager.AddRevivesCount();
 
         health = 100f;

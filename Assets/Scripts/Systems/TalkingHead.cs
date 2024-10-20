@@ -29,6 +29,7 @@ public class TalkingHead : MonoBehaviour
     // State
     public bool IsTalking { get; set; }
     bool dismissed = false;
+    bool revealingScore = false;
 
     void Awake() {
         gameManager = GameManager.Instance;
@@ -70,10 +71,10 @@ public class TalkingHead : MonoBehaviour
     }
 
     public void NewMessage(string message, MessageDestination destination, Sprite messageImage) {
-        gameManager.SetPaused(true);
         if (!gameObject.activeSelf) {
             gameObject.SetActive(true);
         }
+        gameManager.SetPaused(true);
         if (destination == MessageDestination.Communication) {
             audioSource.PlayOneShot(radioActivate);
         }
@@ -127,55 +128,56 @@ public class TalkingHead : MonoBehaviour
     }
 
     IEnumerator RevealScore(int killScore, int survivorCount, int reviveCount, int finalScore) {
-        // Wait for the commander to finish
-        while (IsTalking) {
-            yield return new WaitForSeconds(0.25f);
-        }
-        ScoreScreen scoreController = scoreScreen.GetComponent<ScoreScreen>();
-        scoreScreen.SetActive(true);
-        // Show revives score
-        NewMessage($"Revives used: {reviveCount}.", MessageDestination.Score, null);
-        while (IsTalking) {
-            yield return new WaitForSeconds(0.25f);
-        }
-        audioSource.PlayOneShot(receiveMedal);
-        scoreController.SetReviveMedal(Resources.GetMedalForReviveScore(reviveCount));
-        yield return new WaitForSeconds(1f);
-        // Show kill score
-        NewMessage($"Kill score: {killScore}.", MessageDestination.Score, null);
-        while (IsTalking) {
-            yield return new WaitForSeconds(0.25f);
-        }
-        audioSource.PlayOneShot(receiveMedal);
-        scoreController.SetKillsMedal(Resources.GetMedalForKillScore(killScore));
-        yield return new WaitForSeconds(1f);
-        // Show survivor
-        NewMessage($"Survivors rescued: {survivorCount}.", MessageDestination.Score, null);
-        while (IsTalking) {
-            yield return new WaitForSeconds(0.25f);
-        }
-        audioSource.PlayOneShot(receiveMedal);
-        scoreController.SetSurvivorMedal(Resources.GetMedalForSurvivorCount(survivorCount));
-        yield return new WaitForSeconds(1f);
-        // Show final score
-        NewMessage($"Final score: {finalScore}.", MessageDestination.Score, null);
-        while (IsTalking) {
-            yield return new WaitForSeconds(0.25f);
-        }
-
-        int increasedByRanks = gameManager.AddFinalScoreToRankProgress(finalScore);
-        if (increasedByRanks > 0) {
-            StartCoroutine(DoPromotion(increasedByRanks));
-        } else {
-            if (finalScore < 250) {
-                NewMessage("Pathetic. Get back out there and try not to die, greenhorn. .", MessageDestination.Communication, null);
-            } else if (finalScore < 500) {
-                NewMessage("Nice work, soldier. But you'll have to do better than that if you want to survive in this hellhole. Over and out. .", MessageDestination.Communication, null);
-            } else {
-                NewMessage("Outstanding work, soldier. We need more recruits like you for this recovery effort. Over and out. .", MessageDestination.Communication, null);
+        if (!revealingScore) {
+            // Wait for the commander to finish
+            while (IsTalking) {
+                yield return new WaitForSeconds(0.25f);
             }
+            ScoreScreen scoreController = scoreScreen.GetComponent<ScoreScreen>();
+            scoreScreen.SetActive(true);
+            // Show revives score
+            NewMessage($"Revives used: {reviveCount}.", MessageDestination.Score, null);
+            while (IsTalking) {
+                yield return new WaitForSeconds(0.25f);
+            }
+            audioSource.PlayOneShot(receiveMedal);
+            scoreController.SetReviveMedal(Resources.GetMedalForReviveScore(reviveCount));
+            yield return new WaitForSeconds(1f);
+            // Show kill score
+            NewMessage($"Kill score: {killScore}.", MessageDestination.Score, null);
+            while (IsTalking) {
+                yield return new WaitForSeconds(0.25f);
+            }
+            audioSource.PlayOneShot(receiveMedal);
+            scoreController.SetKillsMedal(Resources.GetMedalForKillScore(killScore));
+            yield return new WaitForSeconds(1f);
+            // Show survivor
+            NewMessage($"Survivors rescued: {survivorCount}.", MessageDestination.Score, null);
+            while (IsTalking) {
+                yield return new WaitForSeconds(0.25f);
+            }
+            audioSource.PlayOneShot(receiveMedal);
+            scoreController.SetSurvivorMedal(Resources.GetMedalForSurvivorCount(survivorCount));
+            yield return new WaitForSeconds(1f);
+            // Show final score
+            NewMessage($"Final score: {finalScore}.", MessageDestination.Score, null);
+            while (IsTalking) {
+                yield return new WaitForSeconds(0.25f);
+            }
+
+            int increasedByRanks = gameManager.AddFinalScoreToRankProgress(finalScore);
+            if (increasedByRanks > 0) {
+                StartCoroutine(DoPromotion(increasedByRanks));
+            } else {
+                if (finalScore < 250) {
+                    NewMessage("Pathetic. Continue your ascent, greenhorn. .", MessageDestination.Communication, null);
+                } else if (finalScore < 500) {
+                    NewMessage("Nice work, soldier. But you'll have to do better than that if you want to survive in this hellhole. Continue your ascent. .", MessageDestination.Communication, null);
+                } else {
+                    NewMessage("Outstanding work, soldier. We need more recruits like you for this recovery effort. Continue your ascent. .", MessageDestination.Communication, null);
+                }
+            }   
         }
-        
     }
 
     IEnumerator DoPromotion(int increasedByRanks) {

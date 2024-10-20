@@ -77,12 +77,16 @@ public class ZombieSpawner : MonoBehaviour
             if (!isDesperate && health / initialHealth < 0.25) {
                 spawnRate = 1.0f;
                 isDesperate = true;
-                StartCoroutine(DoSurge());
+                StartCoroutine(DoSurge(false));
             }
             // Only spawn if the game isn't paused
             if (!gameManager.IsPaused() && !gameManager.IsGameOver()) {
                 if (isActive && !gameManager.SpawnCapReached(id)) {
-                    InstantiateZombie();
+                    if (gameManager.NoZombiesForSpawner(id) && isHit) {
+                        StartCoroutine(DoSurge(true));
+                    } else {
+                        InstantiateZombie();
+                    }
                 } else {
                     // If player isn't in range - check for the player
                     isActive = PlayerNearby();
@@ -91,11 +95,16 @@ public class ZombieSpawner : MonoBehaviour
         }
     }
 
-    IEnumerator DoSurge() {
-        for (int i=0; i<surgeZombies; i++) {
-            yield return new WaitForSeconds(Random.Range(0.2f, 0.8f));
+    IEnumerator DoSurge(bool miniSurge) {
+        int numZombies = miniSurge ? surgeZombies/2 : surgeZombies;
+        for (int i=0; i<numZombies; i++) {
+            yield return new WaitForSeconds(Random.Range(0.2f, 0.4f));
             InstantiateZombie();
         }
+    }
+    
+    public bool IsDead() {
+        return !isAlive;
     }
 
     void InstantiateZombie() {
@@ -146,8 +155,6 @@ public class ZombieSpawner : MonoBehaviour
 
     void Die() {
         audioSource.PlayOneShot(deathSound);
-        // Kill all the spawn for this spawner to give the player some breathing room
-        //gameManager.KillZombiesForSpawner(id);
         gameManager.AddKillScore(score);
         gameObject.layer = LayerMask.NameToLayer("Dead");
         animator.SetBool("isDead", true);
@@ -172,7 +179,7 @@ public class ZombieSpawner : MonoBehaviour
                 if (!isHit) {
                     isHit = true;
                     spawnRate = 2.5f; // Increase spawn rate slightly on first hit
-                    StartCoroutine(DoSurge());
+                    StartCoroutine(DoSurge(false));
                     StartCoroutine(tutorialManager.SpawnerFirstHitEvent());
                 }
                 break;

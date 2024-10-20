@@ -17,6 +17,7 @@ TagManager:
   - BossEnemy
   - Survivor
   - Crawlable
+  - Car
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - Survivor
   - Camera
   - WallCrawling
-  - 
+  - Stunned
   - 
   - 
   - 

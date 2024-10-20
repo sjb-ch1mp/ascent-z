@@ -128,8 +128,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 46
-      y: 4
+      x: 4
+      y: 97
       width: 12
       height: 22
     spriteID: 79de1a245c19a8947b2edcd3d95a2cca
@@ -140,10 +140,10 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 46, y: 4}
+    uvTransform: {x: 4, y: 97}
   - name: rager-wall-crawl_Frame_1
     originalName: 
-    pivot: {x: 0.53846157, y: 0}
+    pivot: {x: 0.53846157, y: -0.04347826}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -163,13 +163,13 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: rager-wall-crawl_Frame_2
     originalName: 
-    pivot: {x: 0.5, y: -0.045454547}
+    pivot: {x: 0.5, y: -0.13636364}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 35
+      x: 25
+      y: 4
       width: 12
       height: 22
     spriteID: b2c9315aeb5231043b8dda29a6510368
@@ -180,16 +180,16 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 35}
+    uvTransform: {x: 25, y: 4}
   - name: rager-wall-crawl_Frame_3
     originalName: 
-    pivot: {x: 0.4615385, y: 0}
+    pivot: {x: 0.4615385, y: -0.13043478}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 25
-      y: 4
+      x: 4
+      y: 35
       width: 13
       height: 23
     spriteID: 7d78eab906c11ff498a2fa662a0d7b1b
@@ -200,7 +200,87 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 25, y: 4}
+    uvTransform: {x: 4, y: 35}
+  - name: rager-wall-crawl_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: -0.22727273}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 25
+      y: 34
+      width: 12
+      height: 22
+    spriteID: 8965a08051d188c48a6574d350139149
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 25, y: 34}
+  - name: rager-wall-crawl_Frame_5
+    originalName: 
+    pivot: {x: 0.53846157, y: -0.21739131}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 66
+      width: 13
+      height: 23
+    spriteID: 0b20007ded96f114c81a644798cd4026
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 66}
+  - name: rager-wall-crawl_Frame_6
+    originalName: 
+    pivot: {x: 0.5, y: -0.3181818}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 25
+      y: 64
+      width: 12
+      height: 22
+    spriteID: bf6eef4257821b2499922d2ca478bb1e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 25, y: 64}
+  - name: rager-wall-crawl_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: -0.3181818}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 25
+      y: 94
+      width: 10
+      height: 22
+    spriteID: 8e8d976024c795644843455e5689ee7e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 25, y: 94}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -224,7 +304,7 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 1
-        y: 0
+        y: 1
         width: 13
         height: 23
       spriteId: 2ae789a0259d5ab40808cc4e715ff34f
@@ -233,7 +313,7 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 2
-        y: 1
+        y: 3
         width: 12
         height: 22
       spriteId: b2c9315aeb5231043b8dda29a6510368
@@ -242,10 +322,46 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 2
-        y: 0
+        y: 3
         width: 13
         height: 23
       spriteId: 7d78eab906c11ff498a2fa662a0d7b1b
+    - name: rager-wall-crawl_Frame_4
+      frameIndex: 4
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 5
+        width: 12
+        height: 22
+      spriteId: 8965a08051d188c48a6574d350139149
+    - name: rager-wall-crawl_Frame_5
+      frameIndex: 5
+      additiveSortOrder: 0
+      cellRect:
+        x: 1
+        y: 5
+        width: 13
+        height: 23
+      spriteId: 0b20007ded96f114c81a644798cd4026
+    - name: rager-wall-crawl_Frame_6
+      frameIndex: 6
+      additiveSortOrder: 0
+      cellRect:
+        x: 2
+        y: 7
+        width: 12
+        height: 22
+      spriteId: bf6eef4257821b2499922d2ca478bb1e
+    - name: rager-wall-crawl_Frame_7
+      frameIndex: 7
+      additiveSortOrder: 0
+      cellRect:
+        x: 3
+        y: 7
+        width: 10
+        height: 22
+      spriteId: 8e8d976024c795644843455e5689ee7e
     linkedCells: []
     parentIndex: -1
   platformSettings: []

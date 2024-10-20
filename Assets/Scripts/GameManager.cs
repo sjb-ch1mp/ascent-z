@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Loaded");
         levelManager = LevelManager.Instance;
         ui = UserInterface.Instance;
         gameOverScreen = ui.gameOverScreen;
@@ -115,6 +114,18 @@ public class GameManager : MonoBehaviour
             }
         }
         return zombieCount >= Resources.MAX_ZOMBIES_PER_SPAWNER;
+    }
+
+    public bool NoZombiesForSpawner(int id) {
+        GameObject zombieContainer = GameObject.Find("Zombies");
+        Enemy[] zombies = zombieContainer.GetComponentsInChildren<Enemy>();
+        int zombieCount = 0;
+        foreach (Enemy z in zombies) {
+            if (z != null && z.GetSpawnerId() == id) {
+                zombieCount++;
+            }
+        }
+        return zombieCount == 0;
     }
 
     // UI functions
