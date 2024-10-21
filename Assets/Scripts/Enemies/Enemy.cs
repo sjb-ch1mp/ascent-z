@@ -182,19 +182,11 @@ public class Enemy : MonoBehaviour
 
     // TakeDamage reduces the enemies health by the damage of the projectile.
     void TakeDamage(ProjectileBehaviour projectile) {
-        health -= projectile.damage;
-        if (health <= 0) {
-            health = 0;
-            isAlive = false;
-            enemyRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-            StartCoroutine(Die(true));
-        }
-        UpdateHealthBar();
+        TakeDamage((int) projectile.damage);
     }
 
     // TakeDamage overloaded for interger variable
-    // @overload
-    void TakeDamage(int damage) {
+    public void TakeDamage(int damage) {
         health -= damage;
         if (health <= 0) {
             health = 0;
@@ -340,6 +332,8 @@ public class Enemy : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.CompareTag("Car")) {
             KillImmediately();
+        } else if (other.gameObject.CompareTag("Missile")) {
+            TakeDamage(other.GetComponent<MissileExplosion>().damage);
         }
     }
 }

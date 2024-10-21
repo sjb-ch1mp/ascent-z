@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0dee84c64272147a281794b519e743c3
+guid: bdf6b784b2b273d4b87509438a13dbbc
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -95,10 +95,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
-    maxTextureSize: 8192
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Explosion Medium_0
+      name: helicopter-Sheet_0
       rect:
         serializedVersion: 2
-        x: 23
-        y: 24
-        width: 17
-        height: 17
+        x: 0
+        y: 0
+        width: 443
+        height: 135
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14b526022ac4c4c7688cedadf6538aa7
-      internalID: -658600050
+      spriteID: 79ce1090b1a334547a999fb540aef893
+      internalID: -482862481
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Explosion Medium_1
+      name: helicopter-Sheet_1
       rect:
         serializedVersion: 2
-        x: 80
-        y: 18
-        width: 33
-        height: 30
+        x: 443
+        y: 0
+        width: 443
+        height: 135
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0bc1a8ea937c4047ba4033c2707f4f5
-      internalID: -1518319363
+      spriteID: 34a6c04f378a57c43a4f927db065b8c9
+      internalID: 929430640
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Explosion Medium_2
+      name: helicopter-Sheet_2
       rect:
         serializedVersion: 2
-        x: 145
-        y: 19
-        width: 32
-        height: 29
+        x: 886
+        y: 0
+        width: 443
+        height: 135
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5301c06a2bce34a6dacf3afebb762149
-      internalID: 1695320249
+      spriteID: 304e7de8c1b90de40b5c11e4f1c6b7fa
+      internalID: 1955581852
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Explosion Medium_3
+      name: helicopter-Sheet_3
       rect:
         serializedVersion: 2
-        x: 208
-        y: 18
-        width: 33
-        height: 30
+        x: 1329
+        y: 0
+        width: 443
+        height: 135
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f30c816df171432c8b9954f3058ae19
-      internalID: 405982025
+      spriteID: 5f5c82b95c52a8d4684358ba83ad652c
+      internalID: 1854471042
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Explosion Medium_4
+      name: helicopter-Sheet_4
       rect:
         serializedVersion: 2
-        x: 270
-        y: 18
-        width: 36
-        height: 30
+        x: 1772
+        y: 0
+        width: 443
+        height: 135
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89618e90fe1a442559dd07efd4373a47
-      internalID: -1965258453
+      spriteID: 74a5ba33be8035a4dbde1b703a11f3b7
+      internalID: 1784661514
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Explosion Medium_5
+      name: helicopter-Sheet_5
       rect:
         serializedVersion: 2
-        x: 334
-        y: 18
-        width: 36
-        height: 30
+        x: 2215
+        y: 0
+        width: 443
+        height: 135
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,8 +229,134 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93cc9778719884447b435f4ba1c21c8b
-      internalID: 84850371
+      spriteID: 9725626e70d04ad46a4a5b5aed1ffbaa
+      internalID: -1483252430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helicopter-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 2658
+        y: 0
+        width: 443
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 535431be82ca4254ba739333689d3bed
+      internalID: -711108336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helicopter-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 3101
+        y: 0
+        width: 443
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72c9f1c9eab1f3a4c8d2afdfbf571965
+      internalID: 593381186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helicopter-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 3544
+        y: 0
+        width: 443
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fd23cb417a0d4444af4f9ffc9c24f42
+      internalID: 1311537148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helicopter-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 3987
+        y: 0
+        width: 443
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 861c0398006f02c41bd250085900a307
+      internalID: -1439094704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helicopter-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 4430
+        y: 0
+        width: 443
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb5acef341306e1429fc017a36fa7b11
+      internalID: 1215797569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helicopter-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 4873
+        y: 0
+        width: 443
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28e49861fbe537e42bf767d21744a3f7
+      internalID: 1049692230
       vertices: []
       indices: 
       edges: []
@@ -246,12 +372,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Explosion Medium_0: -658600050
-      Explosion Medium_1: -1518319363
-      Explosion Medium_2: 1695320249
-      Explosion Medium_3: 405982025
-      Explosion Medium_4: -1965258453
-      Explosion Medium_5: 84850371
+      helicopter-Sheet_0: -482862481
+      helicopter-Sheet_1: 929430640
+      helicopter-Sheet_10: 1215797569
+      helicopter-Sheet_11: 1049692230
+      helicopter-Sheet_2: 1955581852
+      helicopter-Sheet_3: 1854471042
+      helicopter-Sheet_4: 1784661514
+      helicopter-Sheet_5: -1483252430
+      helicopter-Sheet_6: -711108336
+      helicopter-Sheet_7: 593381186
+      helicopter-Sheet_8: 1311537148
+      helicopter-Sheet_9: -1439094704
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

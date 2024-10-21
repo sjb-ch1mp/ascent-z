@@ -126,8 +126,13 @@ public class ZombieSpawner : MonoBehaviour
 
     // TakeDamage reduces the enemies health by the damage of the projectile.
     void TakeDamage(ProjectileBehaviour projectile) {
+        TakeDamage((int) projectile.damage);
+    }
+
+    // TakeDamage reduces the enemies health by the damage of the projectile.
+    public void TakeDamage(int damage) {
         audioSource.PlayOneShot(painSounds[Random.Range(0, painSounds.Length)]);
-        health -= projectile.damage;
+        health -= damage;
         if (health <= 0) {
             health = 0;
             isAlive = false;
