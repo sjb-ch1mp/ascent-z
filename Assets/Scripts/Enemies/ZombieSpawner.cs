@@ -158,6 +158,10 @@ public class ZombieSpawner : MonoBehaviour
         gameManager.AddKillScore(score);
         gameObject.layer = LayerMask.NameToLayer("Dead");
         animator.SetBool("isDead", true);
+        Cache cache = GetComponent<Cache>();
+        if (cache != null) {
+            StartCoroutine(cache.RuptureCache());
+        }
     }
 
     // UpdateHealthBar calculates the new proportion of max health
@@ -167,7 +171,7 @@ public class ZombieSpawner : MonoBehaviour
         healthBarDimensions.localScale = new Vector3(newHealthLen, healthBarDimensions.localScale.y, healthBarDimensions.localScale.z);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         if (!isAlive) {
             return;

@@ -11,6 +11,7 @@ public class Cache : MonoBehaviour {
     public float leftDropBound = -2;
     public float rightDropBound = 2;
     public Transform collectibleContainer;
+    public bool attached = false; // If cache is attached to an entity (e.g. zombie spawner) don't do animation or audioclip, because they don't exist
 
     // Types
     public enum Size {
@@ -20,8 +21,8 @@ public class Cache : MonoBehaviour {
     }
 
     // Consts
-    private const int MEGA_DROP = 10;
-    private const int NORMAL_DROP = 5;
+    private const int MEGA_DROP = 8;
+    private const int NORMAL_DROP = 4;
     private const int MINOR_DROP = 2;
     private const int MEGA_HEALTH = 250;
     private const int NORMAL_HEALTH = 100;
@@ -31,7 +32,7 @@ public class Cache : MonoBehaviour {
     // State
     float health = MEGA_HEALTH;
     int dropNumber = MEGA_DROP;
-    bool attached = false; // If cache is attached to an entity (e.g. zombie spawner) don't do animation or audioclip, because they don't exist
+    bool isRuptured = false;
 
     // References
     Animator animator;
@@ -59,25 +60,36 @@ public class Cache : MonoBehaviour {
         }
     }
 
-    IEnumerator RuptureCache() {
-        if (!attached) {
-            animator.SetTrigger("destroy");
-            audioSource.Play();
-        }
-        for (int i=0; i<dropNumber; i++) {
-            Vector2 randomDropPosition = new Vector2(transform.position.x + Random.Range(leftDropBound, rightDropBound), transform.position.y);
-            if (Random.value < 0.25) {
-                Instantiate(weaponCachePrefab, randomDropPosition, weaponCachePrefab.transform.rotation, collectibleContainer);
-            } else {
-                Instantiate(utilityCratePrefab, randomDropPosition, weaponCachePrefab.transform.rotation, collectibleContainer);
+    public IEnumerator RuptureCache() {
+        if (!isRuptured) {
+            isRuptured = true;
+            if (!attached) {
+                animator.SetTrigger("destroy");
+                audioSource.Play();
             }
-            yield return new WaitForSeconds(dropDelay);
+            for (int i=0; i<dropNumber; i++) {
+                Vector2 randomDropPosition = new Vector2(transform.position.x + Random.Range(leftDropBound, rightDropBound), transform.position.y);
+                if (Random.value < 0.25) {
+                    Instantiate(weaponCachePrefab, randomDropPosition, weaponCachePrefab.transform.rotation, collectibleContainer);
+                } else {
+                    Instantiate(utilityCratePrefab, randomDropPosition, weaponCachePrefab.transform.rotation, collectibleContainer);
+                }
+                yield return new WaitForSeconds(dropDelay);
+            }
+            if (!attached) {
+                Destroy(gameObject);
+            }
         }
-        Destroy(gameObject);
     }
 
     void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.CompareTag("Bullet")) {
+        if (attached) {
+            // Check if we're attached to a zombie spawner
+            ZombieSpawner z = GetComponent<ZombieSpawner>();
+            if (z != null) {
+                z.OnCollisionEnter2D(other);
+            }
+        } else if (other.gameObject.CompareTag("Bullet")) {
             health -= other.gameObject.GetComponent<ProjectileBehaviour>().damage;
             if (health <= 0) {
                 StartCoroutine(RuptureCache());

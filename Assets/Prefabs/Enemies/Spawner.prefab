@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 6450252844786117640}
   - component: {fileID: 3274671153418201479}
   - component: {fileID: 522341591423502704}
+  - component: {fileID: 5765959968462680707}
   m_Layer: 10
   m_Name: Spawner
   m_TagString: BossEnemy
@@ -446,6 +447,11 @@ MonoBehaviour:
   aggroRange: 50
   health: 2000
   score: 250
+  damage: 30
+  surgeZombies: 10
+  deathSound: {fileID: 0}
+  painSounds: []
+  id: 0
 --- !u!70 &522341591423502704
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -481,3 +487,21 @@ CapsuleCollider2D:
   m_Offset: {x: 0.09375, y: 0}
   m_Size: {x: 6.5625, y: 4.3125}
   m_Direction: 1
+--- !u!114 &5765959968462680707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9016099862831294691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea888cb409fad54a8303c1bfd4fb347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cacheSize: 0
+  utilityCratePrefab: {fileID: 5458349044618603328, guid: 21e3ad48b60810d4c864e228a6064a5a, type: 3}
+  weaponCachePrefab: {fileID: 4848849798952183771, guid: 32dfe05baa1320e468c9f152375e84d5, type: 3}
+  leftDropBound: -2
+  rightDropBound: 2
+  collectibleContainer: {fileID: 0}

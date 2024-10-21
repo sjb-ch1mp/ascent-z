@@ -35,7 +35,7 @@ public class Survivor : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    public void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Bullet")) {
             StartCoroutine(tutorialManager.FirstCocoonHitEvent());
             ProjectileBehaviour projectile = collision.gameObject.GetComponent<ProjectileBehaviour>();
