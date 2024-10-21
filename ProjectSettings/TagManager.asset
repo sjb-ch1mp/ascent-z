@@ -19,6 +19,7 @@ TagManager:
   - Crawlable
   - Car
   - Cache
+  - Missile
   layers:
   - Default
   - TransparentFX

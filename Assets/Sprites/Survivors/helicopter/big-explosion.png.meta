@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0dee84c64272147a281794b519e743c3
+guid: 767f62613fc297149b97bfe544b44396
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -95,10 +95,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
-    maxTextureSize: 8192
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Explosion Medium_0
+      name: big-explosion_0
       rect:
         serializedVersion: 2
-        x: 23
-        y: 24
-        width: 17
-        height: 17
+        x: 0
+        y: 0
+        width: 63
+        height: 92
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14b526022ac4c4c7688cedadf6538aa7
-      internalID: -658600050
+      spriteID: 9c3dcceaf99c7e94787f5dcf6cda31d8
+      internalID: 1040016167
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Explosion Medium_1
+      name: big-explosion_1
       rect:
         serializedVersion: 2
-        x: 80
-        y: 18
-        width: 33
-        height: 30
+        x: 63
+        y: 0
+        width: 63
+        height: 92
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0bc1a8ea937c4047ba4033c2707f4f5
-      internalID: -1518319363
+      spriteID: 779abdf5fbb51414c88b7655d64ae250
+      internalID: 776616037
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Explosion Medium_2
+      name: big-explosion_2
       rect:
         serializedVersion: 2
-        x: 145
-        y: 19
-        width: 32
-        height: 29
+        x: 126
+        y: 0
+        width: 63
+        height: 92
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5301c06a2bce34a6dacf3afebb762149
-      internalID: 1695320249
+      spriteID: ff4ef8d78abd7124091a3c412cb4fefd
+      internalID: 167553
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Explosion Medium_3
+      name: big-explosion_3
       rect:
         serializedVersion: 2
-        x: 208
-        y: 18
-        width: 33
-        height: 30
+        x: 189
+        y: 0
+        width: 63
+        height: 92
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f30c816df171432c8b9954f3058ae19
-      internalID: 405982025
+      spriteID: 67876d2c3dccabb4887867b1327386db
+      internalID: -1753846802
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Explosion Medium_4
+      name: big-explosion_4
       rect:
         serializedVersion: 2
-        x: 270
-        y: 18
-        width: 36
-        height: 30
+        x: 252
+        y: 0
+        width: 63
+        height: 92
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,29 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89618e90fe1a442559dd07efd4373a47
-      internalID: -1965258453
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Explosion Medium_5
-      rect:
-        serializedVersion: 2
-        x: 334
-        y: 18
-        width: 36
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 93cc9778719884447b435f4ba1c21c8b
-      internalID: 84850371
+      spriteID: 1a508afb7e381c44e811ab0adc4c9f53
+      internalID: 1783580433
       vertices: []
       indices: 
       edges: []
@@ -246,12 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Explosion Medium_0: -658600050
-      Explosion Medium_1: -1518319363
-      Explosion Medium_2: 1695320249
-      Explosion Medium_3: 405982025
-      Explosion Medium_4: -1965258453
-      Explosion Medium_5: 84850371
+      big-explosion_0: 1040016167
+      big-explosion_1: 776616037
+      big-explosion_2: 167553
+      big-explosion_3: -1753846802
+      big-explosion_4: 1783580433
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
