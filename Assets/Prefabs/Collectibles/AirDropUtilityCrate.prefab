@@ -316,6 +316,7 @@ MonoBehaviour:
   grenadeDropThreshold: 0.5
   ammoDropThreshold: 0.75
   armourDropThreshold: 0.95
+  isAirDrop: 1
 --- !u!114 &-8941984561861373114
 MonoBehaviour:
   m_ObjectHideFlags: 0

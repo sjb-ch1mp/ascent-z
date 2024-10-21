@@ -9,6 +9,7 @@ public class UtilityCrate : MonoBehaviour
     public float grenadeDropThreshold = 0.5f;
     public float ammoDropThreshold = 0.75f;
     public float armourDropThreshold = 0.95f;
+    public bool inCache = false;
 
     // State
     public Resources.Collectible CollectibleType { get; set; }
@@ -26,6 +27,9 @@ public class UtilityCrate : MonoBehaviour
             CollectibleType = Resources.Collectible.ARMOUR;
         } else {
             CollectibleType = Resources.Collectible.LIFE;
+        }
+        if (inCache) {
+            GetComponent<SpriteRenderer>().sprite = utilityCrateSprites[(int) CollectibleType];
         }
     }
 }

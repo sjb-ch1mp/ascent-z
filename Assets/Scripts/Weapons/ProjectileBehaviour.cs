@@ -131,12 +131,9 @@ public class ProjectileBehaviour : MonoBehaviour
         // Handle penetration and destruction
         if (!collision.gameObject.CompareTag("Bullet"))
         {
-            if (penetration <= 0)
-            {
+            if (penetration <= 0) {
                 Destroy(gameObject); // Destroy the projectile after hitting an object
-            }
-            else
-            {
+            } else {
                 penetration--; // Decrease penetration count
             }
         }
