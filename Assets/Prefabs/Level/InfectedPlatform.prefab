@@ -2346,6 +2346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2748ac985fe7de4886a58cd9d97630f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hurtSound: {fileID: 8300000, guid: 66e79d419c9773e4abb9fc92b0d669dd, type: 3}
 --- !u!82 &-8105039398693087798
 AudioSource:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     // State
     bool paused = false;
-    bool gameOver = false;
+    bool gameOver = true;
     int zombieSpawnerId = 0;
     private GameObject in_player;
     private GameOverScreen gameOverScreen;
@@ -55,7 +55,6 @@ public class GameManager : MonoBehaviour
             gameOver = false;
             audioSource.Play();
         }
-        levelManager.PrepareScene();
         SpawnPlayer(); 
     }
 
@@ -133,6 +132,10 @@ public class GameManager : MonoBehaviour
         return zombieCount == 0;
     }
 
+    public bool AllSpawnersForLevelDead() {
+        return levelManager.AllSpawnersForLevelDead();
+    }
+
     // UI functions
     public void PickUpWeapon(Resources.Weapon weapon) {
         ui.PickUpWeapon(weapon);
@@ -191,12 +194,12 @@ public class GameManager : MonoBehaviour
     }
 
     public void RunScoreRoutine() {
-        ui.RunScoreRoutine(
+        StartCoroutine(ui.RunScoreRoutine(
             scoreManager.KillScore,
-            scoreManager.SurvivorCount, 
+            scoreManager.SurvivorCount,
             scoreManager.RevivesCount,
             scoreManager.GetFinalScore()
-        );
+        ));
     }
 
     public int AddFinalScoreToRankProgress(int finalScore) {

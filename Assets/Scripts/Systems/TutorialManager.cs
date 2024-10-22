@@ -106,7 +106,7 @@ public class TutorialManager : MonoBehaviour
             }
             firstInfectedPlatformEncountered = true;
             talkingHead.NewMessage(
-                "Watch out! That platform is infected and contact with it could be lethal! You'll have to kill everything on this level before you can proceed! .",
+                "Watch out! That platform is infected and contact with it could be lethal! You'll have to kill everything on this level before you can destroy it! .",
                 TalkingHead.MessageDestination.Communication,
                 infectedPlatformSprite
             );    
