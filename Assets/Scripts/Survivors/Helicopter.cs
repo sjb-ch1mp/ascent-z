@@ -11,6 +11,7 @@ public class Helicopter : MonoBehaviour
     public float departureElevation = 4f;
 
     // State
+    bool departingRight;
     float destinationX;
     float destinationY;
     bool departing;
@@ -24,8 +25,10 @@ public class Helicopter : MonoBehaviour
         if (transform.position.x >= 1) {
             spriteRenderer.flipX = true;
             destinationX = GameObject.Find("WorldBorderLeft").transform.position.x;
+            departingRight = false;
         } else {
             destinationX = GameObject.Find("WorldBorderRight").transform.position.x;
+            departingRight = true;
         }
         StartCoroutine(FireMissiles());    
     }
@@ -34,7 +37,7 @@ public class Helicopter : MonoBehaviour
     void Update() {
         if (departing) {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(destinationX, destinationY), Time.deltaTime * moveSpeed);
-            if (transform.position.x >= destinationX) {
+            if ((departingRight && transform.position.x >= destinationX) || (!departingRight && transform.position.x <= destinationX)) {
                 Destroy(gameObject);
             }
         }

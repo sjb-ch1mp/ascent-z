@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3658773640241106239}
   - component: {fileID: -9159707762754029722}
   - component: {fileID: 1170783447184301420}
+  - component: {fileID: 6368852199076730314}
   m_Layer: 20
   m_Name: Cache
   m_TagString: Cache
@@ -126,7 +127,7 @@ MonoBehaviour:
   weaponCachePrefab: {fileID: 4848849798952183771, guid: 32dfe05baa1320e468c9f152375e84d5, type: 3}
   leftDropBound: -2
   rightDropBound: 2
-  collectibleContainer: {fileID: 0}
+  attached: 0
 --- !u!61 &-9159707762754029722
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -268,3 +269,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6368852199076730314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6994701088389619567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 776c51a0c9d3457479983fa590e5bcff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

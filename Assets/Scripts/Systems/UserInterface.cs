@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class UserInterface : MonoBehaviour
 {
@@ -47,6 +48,7 @@ public class UserInterface : MonoBehaviour
     public AudioClip noAmmoSound;
     // == Screens
     public GameOverScreen gameOverScreen;
+    public GameObject pauseScreen;
     public WeaponStatusKeys weaponStatusKeys;
 
     // State
@@ -78,7 +80,11 @@ public class UserInterface : MonoBehaviour
     }
 
     void Update() {
-        if (!gameManager.IsGameOver()) {
+        
+        if (pauseScreen.activeSelf && Input.GetKeyDown(KeyCode.P)) {
+            // Unpause
+            UnpauseGame();
+        } else if (!gameManager.IsGameOver()) {
             // Toggle control scheme
             if (Input.GetKeyDown(KeyCode.Tab)) {
                 if (!controlScheme.activeSelf) {
@@ -114,7 +120,22 @@ public class UserInterface : MonoBehaviour
             } else if (Input.GetKeyDown("5")) {
                 ActivateWeapon(Resources.Weapon.SNIPER_RIFLE);
             }
+            // Pause Game
+            if (!talkingHead.gameObject.activeSelf && Input.GetKeyDown(KeyCode.P)) {
+                Camera.main.GetComponent<PostProcessLayer>().enabled = true;
+                gameManager.SetPaused(true);
+                pauseScreen.SetActive(true);
+                if (controlScheme.activeSelf) {
+                    controlScheme.SetActive(false);
+                }
+            }
         }
+    }
+
+    public void UnpauseGame() {
+        Camera.main.GetComponent<PostProcessLayer>().enabled = false;
+        gameManager.SetPaused(false);
+        pauseScreen.SetActive(false);
     }
 
     public void IncreaseRank(int newRank) {

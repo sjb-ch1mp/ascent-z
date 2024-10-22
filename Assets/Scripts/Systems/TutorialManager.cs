@@ -7,11 +7,11 @@ public class TutorialManager : MonoBehaviour
     // Exports
     public TalkingHead talkingHead;
     public Sprite spawnerSprite;
-    public Sprite weaponCacheSprite;
-    public Sprite crateSprite;
     public Sprite cocoonSprite;
+    public Sprite infectedPlatformSprite;
 
     // State
+    public bool firstInfectedPlatformEncountered { get; set; }
     public bool firstSpawnerContact { get; set; }
     public bool firstSurvivorCocoonImpact { get; set; }
     bool gameIntroductionPlayed = false;
@@ -57,7 +57,7 @@ public class TutorialManager : MonoBehaviour
                 yield return new WaitForSeconds(0.25f);
             }
             talkingHead.NewMessage(
-                "If you're as green as you look, make sure you press 'TAB' so you know what the controls are.\nGet to the top of this building and try not to die. .", 
+                "If you're as green as you look, make sure you press 'TAB' so you know what the controls are.\nIf you're a coward you can press 'P' to pause.\nNow get to the top of this building and try not to die. .", 
                 TalkingHead.MessageDestination.Communication, 
                 null
             );
@@ -98,4 +98,19 @@ public class TutorialManager : MonoBehaviour
             );    
         }
     }
+
+    public IEnumerator FirstInfectedPlatformEncounter() {
+        if (!firstInfectedPlatformEncountered) {
+            while (talkingHead.IsTalking) {
+                yield return new WaitForSeconds(0.25f);
+            }
+            firstInfectedPlatformEncountered = true;
+            talkingHead.NewMessage(
+                "Watch out! That platform is infected and contact with it could be lethal! You'll have to kill everything on this level before you can proceed! .",
+                TalkingHead.MessageDestination.Communication,
+                infectedPlatformSprite
+            );    
+        }
+    }
+
 }
