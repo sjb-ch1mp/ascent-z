@@ -4956,6 +4956,7 @@ GameObject:
   m_Component:
   - component: {fileID: 437387093429221393}
   - component: {fileID: 2949948773507865112}
+  - component: {fileID: 4931572735994161804}
   m_Layer: 0
   m_Name: AirDropSpawner
   m_TagString: Untagged
@@ -4995,7 +4996,18 @@ MonoBehaviour:
   weaponAirDropPrefab: {fileID: 8368839531710531934, guid: cd227e622e60a914abcbbc6d5504aaa3, type: 3}
   utilityAirDropPrefab: {fileID: 1304416885112249590, guid: dceca22cfbc851b4db3cce399e1fc7b6, type: 3}
   activeDrops: {fileID: 8294044343902519490}
-  airDropFrequency: 10
+--- !u!114 &4931572735994161804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7824775930217773795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 776c51a0c9d3457479983fa590e5bcff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7899230093447833575
 GameObject:
   m_ObjectHideFlags: 0

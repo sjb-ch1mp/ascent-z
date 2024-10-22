@@ -10,7 +10,6 @@ public class Cache : MonoBehaviour {
     public GameObject weaponCachePrefab;
     public float leftDropBound = -2;
     public float rightDropBound = 2;
-    public Transform collectibleContainer;
     public bool attached = false; // If cache is attached to an entity (e.g. zombie spawner) don't do animation or audioclip, because they don't exist
 
     // Types
@@ -37,6 +36,7 @@ public class Cache : MonoBehaviour {
     // References
     Animator animator;
     AudioSource audioSource;
+    Transform collectibleContainer;
 
     void Start() {
         switch (cacheSize) {
@@ -58,6 +58,7 @@ public class Cache : MonoBehaviour {
         if (animator == null) {
             attached = true;
         }
+        collectibleContainer = GameObject.Find("Collectibles").transform;
     }
 
     public IEnumerator RuptureCache() {

@@ -50,7 +50,12 @@ public class GameManager : MonoBehaviour
         Lives = Resources.MAX_LIVES;
         ui.RenderLives(Lives);
         virtualCamera = GameObject.Find("VCFollowCamera").GetComponent<CinemachineVirtualCamera>();
-        gameOver = false;
+        if (gameOver) {
+            levelManager.PrepareScene();
+            gameOver = false;
+            audioSource.Play();
+        }
+        levelManager.PrepareScene();
         SpawnPlayer(); 
     }
 
@@ -207,11 +212,15 @@ public class GameManager : MonoBehaviour
     }
 
     // Game flow
-    public bool LastManStanding() {
+    public void CheckLevelComplete() {
         // There should be exactly one enemy left on this call (the one calling the function)
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] bosses = GameObject.FindGameObjectsWithTag("BossEnemy");
-        return enemies.Length + bosses.Length == 1;
+        if (enemies.Length + bosses.Length == 1) {
+            // level is complete
+            levelManager.CompleteLevel();
+            RunScoreRoutine();
+        }
     }
 
     public void SetPaused(bool pauseGame) {
@@ -227,6 +236,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver() {
+        audioSource.Stop();
         ui.audioSource.PlayOneShot(gameOverSound);
         gameOver = true;
         gameOverScreen.GameOver();
