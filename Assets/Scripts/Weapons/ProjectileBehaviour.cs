@@ -11,6 +11,7 @@ public class ProjectileBehaviour : MonoBehaviour
     public float maxRange = Mathf.Infinity; // Default to no range limit
     public float lifeDuration = 5f;
     public bool visible = true;
+    public Vector3 direction { get; private set; }
 
     public bool playAnimation = false;
 
@@ -47,6 +48,7 @@ public class ProjectileBehaviour : MonoBehaviour
     }
 
     public void SetCharacteristics(PlayerArms.Weapon weapon, Vector2 direction) {
+        this.direction = direction;
         damage = weapon.damage;
         speed = weapon.projectileSpeed;
         visible = weapon.projectileVisible;
