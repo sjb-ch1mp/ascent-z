@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     // State
     bool paused = false;
-    bool gameOver = false;
+    bool gameOver = true;
     int zombieSpawnerId = 0;
     private GameObject in_player;
     private GameOverScreen gameOverScreen;
@@ -50,7 +50,11 @@ public class GameManager : MonoBehaviour
         Lives = Resources.MAX_LIVES;
         ui.RenderLives(Lives);
         virtualCamera = GameObject.Find("VCFollowCamera").GetComponent<CinemachineVirtualCamera>();
-        gameOver = false;
+        if (gameOver) {
+            levelManager.PrepareScene();
+            gameOver = false;
+            audioSource.Play();
+        }
         SpawnPlayer(); 
     }
 
@@ -128,6 +132,10 @@ public class GameManager : MonoBehaviour
         return zombieCount == 0;
     }
 
+    public bool AllSpawnersForLevelDead() {
+        return levelManager.AllSpawnersForLevelDead();
+    }
+
     // UI functions
     public void PickUpWeapon(Resources.Weapon weapon) {
         ui.PickUpWeapon(weapon);
@@ -186,12 +194,12 @@ public class GameManager : MonoBehaviour
     }
 
     public void RunScoreRoutine() {
-        ui.RunScoreRoutine(
+        StartCoroutine(ui.RunScoreRoutine(
             scoreManager.KillScore,
-            scoreManager.SurvivorCount, 
+            scoreManager.SurvivorCount,
             scoreManager.RevivesCount,
             scoreManager.GetFinalScore()
-        );
+        ));
     }
 
     public int AddFinalScoreToRankProgress(int finalScore) {
@@ -207,11 +215,15 @@ public class GameManager : MonoBehaviour
     }
 
     // Game flow
-    public bool LastManStanding() {
+    public void CheckLevelComplete() {
         // There should be exactly one enemy left on this call (the one calling the function)
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] bosses = GameObject.FindGameObjectsWithTag("BossEnemy");
-        return enemies.Length + bosses.Length == 1;
+        if (enemies.Length + bosses.Length == 1) {
+            // level is complete
+            levelManager.CompleteLevel();
+            RunScoreRoutine();
+        }
     }
 
     public void SetPaused(bool pauseGame) {
@@ -227,6 +239,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver() {
+        audioSource.Stop();
         ui.audioSource.PlayOneShot(gameOverSound);
         gameOver = true;
         gameOverScreen.GameOver();

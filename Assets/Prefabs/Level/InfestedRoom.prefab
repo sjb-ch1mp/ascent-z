@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 356188710976042091}
   - component: {fileID: 1134091751476271191}
   - component: {fileID: 8823261786848751249}
+  - component: {fileID: 4810467885811990573}
   m_Layer: 13
   m_Name: InfestedRoom
   m_TagString: Untagged
@@ -118,7 +119,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.5, y: 0.09375}
+  m_Offset: {x: 0.5, y: -0.84375}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0.5}
@@ -129,7 +130,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.1875}
+  m_Size: {x: 1, y: 4.0625}
   m_EdgeRadius: 0
 --- !u!114 &8823261786848751249
 MonoBehaviour:
@@ -147,3 +148,15 @@ MonoBehaviour:
   numEnemies: 3
   zombie: {fileID: 3518049584602599109, guid: b31a59b16a5b2ab45abd0ee85d618071, type: 3}
   zombieContainer: {fileID: 0}
+--- !u!114 &4810467885811990573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6867191645700653960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 776c51a0c9d3457479983fa590e5bcff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

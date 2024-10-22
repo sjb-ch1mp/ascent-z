@@ -323,9 +323,7 @@ public class Enemy : MonoBehaviour
     // DestroyAfterAnimation is a public function that is 
     // used as an animation Event to destroy the enemy
     public void DestroyAfterAnimation() {
-        if (gameManager.LastManStanding()) {
-            gameManager.RunScoreRoutine();
-        }
+        //gameManager.CheckLevelComplete();
         Destroy(gameObject);
     }
 
