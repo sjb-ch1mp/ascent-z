@@ -1,6 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -142,8 +142,12 @@ public class UserInterface : MonoBehaviour
         currentRank += newRank;
     }
 
-    public void RunScoreRoutine(int killScore, int survivorCount, int reviveCount, int finalScore) {
+    public IEnumerator RunScoreRoutine(int killScore, int survivorCount, int reviveCount, int finalScore) {
         talkingHead.ShowScore(killScore, survivorCount, reviveCount, finalScore);
+        while (talkingHead.gameObject.activeSelf) {
+            yield return new WaitForSeconds(0.25f);
+        }
+        LevelManager.Instance.CompleteLevel();
     }
 
     public void PlayerSpawn() {

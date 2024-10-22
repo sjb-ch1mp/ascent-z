@@ -943,11 +943,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6982607587935484920, guid: 5638fbec96ab34444926a576a5244a84, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.163225
+      value: 5.76
       objectReference: {fileID: 0}
     - target: {fileID: 6982607587935484920, guid: 5638fbec96ab34444926a576a5244a84, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 43.80581
+      value: 46.803
       objectReference: {fileID: 0}
     - target: {fileID: 6982607587935484920, guid: 5638fbec96ab34444926a576a5244a84, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1295,6 +1295,22 @@ PrefabInstance:
     - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
       propertyPath: id
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: health
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: surgeZombies
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: normalSpawnRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: firstHitSpawnRate
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9016099862831294691, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
       propertyPath: m_Name
@@ -2941,6 +2957,18 @@ PrefabInstance:
       propertyPath: id
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: health
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: normalSpawnRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: firstHitSpawnRate
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9016099862831294691, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
       propertyPath: m_Name
       value: Spawner
@@ -3007,6 +3035,18 @@ PrefabInstance:
       propertyPath: id
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: health
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: normalSpawnRate
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: firstHitSpawnRate
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9016099862831294691, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
       propertyPath: m_Name
       value: Spawner
@@ -3051,6 +3091,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 791579758}
+  - {fileID: 1883543521}
   - {fileID: 520524147}
   - {fileID: 631485941}
   - {fileID: 245727240}
@@ -3606,6 +3647,18 @@ PrefabInstance:
       propertyPath: id
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: health
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: normalSpawnRate
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: firstHitSpawnRate
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9016099862831294691, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
       propertyPath: m_Name
       value: Spawner
@@ -3779,6 +3832,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
       propertyPath: id
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: health
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: surgeZombies
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: normalSpawnRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: firstHitSpawnRate
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7313037875754042826, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
@@ -4397,11 +4466,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2002548415615872292, guid: 66c7c70047e867d4e92c053f29848836, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.400383
+      value: -2.75
       objectReference: {fileID: 0}
     - target: {fileID: 2002548415615872292, guid: 66c7c70047e867d4e92c053f29848836, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 57.098385
+      value: 63.07
       objectReference: {fileID: 0}
     - target: {fileID: 2002548415615872292, guid: 66c7c70047e867d4e92c053f29848836, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4494,6 +4563,95 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4586092340426526155, guid: ebbfe01949f4e90419df0920ab1db690, type: 3}
   m_PrefabInstance: {fileID: 1319966011}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &695273599
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 541867805}
+    m_Modifications:
+    - target: {fileID: 1433827358930554753, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957092052473821779, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -0.3333333
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957092052473821779, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.823555
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957092052473821779, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.65937
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957092052473821779, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.54852617
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957092052473821779, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957092052473821779, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957092052473821779, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957092052473821779, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957092052473821779, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957092052473821779, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957092052473821779, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: spawnRate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: surgeZombies
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: normalSpawnRate
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: firstHitSpawnRate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: desperateSpawnRate
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7313037875754042826, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 9016099862831294691, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: m_Name
+      value: Spawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
 --- !u!1 &696379367
 GameObject:
   m_ObjectHideFlags: 0
@@ -4951,6 +5109,18 @@ PrefabInstance:
       propertyPath: id
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: health
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: normalSpawnRate
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: firstHitSpawnRate
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9016099862831294691, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
       propertyPath: m_Name
       value: Spawner
@@ -5131,6 +5301,30 @@ PrefabInstance:
     - target: {fileID: 1957092052473821779, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: health
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: spawnRate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: surgeZombies
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: normalSpawnRate
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: firstHitSpawnRate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274671153418201479, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+      propertyPath: desperateSpawnRate
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9016099862831294691, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
       propertyPath: m_Name
@@ -8333,6 +8527,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482481655}
   m_CullTransparentMesh: 1
+--- !u!1001 &1503675838
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 36550279502064532, guid: bc3241d11cc45b74a89ba46a01e67850, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.4885235
+      objectReference: {fileID: 0}
+    - target: {fileID: 36550279502064532, guid: bc3241d11cc45b74a89ba46a01e67850, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.2910967
+      objectReference: {fileID: 0}
+    - target: {fileID: 36550279502064532, guid: bc3241d11cc45b74a89ba46a01e67850, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 36550279502064532, guid: bc3241d11cc45b74a89ba46a01e67850, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 36550279502064532, guid: bc3241d11cc45b74a89ba46a01e67850, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 36550279502064532, guid: bc3241d11cc45b74a89ba46a01e67850, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 36550279502064532, guid: bc3241d11cc45b74a89ba46a01e67850, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 36550279502064532, guid: bc3241d11cc45b74a89ba46a01e67850, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 36550279502064532, guid: bc3241d11cc45b74a89ba46a01e67850, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 36550279502064532, guid: bc3241d11cc45b74a89ba46a01e67850, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6272326290948162009, guid: bc3241d11cc45b74a89ba46a01e67850, type: 3}
+      propertyPath: m_Name
+      value: MinorCache
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bc3241d11cc45b74a89ba46a01e67850, type: 3}
 --- !u!1 &1504269213
 GameObject:
   m_ObjectHideFlags: 0
@@ -9786,6 +10037,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &1883543521 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1957092052473821779, guid: 19723e3646b36f046802e7bee3c6e0aa, type: 3}
+  m_PrefabInstance: {fileID: 695273599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1889244141
 GameObject:
   m_ObjectHideFlags: 0
@@ -49110,7 +49366,7 @@ Transform:
   m_GameObject: {fileID: 7209182802449829199}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.002603054, y: 2.3276067, z: -10.222763}
+  m_LocalPosition: {x: 0.0026435852, y: 2.3167315, z: -10.222763}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -49176,3 +49432,4 @@ SceneRoots:
   - {fileID: 558834209}
   - {fileID: 415658036}
   - {fileID: 1686214189}
+  - {fileID: 1503675838}

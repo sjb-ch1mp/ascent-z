@@ -4,14 +4,18 @@ using UnityEngine;
 public class InfectedPlatform : MonoBehaviour
 {
     float damage = 50;
+    float health = 1000;
     bool isActive = true;
     AudioSource audioSource;
     BoxCollider2D boxCollider2D;
     Animator animator;
     Rigidbody2D[] bits;
     TutorialManager tutorialManager;
+    GameManager gameManager;
+    public AudioClip hurtSound;
 
     void Start() {
+        gameManager = GameManager.Instance;
         tutorialManager = TutorialManager.Instance;
         audioSource = GetComponent<AudioSource>();
         boxCollider2D = GetComponent<BoxCollider2D>();
@@ -30,7 +34,8 @@ public class InfectedPlatform : MonoBehaviour
                 StartCoroutine(DestroyBit(bit.gameObject));
                 yield return new WaitForSeconds(0.01f);
             }
-            boxCollider2D.enabled = false;   
+            boxCollider2D.enabled = false;
+            gameManager.RunScoreRoutine();
         }
     }
 
@@ -44,6 +49,18 @@ public class InfectedPlatform : MonoBehaviour
             other.gameObject.GetComponent<Player>().TakeDamage(damage);
             if (!tutorialManager.firstInfectedPlatformEncountered) {
                 StartCoroutine(tutorialManager.FirstInfectedPlatformEncounter());
+            }
+        } else if (other.gameObject.CompareTag("Bullet")) {
+            if (!tutorialManager.firstInfectedPlatformEncountered) {
+                StartCoroutine(tutorialManager.FirstInfectedPlatformEncounter());
+            }
+            if (gameManager.AllSpawnersForLevelDead()) {    
+                health -= other.gameObject.GetComponent<ProjectileBehaviour>().damage;
+                if (health <= 0) {
+                    StartCoroutine(Die());
+                } else {
+                    audioSource.PlayOneShot(hurtSound);
+                }
             }
         }
     }

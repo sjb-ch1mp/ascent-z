@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ZombieSpawner : MonoBehaviour
@@ -12,6 +13,9 @@ public class ZombieSpawner : MonoBehaviour
     public int score = 250;
     public float damage = 30;
     public int surgeZombies = 10;
+    public float normalSpawnRate = 5;
+    public float firstHitSpawnRate = 4;
+    public float desperateSpawnRate = 1.5f; 
     public AudioClip deathSound;
     public AudioClip[] painSounds;
 
@@ -35,11 +39,13 @@ public class ZombieSpawner : MonoBehaviour
     bool isAlive = true;
     bool isHit = false;
     bool isDesperate = false;
-    float spawnRate = 3;
+    float spawnRate;
+    
     public int id;
 
     // Start is called before the first frame update
     void Start() {
+        spawnRate = normalSpawnRate;
         gameManager = GameManager.Instance;
         tutorialManager = TutorialManager.Instance;
         id = gameManager.GetNewZombieSpawnerId();
@@ -75,7 +81,7 @@ public class ZombieSpawner : MonoBehaviour
             yield return new WaitForSeconds(isActive ? spawnRate : 0.5f);
             // When a spawner is about to die, it's spawn rate is significantly increased
             if (!isDesperate && health / initialHealth < 0.25) {
-                spawnRate = 1.0f;
+                spawnRate = desperateSpawnRate;
                 isDesperate = true;
                 StartCoroutine(DoSurge(false));
             }
@@ -159,6 +165,7 @@ public class ZombieSpawner : MonoBehaviour
     }
 
     void Die() {
+        gameManager.KillZombiesForSpawner(id);
         audioSource.PlayOneShot(deathSound);
         gameManager.AddKillScore(score);
         gameObject.layer = LayerMask.NameToLayer("Dead");
@@ -187,7 +194,7 @@ public class ZombieSpawner : MonoBehaviour
                 TakeDamage(collision.gameObject.GetComponent<ProjectileBehaviour>());
                 if (!isHit) {
                     isHit = true;
-                    spawnRate = 2.5f; // Increase spawn rate slightly on first hit
+                    spawnRate = firstHitSpawnRate; // Increase spawn rate slightly on first hit
                     StartCoroutine(DoSurge(false));
                     StartCoroutine(tutorialManager.SpawnerFirstHitEvent());
                 }
@@ -201,7 +208,7 @@ public class ZombieSpawner : MonoBehaviour
     // DestroyAfterAnimation is a public function that is 
     // used as an animation Event to destroy the enemy
     public void DestroyAfterAnimation() {
-        gameManager.CheckLevelComplete();
+        //gameManager.CheckLevelComplete();
         Destroy(gameObject);
     }
 }
