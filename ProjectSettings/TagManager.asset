@@ -18,6 +18,8 @@ TagManager:
   - Survivor
   - Crawlable
   - Car
+  - Cache
+  - Missile
   layers:
   - Default
   - TransparentFX
@@ -39,7 +41,7 @@ TagManager:
   - Camera
   - WallCrawling
   - Stunned
-  - 
+  - Cache
   - 
   - 
   - 

@@ -22,18 +22,32 @@ public class CollectibleItem : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.CompareTag("Player") && !isCollected) {
-            isCollected = true;
-            if (weaponsCache) {
-                WeaponsCache weaponsCache = GetComponent<WeaponsCache>();
-                gameManager.PickUpWeapon(weaponsCache.WeaponType);
-            } else {
-                UtilityCrate utilityCrate = GetComponent<UtilityCrate>();
-                gameManager.PickUpCollectible(utilityCrate.CollectibleType);
-            }
+            Collect();
             Destroy(gameObject);
         } else if (other.gameObject.CompareTag("GameBoundary")) {
             // Destroy cache if it falls out of the boundary
             Destroy(gameObject);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other) { // For non-airdrop collectibles
+        if (other.gameObject.CompareTag("Player") && !isCollected) {
+            Collect();
+            Destroy(gameObject);
+        } else if (other.gameObject.CompareTag("GameBoundary")) {
+            // Destroy cache if it falls out of the boundary
+            Destroy(gameObject);
+        }
+    }
+
+    void Collect() {
+        isCollected = true;
+        if (weaponsCache) {
+            WeaponsCache weaponsCache = GetComponent<WeaponsCache>();
+            gameManager.PickUpWeapon(weaponsCache.WeaponType);
+        } else {
+            UtilityCrate utilityCrate = GetComponent<UtilityCrate>();
+            gameManager.PickUpCollectible(utilityCrate.CollectibleType);
         }
     }
 

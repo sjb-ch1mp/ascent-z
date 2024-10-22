@@ -126,8 +126,13 @@ public class ZombieSpawner : MonoBehaviour
 
     // TakeDamage reduces the enemies health by the damage of the projectile.
     void TakeDamage(ProjectileBehaviour projectile) {
+        TakeDamage((int) projectile.damage);
+    }
+
+    // TakeDamage reduces the enemies health by the damage of the projectile.
+    public void TakeDamage(int damage) {
         audioSource.PlayOneShot(painSounds[Random.Range(0, painSounds.Length)]);
-        health -= projectile.damage;
+        health -= damage;
         if (health <= 0) {
             health = 0;
             isAlive = false;
@@ -158,6 +163,10 @@ public class ZombieSpawner : MonoBehaviour
         gameManager.AddKillScore(score);
         gameObject.layer = LayerMask.NameToLayer("Dead");
         animator.SetBool("isDead", true);
+        Cache cache = GetComponent<Cache>();
+        if (cache != null) {
+            StartCoroutine(cache.RuptureCache());
+        }
     }
 
     // UpdateHealthBar calculates the new proportion of max health
@@ -167,7 +176,7 @@ public class ZombieSpawner : MonoBehaviour
         healthBarDimensions.localScale = new Vector3(newHealthLen, healthBarDimensions.localScale.y, healthBarDimensions.localScale.z);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         if (!isAlive) {
             return;

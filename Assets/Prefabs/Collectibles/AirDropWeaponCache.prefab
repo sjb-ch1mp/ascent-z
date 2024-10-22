@@ -312,6 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponsCacheSprites: []
+  isAirDrop: 1
 --- !u!114 &8406509392760434778
 MonoBehaviour:
   m_ObjectHideFlags: 0

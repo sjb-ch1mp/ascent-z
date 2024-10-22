@@ -115,6 +115,9 @@ public class Player : MonoBehaviour
     void Jump() {
         if (isGrounded || jumpCount < extraJump) {
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpPower);  // Apply the jump force
+            if (jumpCount > 0) {
+                offGroundPosition = transform.position; // Allow the player to reset fall damage with a well timed double jump
+            }
             jumpCount++;
         }
     }
