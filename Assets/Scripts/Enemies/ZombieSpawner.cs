@@ -18,6 +18,9 @@ public class ZombieSpawner : MonoBehaviour
     public float desperateSpawnRate = 1.5f; 
     public AudioClip deathSound;
     public AudioClip[] painSounds;
+    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private Collider2D spawnerCollider;
+    [SerializeField] private BitsContainer bits;
 
     // References
     GameManager gameManager;
@@ -126,7 +129,7 @@ public class ZombieSpawner : MonoBehaviour
             zombie = Instantiate(zombies[2], new Vector3(randomSpawnX, spawnBoundLeft.position.y, transform.position.z), zombies[2].transform.rotation, zombieContainer.transform);
         }
         if (zombie != null /*If not dead immediately*/) {
-            zombie.GetComponent<Enemy>().Stamp(id);
+            zombie.GetComponent<EnemyWithBits>().Stamp(id);
         }
     }
 
@@ -140,8 +143,6 @@ public class ZombieSpawner : MonoBehaviour
         audioSource.PlayOneShot(painSounds[Random.Range(0, painSounds.Length)]);
         health -= damage;
         if (health <= 0) {
-            health = 0;
-            isAlive = false;
             Die();
         }
         UpdateHealthBar();
@@ -157,19 +158,24 @@ public class ZombieSpawner : MonoBehaviour
         health -= projectile.damage;
         if (health <= 0)
         {
-            health = 0;
-            isAlive = false;
+
             Die();
         }
         UpdateHealthBar();
     }
 
     void Die() {
+        health = 0;
+        isAlive = false;
         gameManager.KillZombiesForSpawner(id);
         audioSource.PlayOneShot(deathSound);
         gameManager.AddKillScore(score);
         gameObject.layer = LayerMask.NameToLayer("Dead");
-        animator.SetBool("isDead", true);
+        sprite.enabled = false;
+        spawnerCollider.enabled = false;
+        bits.gameObject.SetActive(true);
+        bits.Split(DestroyAfterBitsDespawn);
+
         Cache cache = GetComponent<Cache>();
         if (cache != null) {
             StartCoroutine(cache.RuptureCache());
@@ -203,6 +209,11 @@ public class ZombieSpawner : MonoBehaviour
                 TakeDamageExplosion(collision.gameObject.GetComponent<ExplosionBehaviour>());
                 break;
         }
+    }
+
+    private void DestroyAfterBitsDespawn()
+    {
+        Destroy(gameObject);
     }
 
     // DestroyAfterAnimation is a public function that is 

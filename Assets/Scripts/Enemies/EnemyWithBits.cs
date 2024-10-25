@@ -11,9 +11,9 @@ public class EnemyWithBits : MonoBehaviour
     [SerializeField] private float energy = 1.0f/3.0f;
     [SerializeField] private float jumpPower = 15.0f;
     [SerializeField] private float jumpCooldown = 5.0f;
-    [SerializeField] private float stunTime = 1.0f;
-    [SerializeField] public float pushForce = 15.0f;
-    [SerializeField] public float pushScale = 3;
+    [SerializeField] public float stunTime { get; private set; } = 1.0f;
+    [SerializeField] public float pushForce { get; private set; } = 15.0f;
+    [SerializeField] public float pushScale { get; private set; } = 3;
     [SerializeField] private int score = 10;
     [SerializeField] private AudioClip aggroSound;
     [SerializeField] private AudioClip dieSound;
@@ -290,11 +290,6 @@ public class EnemyWithBits : MonoBehaviour
 
         comps.bits.gameObject.SetActive(true);
         comps.bits.Split(direction*pushScale, DestroyAfterDespawn);
-
-        if (gameManager.LastManStanding())
-        {
-            gameManager.RunScoreRoutine();
-        }
     }
 
     // When stunned, the player will not take damage from enemies
@@ -321,15 +316,6 @@ public class EnemyWithBits : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         // Unstun enemy
         isStunned = false;
-    }
-
-    // DestroyAfterAnimation is a public function that is 
-    // used as an animation Event to destroy the enemy
-    public void DestroyAfterAnimation() {
-        if (gameManager.LastManStanding()) {
-            gameManager.RunScoreRoutine();
-        }
-        Destroy(gameObject);
     }
 
     // DestroyAfterDespawn is a function to be used by the bits to despawn the

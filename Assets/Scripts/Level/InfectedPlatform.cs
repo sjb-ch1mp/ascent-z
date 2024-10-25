@@ -3,45 +3,34 @@ using UnityEngine;
 
 public class InfectedPlatform : MonoBehaviour
 {
-    float damage = 50;
-    float health = 1000;
-    bool isActive = true;
-    AudioSource audioSource;
-    BoxCollider2D boxCollider2D;
-    Animator animator;
-    Rigidbody2D[] bits;
+    [SerializeField] private float damage = 50;
+    [SerializeField] private float health = 1000;
+    [SerializeField] private AudioClip hurtSound;
+    [SerializeField] private Components comps;
+
     TutorialManager tutorialManager;
     GameManager gameManager;
-    public AudioClip hurtSound;
+
+    private bool isActive = true;
 
     void Start() {
         gameManager = GameManager.Instance;
         tutorialManager = TutorialManager.Instance;
-        audioSource = GetComponent<AudioSource>();
-        boxCollider2D = GetComponent<BoxCollider2D>();
-        animator = GetComponent<Animator>();
-        bits = transform.Find("Bits").gameObject.GetComponentsInChildren<Rigidbody2D>();
     }
 
-    public IEnumerator Die() {
+    public void Die() {
         if (isActive) {
             Debug.Log("Infected platform dead");
             isActive = false;
-            audioSource.Play();
-            animator.SetTrigger("isDead");
-            foreach (Rigidbody2D bit in bits) {
-                bit.gravityScale = 2;
-                StartCoroutine(DestroyBit(bit.gameObject));
-                yield return new WaitForSeconds(0.01f);
-            }
-            boxCollider2D.enabled = false;
+            comps.audioSource.Play();
+            comps.animator.SetTrigger("isDead");
+            comps.mushrooms.gameObject.SetActive(true);
+            comps.mushrooms.Split();
+            comps.bits.gameObject.SetActive(true);
+            comps.bits.Split();
+            comps.collider.enabled = false;
             gameManager.RunScoreRoutine();
         }
-    }
-
-    IEnumerator DestroyBit(GameObject bit) {
-        yield return new WaitForSeconds(0.5f);
-        Destroy(bit);
     }
 
     void OnCollisionEnter2D(Collision2D other) {
@@ -57,11 +46,21 @@ public class InfectedPlatform : MonoBehaviour
             if (gameManager.AllSpawnersForLevelDead()) {    
                 health -= other.gameObject.GetComponent<ProjectileBehaviour>().damage;
                 if (health <= 0) {
-                    StartCoroutine(Die());
+                    Die();
                 } else {
-                    audioSource.PlayOneShot(hurtSound);
+                    comps.audioSource.PlayOneShot(hurtSound);
                 }
             }
         }
+    }
+
+    [System.Serializable]
+    struct Components
+    {
+        public BitsContainer mushrooms;
+        public BitsContainer bits;
+        public AudioSource audioSource;
+        public Collider2D collider;
+        public Animator animator;
     }
 }

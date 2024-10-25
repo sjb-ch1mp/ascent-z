@@ -48,7 +48,7 @@ public class LevelManager : MonoBehaviour
 
     public void CompleteLevel() {
         Debug.Log("CompleteLevel()");
-        StartCoroutine(infectedPlatforms[Level].Die());
+        infectedPlatforms[Level].Die();
         if (Level == infectedPlatforms.Length - 1) { // Last level - there's no upper bound
             Debug.Log("Activating last level");
             ActivateNextLevel(infectedPlatforms[Level].transform.position.y, 0, true);

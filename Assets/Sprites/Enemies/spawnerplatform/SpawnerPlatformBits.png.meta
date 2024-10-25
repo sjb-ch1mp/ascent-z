@@ -1,0 +1,1132 @@
+fileFormatVersion: 2
+guid: ee3997657b7cd7a4d964be42bb2e120e
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -2, y: -3}
+        - {x: -3, y: -2}
+        - {x: -3, y: 0}
+        - {x: -2, y: 1}
+        - {x: 1, y: 1}
+        - {x: 2, y: 0}
+        - {x: 2, y: -2}
+        - {x: 1, y: -3}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8da8ebab796200847977c4d1199a9dd5
+      internalID: 1834645941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -1, y: -2}
+        - {x: -2, y: -1}
+        - {x: -2, y: 0}
+        - {x: -1, y: 1}
+        - {x: 2, y: 1}
+        - {x: 3, y: 0}
+        - {x: 3, y: -1}
+        - {x: 2, y: -2}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bd60efedba2c064896b2e71801eb285
+      internalID: 321441852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -1, y: -3}
+        - {x: -2, y: -2}
+        - {x: -2, y: -1}
+        - {x: -1, y: 0}
+        - {x: 2, y: 0}
+        - {x: 3, y: -1}
+        - {x: 3, y: -2}
+        - {x: 2, y: -3}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 163f79cef5f08474a878fa86b14b73fb
+      internalID: -1247841253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 0, y: -2}
+        - {x: -1, y: -2}
+        - {x: -2, y: -1}
+        - {x: -2, y: 1}
+        - {x: 1, y: 1}
+        - {x: 1, y: -1}
+      tessellationDetail: 0
+      bones: []
+      spriteID: c079094db185648408c07f1502957c31
+      internalID: -1416765249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -1, y: -4}
+        - {x: -3, y: -2}
+        - {x: -3, y: -1}
+        - {x: -2, y: 0}
+        - {x: 1, y: 0}
+        - {x: 2, y: -1}
+        - {x: 2, y: -2}
+        - {x: 0, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ee20568d295b894e9bce84746cbf3f3
+      internalID: -1617103710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -1, y: -4}
+        - {x: -2, y: -3}
+        - {x: -2, y: -1}
+        - {x: -1, y: 1}
+        - {x: 2, y: 1}
+        - {x: 3, y: -1}
+        - {x: 3, y: -3}
+        - {x: 2, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe4a8af62a98fba4c88b0697dc630589
+      internalID: -843629760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -1, y: -3}
+        - {x: -2, y: -2}
+        - {x: -2, y: -1}
+        - {x: -1, y: 0}
+        - {x: 2, y: 0}
+        - {x: 3, y: -1}
+        - {x: 3, y: -2}
+        - {x: 2, y: -3}
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1d4b7c65ac2b4f4ca1a4a94a786dc31
+      internalID: 986590224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_7
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 0, y: -4}
+        - {x: -3, y: 0}
+        - {x: -3, y: 1}
+        - {x: 0, y: 3}
+        - {x: 3, y: 3}
+        - {x: 3, y: 2}
+        - {x: 2, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 474b21eb49254b94e9c0661e595c8e62
+      internalID: -53803837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_8
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -2, y: -4}
+        - {x: -2, y: 1}
+        - {x: 0, y: 2}
+        - {x: 2, y: 2}
+        - {x: 4, y: -1}
+        - {x: 4, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: c107f70e0c085584aa336bb96c6c12f5
+      internalID: -486755624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_9
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -4, y: -4}
+        - {x: -4, y: -1}
+        - {x: 0, y: 3}
+        - {x: 2, y: 3}
+        - {x: 3, y: 2}
+        - {x: 3, y: -3}
+        - {x: 1, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82e167a839ec58a4485d6880ec62e201
+      internalID: 1592092753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_10
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -2, y: -2}
+        - {x: -2, y: 1}
+        - {x: 2, y: 2}
+        - {x: 3, y: 2}
+        - {x: 3, y: -1}
+        - {x: 0, y: -2}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ad7c9f4c3fb10b409e58e6239e0d905
+      internalID: 2097137877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_11
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 1, y: -4}
+        - {x: -1, y: -4}
+        - {x: -2, y: -3}
+        - {x: -2, y: 3}
+        - {x: 2, y: 3}
+        - {x: 4, y: -2}
+        - {x: 4, y: -3}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d7689d2cc8a4c348a3d9f5baac7ffa8
+      internalID: -674260965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_12
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 0, y: -5}
+        - {x: -3, y: -4}
+        - {x: -4, y: -2}
+        - {x: -4, y: 1}
+        - {x: -2, y: 4}
+        - {x: 4, y: 4}
+        - {x: 4, y: -5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6dbc6c8d0300404aa0d4c95dff631fc
+      internalID: 1565065608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_13
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -2, y: -5}
+        - {x: -3, y: -1}
+        - {x: -3, y: 1}
+        - {x: -1, y: 3}
+        - {x: 0, y: 3}
+        - {x: 2, y: 1}
+        - {x: 4, y: 0}
+        - {x: 4, y: -3}
+        - {x: 2, y: -5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66da8cdd71b99b54bada8aafa5f2642b
+      internalID: -1692787924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_14
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 0, y: -4}
+        - {x: -3, y: -2}
+        - {x: -3, y: 6}
+        - {x: 1, y: 6}
+        - {x: 6, y: 1}
+        - {x: 6, y: 0}
+        - {x: 2, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: b081a1c82bb1a3343a3612d306878551
+      internalID: 1278551058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_15
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -4, y: -3}
+        - {x: -5, y: -2}
+        - {x: -5, y: 0}
+        - {x: -2, y: 3}
+        - {x: 4, y: 3}
+        - {x: 5, y: 2}
+        - {x: 5, y: 1}
+        - {x: 2, y: -3}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24b2eedafc6ae0d4a85ec645aa6d77b0
+      internalID: 1334680053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_16
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 2, y: -6}
+        - {x: 0, y: -6}
+        - {x: -5, y: -1}
+        - {x: -5, y: 0}
+        - {x: 0, y: 5}
+        - {x: 3, y: 5}
+        - {x: 4, y: 3}
+        - {x: 5, y: 0}
+        - {x: 5, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: db152714b76f93d4999b010975e20aa2
+      internalID: 2037390800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -2, y: -4}
+        - {x: -3, y: -3}
+        - {x: -3, y: 0}
+        - {x: -2, y: 5}
+        - {x: 2, y: 5}
+        - {x: 2, y: -3}
+        - {x: 1, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e65c0564f4816b4fa1da9fe742d6644
+      internalID: -426288126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_18
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 0, y: -4}
+        - {x: -1, y: -3}
+        - {x: -1, y: -1}
+        - {x: 2, y: -1}
+        - {x: 2, y: -3}
+        - {x: 1, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: c63281af6bf904544b83c524e37f1684
+      internalID: -194149312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_19
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -1, y: -3}
+        - {x: -2, y: -2}
+        - {x: -2, y: 0}
+        - {x: -1, y: 1}
+        - {x: 2, y: 1}
+        - {x: 3, y: 0}
+        - {x: 3, y: -2}
+        - {x: 2, y: -3}
+      tessellationDetail: 0
+      bones: []
+      spriteID: e261d47ac8b5d8c45896fb9655a33087
+      internalID: -555188866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_20
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -1, y: -3}
+        - {x: -2, y: -2}
+        - {x: -2, y: 0}
+        - {x: 1, y: 0}
+        - {x: 1, y: -2}
+        - {x: 0, y: -3}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f55ea3c6b6a5414ab5e402a6328eec8
+      internalID: 618808156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_21
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -1, y: -4}
+        - {x: -3, y: -2}
+        - {x: -3, y: -1}
+        - {x: -2, y: 5}
+        - {x: 3, y: 5}
+        - {x: 4, y: -1}
+        - {x: 4, y: -2}
+        - {x: 2, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: d22b779a10893fa4693077e383b7fb0b
+      internalID: -1867900002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_22
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -2, y: -3}
+        - {x: -3, y: -2}
+        - {x: -3, y: -1}
+        - {x: -2, y: 0}
+        - {x: 1, y: 0}
+        - {x: 2, y: -1}
+        - {x: 2, y: -2}
+        - {x: 1, y: -3}
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7ead910026976b49b9e30df7b94e21c
+      internalID: -1169623040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_23
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -1, y: -4}
+        - {x: -2, y: -3}
+        - {x: -2, y: -1}
+        - {x: -1, y: 0}
+        - {x: 2, y: 0}
+        - {x: 3, y: -1}
+        - {x: 3, y: -3}
+        - {x: 2, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82ec873ad90e1bd429462352aceb5a17
+      internalID: 529002733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_24
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -2, y: -5}
+        - {x: -4, y: -3}
+        - {x: -4, y: 0}
+        - {x: -2, y: 4}
+        - {x: 3, y: 4}
+        - {x: 4, y: 3}
+        - {x: 4, y: -2}
+        - {x: 3, y: -4}
+        - {x: 1, y: -5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: c538bbf0ad12ee14292ae0701a30ff13
+      internalID: 384785629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_25
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -2, y: -5}
+        - {x: -4, y: 0}
+        - {x: -4, y: 1}
+        - {x: -2, y: 4}
+        - {x: 1, y: 4}
+        - {x: 2, y: 3}
+        - {x: 4, y: -4}
+        - {x: 4, y: -5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78967dc7315e0704d94f38ddca05cb35
+      internalID: -1277633379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_26
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -3, y: -5}
+        - {x: -5, y: -3}
+        - {x: -5, y: -1}
+        - {x: -3, y: 3}
+        - {x: -2, y: 4}
+        - {x: 2, y: 4}
+        - {x: 4, y: 3}
+        - {x: 6, y: 1}
+        - {x: 6, y: -1}
+        - {x: 1, y: -5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1caf8597a68506e45ac0cbbf2a4657c1
+      internalID: -2104757788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_27
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 0, y: -6}
+        - {x: -1, y: -6}
+        - {x: -3, y: -5}
+        - {x: -5, y: -3}
+        - {x: -5, y: -2}
+        - {x: -4, y: -1}
+        - {x: -1, y: 1}
+        - {x: 2, y: 2}
+        - {x: 3, y: 2}
+        - {x: 5, y: 0}
+        - {x: 5, y: -2}
+      tessellationDetail: 0
+      bones: []
+      spriteID: df09dabc6d2b2da4abc1154bd3599208
+      internalID: -1010722920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_28
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -3, y: -4}
+        - {x: -4, y: 1}
+        - {x: -4, y: 4}
+        - {x: 2, y: 4}
+        - {x: 4, y: 2}
+        - {x: 4, y: 0}
+        - {x: 3, y: -2}
+        - {x: 1, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5f4ab0c0abad7a44b428145a0784136
+      internalID: -356790899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_29
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 2, y: -4}
+        - {x: -1, y: -4}
+        - {x: -3, y: -3}
+        - {x: -4, y: -2}
+        - {x: -4, y: -1}
+        - {x: -3, y: 1}
+        - {x: 0, y: 5}
+        - {x: 1, y: 5}
+        - {x: 5, y: 1}
+        - {x: 5, y: -1}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99ef63106ecfef9448bc09764766cb2d
+      internalID: -1418326637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_30
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -1, y: -4}
+        - {x: -3, y: -3}
+        - {x: -5, y: -1}
+        - {x: -5, y: 1}
+        - {x: -2, y: 4}
+        - {x: 0, y: 4}
+        - {x: 4, y: 2}
+        - {x: 4, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: b07d27416e04e7d44ae1500850822b1f
+      internalID: -1076409160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_31
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -1, y: -5}
+        - {x: -2, y: -4}
+        - {x: -4, y: -1}
+        - {x: -4, y: 1}
+        - {x: -3, y: 5}
+        - {x: 3, y: 5}
+        - {x: 4, y: 4}
+        - {x: 4, y: -4}
+        - {x: 3, y: -5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4ae9cf514f09e546bba0cce139aff88
+      internalID: -1854221263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_32
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -5, y: -3}
+        - {x: -6, y: -1}
+        - {x: -6, y: 0}
+        - {x: -1, y: 4}
+        - {x: 5, y: 4}
+        - {x: 5, y: 0}
+        - {x: 4, y: -2}
+        - {x: 3, y: -3}
+        - {x: 1, y: -4}
+        - {x: 0, y: -4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9655eea941ceb34eb7a09acd6b536d0
+      internalID: 1286789504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpawnerPlatformBits_33
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -2, y: -4}
+        - {x: -4, y: -2}
+        - {x: -4, y: 1}
+        - {x: -1, y: 3}
+        - {x: 1, y: 3}
+        - {x: 5, y: 1}
+        - {x: 5, y: -4}
+        - {x: 4, y: -5}
+        - {x: 1, y: -5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7675f542cb9612044bde4b4468ceb033
+      internalID: 1983747237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      SpawnerPlatformBits_0: 1834645941
+      SpawnerPlatformBits_1: 321441852
+      SpawnerPlatformBits_10: 2097137877
+      SpawnerPlatformBits_11: -674260965
+      SpawnerPlatformBits_12: 1565065608
+      SpawnerPlatformBits_13: -1692787924
+      SpawnerPlatformBits_14: 1278551058
+      SpawnerPlatformBits_15: 1334680053
+      SpawnerPlatformBits_16: 2037390800
+      SpawnerPlatformBits_17: -426288126
+      SpawnerPlatformBits_18: -194149312
+      SpawnerPlatformBits_19: -555188866
+      SpawnerPlatformBits_2: -1247841253
+      SpawnerPlatformBits_20: 618808156
+      SpawnerPlatformBits_21: -1867900002
+      SpawnerPlatformBits_22: -1169623040
+      SpawnerPlatformBits_23: 529002733
+      SpawnerPlatformBits_24: 384785629
+      SpawnerPlatformBits_25: -1277633379
+      SpawnerPlatformBits_26: -2104757788
+      SpawnerPlatformBits_27: -1010722920
+      SpawnerPlatformBits_28: -356790899
+      SpawnerPlatformBits_29: -1418326637
+      SpawnerPlatformBits_3: -1416765249
+      SpawnerPlatformBits_30: -1076409160
+      SpawnerPlatformBits_31: -1854221263
+      SpawnerPlatformBits_32: 1286789504
+      SpawnerPlatformBits_33: 1983747237
+      SpawnerPlatformBits_4: -1617103710
+      SpawnerPlatformBits_5: -843629760
+      SpawnerPlatformBits_6: 986590224
+      SpawnerPlatformBits_7: -53803837
+      SpawnerPlatformBits_8: -486755624
+      SpawnerPlatformBits_9: 1592092753
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
