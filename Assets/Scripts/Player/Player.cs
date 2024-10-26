@@ -297,7 +297,7 @@ public class Player : MonoBehaviour
         string tag = collision.gameObject.tag;
         switch (tag) {
             case "Enemy":
-                EnemyWithBits enemy = collision.gameObject.GetComponent<EnemyWithBits>();
+                Enemy enemy = collision.gameObject.GetComponent<Enemy>();
                 TakeDamage(enemy.damage);
                 StartCoroutine(Stun(enemy.stunTime));
                 break;  

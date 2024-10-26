@@ -102,7 +102,7 @@ Animator:
   m_GameObject: {fileID: 3518049584602599109}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8c2bdf1f08001d04c80870f58f6c9c36, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4b63ce472ca37a3458c612b89a3625f1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -290,9 +290,6 @@ MonoBehaviour:
   energy: 0.5
   jumpPower: 20
   jumpCooldown: 2
-  stunTime: 0.5
-  pushForce: 5
-  pushScale: 1.5
   score: 15
   aggroSound: {fileID: 8300000, guid: 84f6d497d6a812348818592fa25401a7, type: 3}
   dieSound: {fileID: 8300000, guid: d11958cba32141e4e98c72af58c01a06, type: 3}

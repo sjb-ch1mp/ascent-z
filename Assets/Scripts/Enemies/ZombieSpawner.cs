@@ -82,6 +82,7 @@ public class ZombieSpawner : MonoBehaviour
     IEnumerator SpawnZombie() {
         while (isAlive) {
             yield return new WaitForSeconds(isActive ? spawnRate : 0.5f);
+            Debug.Log("Normal Spawn");
             // When a spawner is about to die, it's spawn rate is significantly increased
             if (!isDesperate && health / initialHealth < 0.25) {
                 spawnRate = desperateSpawnRate;
@@ -107,6 +108,7 @@ public class ZombieSpawner : MonoBehaviour
     IEnumerator DoSurge(bool miniSurge) {
         int numZombies = miniSurge ? surgeZombies/2 : surgeZombies;
         for (int i=0; i<numZombies; i++) {
+            Debug.Log("Surge Spawn");
             yield return new WaitForSeconds(Random.Range(0.2f, 0.4f));
             InstantiateZombie();
         }
@@ -129,7 +131,7 @@ public class ZombieSpawner : MonoBehaviour
             zombie = Instantiate(zombies[2], new Vector3(randomSpawnX, spawnBoundLeft.position.y, transform.position.z), zombies[2].transform.rotation, zombieContainer.transform);
         }
         if (zombie != null /*If not dead immediately*/) {
-            zombie.GetComponent<EnemyWithBits>().Stamp(id);
+            zombie.GetComponent<Enemy>().Stamp(id);
         }
     }
 

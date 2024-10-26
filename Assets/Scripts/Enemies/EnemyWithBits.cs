@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyWithBits : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     // Exports - define different zombie types
     [SerializeField] public float damage = 5.0f;
@@ -177,9 +177,6 @@ public class EnemyWithBits : MonoBehaviour
     void TakeDamage(ProjectileBehaviour projectile) {
         health -= projectile.damage;
         if (health <= 0) {
-            health = 0;
-            isAlive = false;
-            comps.enemyRigidBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
             Die(true, projectile.direction * projectile.pushForce);
         }
         UpdateHealthBar();
@@ -190,9 +187,6 @@ public class EnemyWithBits : MonoBehaviour
     void TakeDamage(int damage) {
         health -= damage;
         if (health <= 0) {
-            health = 0;
-            isAlive = false;
-            comps.enemyRigidBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
             Die(true, Vector2.zero);
         }
         UpdateHealthBar();
@@ -205,20 +199,14 @@ public class EnemyWithBits : MonoBehaviour
         if (health <= 0)
         {
             Vector2 direction = transform.position - projectile.transform.position;
-            health = 0;
-            isAlive = false;
-            comps.enemyRigidBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
             Die(true, direction.normalized * projectile.pushForce);
         }
         UpdateHealthBar();
     }
 
     public void KillImmediately() {
-        isAlive = false;
-        health = 0;
-        UpdateHealthBar();
-        comps.enemyRigidBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         Die(false, Vector2.zero);
+        UpdateHealthBar();
         //
     }
 
@@ -276,7 +264,11 @@ public class EnemyWithBits : MonoBehaviour
     // Die ensures that the enemy is grounded before playing the
     // death animation so that it doesn't look funky
     void Die(bool withScore, Vector2 direction) {
-        
+        health = 0;
+        isAlive = false;
+        // Stop simulating rigid body
+        comps.enemyRigidBody.simulated = false;
+
         comps.animator.SetBool("isDead", true);
         comps.audioSource.PlayOneShot(dieSound);
 
@@ -331,6 +323,10 @@ public class EnemyWithBits : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.CompareTag("Car")) {
             KillImmediately();
+        } 
+        else if (other.gameObject.CompareTag("Missile"))
+        {
+            TakeDamage(other.GetComponent<MissileExplosion>().damage);
         }
     }
 

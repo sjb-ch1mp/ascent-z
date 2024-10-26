@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class OldEnemy : MonoBehaviour
 {
     // Exports - define different zombie types
     public float damage = 5.0f;
