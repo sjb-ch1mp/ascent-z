@@ -48,41 +48,34 @@ public class LevelManager : MonoBehaviour
 
     public void CompleteLevel() {
         Debug.Log("CompleteLevel()");
-        infectedPlatforms[Level].Die();
-        if (Level == infectedPlatforms.Length - 1) { // Last level - there's no upper bound
-            Debug.Log("Activating last level");
-            ActivateNextLevel(infectedPlatforms[Level].transform.position.y, 0, true);
-        } else if (Level <= infectedPlatforms.Length) {
-            Debug.Log($"Activating level {Level+1}");
-            ActivateNextLevel(infectedPlatforms[Level].transform.position.y, infectedPlatforms[Level + 1].transform.position.y, false);
-        } else {
-            // Game is finished
-        }
+        infectedPlatforms[Level].DieSilent();
+        infectedPlatforms[Level].Deactivate();
         Level++;
+        infectedPlatforms[Level].Activate();
     }
 
-    void ActivateNextLevel(float bottomBound, float topBound, bool isLastLevel) {
-        Debug.Log($"Have {levelActivatedObjects.Length} level objects");
-        foreach (LevelActivated l in levelActivatedObjects) {
-            if (l != null) {
-                if (isLastLevel) {
-                    if (l.gameObject.transform.position.y > bottomBound) {
-                        l.Activate();
-                    } else {
-                        l.Deactivate();
-                    }
-                } else {
-                    if (l.gameObject.transform.position.y > bottomBound && l.gameObject.transform.position.y < topBound) {
-                        Debug.Log("Activating object");
-                        l.Activate();
-                    } else if (l.gameObject.transform.position.x < bottomBound) {
-                        Debug.Log("Deactivating object");
-                        l.Deactivate();
-                    }
-                }
-            }
-        }
-    }
+    //void ActivateNextLevel(float bottomBound, float topBound, bool isLastLevel) {
+    //    Debug.Log($"Have {levelActivatedObjects.Length} level objects");
+    //    foreach (LevelActivated l in levelActivatedObjects) {
+    //        if (l != null) {
+    //            if (isLastLevel) {
+    //                if (l.gameObject.transform.position.y > bottomBound) {
+    //                    l.Activate();
+    //                } else {
+    //                    l.Deactivate();
+    //                }
+    //            } else {
+    //                if (l.gameObject.transform.position.y > bottomBound && l.gameObject.transform.position.y < topBound) {
+    //                    Debug.Log("Activating object");
+    //                    l.Activate();
+    //                } else if (l.gameObject.transform.position.x < bottomBound) {
+    //                    Debug.Log("Deactivating object");
+    //                    l.Deactivate();
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     public void PrepareScene() {
         // Get all the checkpoints
@@ -106,32 +99,36 @@ public class LevelManager : MonoBehaviour
         // Reset the level
         Level = 0;
         // Get a reference to all level activated objects so that they can be toggled on and off
-        levelActivatedObjects = FindObjectsByType<LevelActivated>(FindObjectsSortMode.None);
-        Debug.Log($"Found {levelActivatedObjects.Length} level objects");
-        // Deactivate anything not in the first level
-        foreach (LevelActivated l in levelActivatedObjects) {
-            if (l != null) {
-                if (l.gameObject.transform.position.y > infectedPlatforms[Level].transform.position.y) {
-                    l.Deactivate();
-                }
-            }
+        for (int i=1; i < infectedPlatforms.Length; i++)
+        {
+            infectedPlatforms[i].Deactivate();
         }
+        //levelActivatedObjects = FindObjectsByType<LevelActivated>(FindObjectsSortMode.None);
+        //Debug.Log($"Found {levelActivatedObjects.Length} level objects");
+        //// Deactivate anything not in the first level
+        //foreach (LevelActivated l in levelActivatedObjects) {
+        //    if (l != null) {
+        //        if (l.gameObject.transform.position.y > infectedPlatforms[Level].transform.position.y) {
+        //            l.Deactivate();
+        //        }
+        //    }
+        //}
     }
 
-    public bool AllSpawnersForLevelDead() {
-        // Get a reference to all level activated objects so that they can be toggled on and off
-        LevelActivated[] chk = FindObjectsByType<LevelActivated>(FindObjectsSortMode.None);
-        // Deactivate anything not in the first level
-        foreach (LevelActivated l in chk) {
-            if (l != null) {
-                if (l.gameObject.transform.position.y < infectedPlatforms[Level].transform.position.y) {
-                    if (l.gameObject.GetComponent<ZombieSpawner>() != null) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
+    //public bool AllSpawnersForLevelDead() {
+    //    // Get a reference to all level activated objects so that they can be toggled on and off
+    //    LevelActivated[] chk = FindObjectsByType<LevelActivated>(FindObjectsSortMode.None);
+    //    // Deactivate anything not in the first level
+    //    foreach (LevelActivated l in chk) {
+    //        if (l != null) {
+    //            if (l.gameObject.transform.position.y < infectedPlatforms[Level].transform.position.y) {
+    //                if (l.gameObject.GetComponent<ZombieSpawner>() != null) {
+    //                    return false;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    return true;
+    //}
 
 }

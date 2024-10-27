@@ -43,6 +43,8 @@ public class ZombieSpawner : MonoBehaviour
     bool isHit = false;
     bool isDesperate = false;
     float spawnRate;
+
+    InfectedPlatform boundary;
     
     public int id;
 
@@ -62,6 +64,11 @@ public class ZombieSpawner : MonoBehaviour
         maxHealthLen = healthBarDimensions.localScale.x;
         audioSource = GetComponent<AudioSource>();
         StartCoroutine(SpawnZombie());
+    }
+
+    public void Link(InfectedPlatform boundary)
+    {
+        this.boundary = boundary;   
     }
 
     // PlayerNearby checks if the player is within the aggroRange of the enemy
@@ -177,6 +184,8 @@ public class ZombieSpawner : MonoBehaviour
         spawnerCollider.enabled = false;
         bits.gameObject.SetActive(true);
         bits.Split(DestroyAfterBitsDespawn);
+
+        boundary.Notify();
 
         Cache cache = GetComponent<Cache>();
         if (cache != null) {

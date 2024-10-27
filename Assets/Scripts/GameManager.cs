@@ -132,9 +132,9 @@ public class GameManager : MonoBehaviour
         return zombieCount == 0;
     }
 
-    public bool AllSpawnersForLevelDead() {
-        return levelManager.AllSpawnersForLevelDead();
-    }
+    //public bool AllSpawnersForLevelDead() {
+    //    return levelManager.AllSpawnersForLevelDead();
+    //}
 
     // UI functions
     public void PickUpWeapon(Resources.Weapon weapon) {
@@ -215,16 +215,16 @@ public class GameManager : MonoBehaviour
     }
 
     // Game flow
-    public void CheckLevelComplete() {
-        // There should be exactly one enemy left on this call (the one calling the function)
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject[] bosses = GameObject.FindGameObjectsWithTag("BossEnemy");
-        if (enemies.Length + bosses.Length == 1) {
-            // level is complete
-            levelManager.CompleteLevel();
-            RunScoreRoutine();
-        }
-    }
+    //public void CheckLevelComplete() {
+    //    // There should be exactly one enemy left on this call (the one calling the function)
+    //    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    //    GameObject[] bosses = GameObject.FindGameObjectsWithTag("BossEnemy");
+    //    if (enemies.Length + bosses.Length == 1) {
+    //        // level is complete
+    //        levelManager.CompleteLevel();
+    //        RunScoreRoutine();
+    //    }
+    //}
 
     public void SetPaused(bool pauseGame) {
         paused = pauseGame;
