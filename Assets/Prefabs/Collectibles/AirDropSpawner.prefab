@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8509823351177249935}
   - component: {fileID: 8554183556535284089}
   - component: {fileID: 6329431139278935199}
-  m_Layer: 0
+  m_Layer: 23
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4839,7 +4839,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8294044343902519490}
-  m_Layer: 0
+  m_Layer: 23
   m_Name: ActiveDrops
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4871,7 +4871,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9019501588409225624}
   - component: {fileID: 7660530983716185120}
-  m_Layer: 0
+  m_Layer: 23
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4956,7 +4956,8 @@ GameObject:
   - component: {fileID: 437387093429221393}
   - component: {fileID: 2949948773507865112}
   - component: {fileID: 4931572735994161804}
-  m_Layer: 0
+  - component: {fileID: 1418720939759198491}
+  m_Layer: 23
   m_Name: AirDropSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5008,3 +5009,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 776c51a0c9d3457479983fa590e5bcff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &1418720939759198491
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7824775930217773795}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.09375}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.75, y: 0.1875}
+  m_EdgeRadius: 0
