@@ -8,7 +8,7 @@ You can try the game [here](https://play.unity.com/en/games/a5043353-f396-4ddd-9
 
 # Attributions
 
-All SFX and many sprite assets, apart from the original assets created by myself, were sourced from [Open Game Art](opengameart.org). See file 'attributions.yml' for details. 
+All SFX and many sprite assets, apart from the original assets created by myself, were sourced from [Open Game Art](opengameart.org). See file 'attributions.pdf' for details. 
 
 # Contributors
 
